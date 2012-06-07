@@ -31,6 +31,8 @@ Development
 ===========
 Whiteboard is a Rails 3 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
 
+Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
+
 Deployment
 ==========
 	heroku apps:create sf-whiteboard --stack cedar
