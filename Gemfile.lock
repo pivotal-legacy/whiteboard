@@ -77,6 +77,8 @@ GEM
     factory_girl_rails (3.3.0)
       factory_girl (~> 3.3.0)
       railties (>= 3.0.0)
+    faker (1.0.1)
+      i18n (~> 0.4)
     ffi (1.0.11)
     font-awesome-sass-rails (0.2.0)
       railties (>= 3.1.1)
@@ -217,6 +219,7 @@ DEPENDENCIES
   database_cleaner
   debugger
   factory_girl_rails
+  faker
   font-awesome-sass-rails
   heroku
   jquery-rails
