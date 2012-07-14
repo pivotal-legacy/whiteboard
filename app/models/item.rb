@@ -2,6 +2,7 @@ class Item < ActiveRecord::Base
   KINDS = ['New face', 'Help', 'Interesting', 'Event']
 
   belongs_to :post
+  belongs_to :standup
 
   validates :title, presence: true
   validates :kind, inclusion: KINDS
