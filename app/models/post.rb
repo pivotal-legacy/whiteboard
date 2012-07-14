@@ -1,7 +1,10 @@
 class Post < ActiveRecord::Base
+  belongs_to :standup
+
   has_many :items
   has_many :public_items, conditions: { public: true }, class_name: "Item"
 
+  validates :standup, presence: true
   validates :title, presence: true
 
   attr_accessible :title, :from

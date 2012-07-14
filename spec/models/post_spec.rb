@@ -1,9 +1,16 @@
 require 'spec_helper'
 
 describe Post do
-  describe "validations" do
-    it { should validate_presence_of(:title) }
+  describe 'associations' do
+    it { should belong_to(:standup) }
+
     it { should have_many(:items) }
+    it { should have_many(:public_items) }
+  end
+
+  describe "validations" do
+    it { should validate_presence_of(:standup) }
+    it { should validate_presence_of(:title) }
   end
 
   describe "#adopt_all_items" do
