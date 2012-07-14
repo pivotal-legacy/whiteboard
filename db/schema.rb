@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612151318) do
+ActiveRecord::Schema.define(:version => 20120714062144) do
 
   create_table "items", :force => true do |t|
     t.text     "title"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20120612151318) do
     t.boolean  "bumped",      :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "standup_id"
   end
 
   create_table "posts", :force => true do |t|
@@ -33,6 +34,15 @@ ActiveRecord::Schema.define(:version => 20120612151318) do
     t.string   "from",       :default => "Standup Blogger"
     t.datetime "blogged_at"
     t.boolean  "archived",   :default => false
+    t.integer  "standup_id"
+  end
+
+  create_table "standups", :force => true do |t|
+    t.string   "title"
+    t.string   "subject_prefix"
+    t.string   "to_address"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end

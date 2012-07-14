@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def dynamic_new_item_path(opts={})
-    @post ? new_post_item_path(@post, opts) : new_item_path(opts)
+    @post ? new_standup_post_item_path(@post, opts) : new_standup_item_path(@standup, opts)
   end
 
   def standup_closing
@@ -18,8 +18,8 @@ module ApplicationHelper
     STANDUP_CLOSINGS[index]
   end
 
-  def pending_post_count
-    Post.pending.size
+  def pending_post_count(standup)
+    standup.posts.pending.count
   end
 
   def show_or_edit_post_path(post)

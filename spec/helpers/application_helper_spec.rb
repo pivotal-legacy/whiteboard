@@ -9,9 +9,17 @@ describe ApplicationHelper do
   end
 
   describe "#pending_post_count" do
+    let(:standup) { create(:standup) }
+    let(:other_standup) { create(:standup) }
+
+    before { create(:post, standup: standup) }
+
     it "can count" do
-      create(:post)
-      helper.pending_post_count.should == 1
+      helper.pending_post_count(standup).should == 1
+    end
+
+    it "doesn't count unassociated standups" do
+      helper.pending_post_count(other_standup).should == 0
     end
   end
 

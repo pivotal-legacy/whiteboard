@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe PostsController do
+  let(:standup) { create(:standup) }
   before do
     request.session[:logged_in] = true
   end
@@ -8,14 +9,14 @@ describe PostsController do
   describe "#create" do
     it "creates a post" do
       expect do
-        post :create, post: { title: "Standup 12/12/12"}
+        post :create, post: { title: "Standup 12/12/12"}, standup_id: standup.id
       end.should change { Post.count }.by(1)
       response.should be_redirect
     end
 
     it "adopts all items" do
       item = create(:item)
-      post :create, post: { title: "Standup 12/12/12"}
+      post :create, post: { title: "Standup 12/12/12"}, standup_id: standup.id
       assigns[:post].items.should == [ item ]
     end
   end
@@ -134,11 +135,11 @@ describe PostsController do
   end
 
   describe "#archive" do
+    let(:post) { create(:post) }
     it "archives the post" do
-      @post = create(:post)
-      put :archive, id: @post.id
-      @post.reload.should be_archived
-      response.should redirect_to root_url
+      put :archive, id: post.id
+      post.reload.should be_archived
+      response.should redirect_to post.standup
     end
 
     it "redirects back to index with a flash if it fails" do

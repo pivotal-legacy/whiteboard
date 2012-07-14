@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe "items", type: :request, js: true do
+  let!(:standup) { FactoryGirl.create(:standup) }
   before do
     mock_omniauth
     visit '/auth/google_apps/callback'
     visit '/'
+    click_link(standup.title)
     find('a[data-kind="New face"] i').click
     fill_in 'item_title', :with => "Johnathon McKenzie"
     click_button 'Create New Face'
@@ -50,7 +52,7 @@ describe "items", type: :request, js: true do
   end
 
   it 'deck.js for standup' do
-    visit '/items/presentation'
+    visit presentation_standup_items_path(standup)
     find('section.deck-current').should have_content "Standup"
     page.execute_script("$.deck('next')")
     find('section.deck-current').should have_content "New faces"

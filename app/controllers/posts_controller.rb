@@ -2,13 +2,14 @@ class PostsController < ApplicationController
   before_filter :load_post, except: [:create, :index, :archived]
 
   def create
-    @post = Post.new(params[:post])
+    @standup = Standup.find_by_id(params[:standup_id])
+    @post = @standup.posts.build(params[:post])
     if @post.save
       @post.adopt_all_the_items
       redirect_to edit_post_path(@post)
     else
       flash[:error] = "Unable to create post"
-      redirect_to '/'
+      redirect_to @standup
     end
   end
 
@@ -58,13 +59,14 @@ class PostsController < ApplicationController
   def archive
     @post.archived = true
     @post.save!
-    redirect_to root_url
+    redirect_to @post.standup
   end
 
   private
 
   def load_post
     @post = Post.find_by_id(params[:id])
+    @standup = @post.standup if @post.present?
     head 404 unless @post
   end
 end
