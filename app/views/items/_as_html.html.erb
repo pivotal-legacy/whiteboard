@@ -3,7 +3,7 @@
     <div class='two-wide'>
       <% pair_of_kinds.each do |kind| %>
         <div class='kind'>
-          <h2><%= kind.pluralize %> <%= link_to dynamic_new_item_path('item[kind]' => kind), 'data-kind' => kind  do %>
+          <h2><%= kind.pluralize %> <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind), 'data-kind' => kind  do %>
               <i class="icon-plus-sign"></i></h2>
               <% end %>
           <hr>

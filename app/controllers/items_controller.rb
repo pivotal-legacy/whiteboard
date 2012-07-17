@@ -1,27 +1,32 @@
 class ItemsController < ApplicationController
+  before_filter :load_standup
+
   def create
-    @item = Item.new(params[:item].merge(post_id: params[:post_id]))
+    @standup = Standup.find_by_id(params[:standup_id])
+    @item = @standup.items.build(params[:item])
     if @item.save
-      redirect_to @item.post ? edit_post_path(@item.post) : '/'
+      redirect_to @item.post ? edit_post_path(@item.post) : standup_path(@standup)
     else
       render 'items/new'
     end
   end
 
   def new
-    @post = Post.find_by_id(params[:post_id])
-    @item = Item.new(params[:item])
+    @standup = Standup.find_by_id(params[:standup_id])
+    options = (params[:item] || {}).merge(post_id: params[:post_id])
+    @item = Item.new(options)
     render_custom_item_template @item
   end
 
   def index
-    @items = Item.orphans
+    @standup = Standup.find_by_id(params[:standup_id])
+    @items = @standup.items.orphans
   end
 
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    redirect_to @item.post ? edit_post_path(@item.post) : '/'
+    redirect_to @item.post ? edit_post_path(@item.post) : @standup
   end
 
   def edit
@@ -33,7 +38,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.update_attributes(params[:item])
     if @item.save
-      redirect_to @item.post ? edit_post_path(@item.post) : '/'
+      redirect_to @item.post ? edit_post_path(@item.post) : @standup
     else
       render_custom_item_template @item
     end
@@ -51,6 +56,14 @@ class ItemsController < ApplicationController
       render item.possible_template_name
     else
       render "items/new"
+    end
+  end
+
+  def load_standup
+    if params[:standup_id].present?
+      @standup = Standup.find(params[:standup_id])
+    else
+      @standup = Item.find(params[:id]).standup
     end
   end
 end

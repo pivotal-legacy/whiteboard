@@ -1,5 +1,5 @@
-<% form_for_item = @post ? [@post, @item] : @item %>
-<%= form_for(form_for_item, html: { class: 'form-horizontal' }) do |f| %>
+<%- form_object = @item.new_record? ? [@standup, @item] : @item %>
+<%= form_for(form_object, html: { class: 'form-horizontal' }) do |f| %>
   <% if @item.errors.any? %>
     <div id="errorExplanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited
@@ -22,6 +22,9 @@
       </div>
     </div>
 
+    <div class="field">
+      <%= f.hidden_field :post_id %>
+    </div>
     <div class="field">
       <%= f.hidden_field :public, value: false %>
     </div>

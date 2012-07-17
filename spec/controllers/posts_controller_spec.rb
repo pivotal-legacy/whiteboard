@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe PostsController do
+  let(:standup) { create(:standup) }
   before do
     request.session[:logged_in] = true
   end
@@ -8,14 +9,14 @@ describe PostsController do
   describe "#create" do
     it "creates a post" do
       expect do
-        post :create, post: { title: "Standup 12/12/12"}
+        post :create, post: { title: "Standup 12/12/12"}, standup_id: standup.id
       end.should change { Post.count }.by(1)
       response.should be_redirect
     end
 
     it "adopts all items" do
       item = create(:item)
-      post :create, post: { title: "Standup 12/12/12"}
+      post :create, post: { title: "Standup 12/12/12"}, standup_id: standup.id
       assigns[:post].items.should == [ item ]
     end
   end
@@ -49,30 +50,51 @@ describe PostsController do
   end
 
   describe "#index" do
+    let(:standup) { create(:standup) }
+
     it "renders an index of posts" do
-      post = create(:post)
-      get :index
+      post = create(:post, standup: standup)
+      get :index, standup_id: standup.id
       assigns[:posts].should == [ post ]
     end
 
     it "does not include archived" do
-      unarchived_post = create(:post)
-      create(:post, archived: true)
-      get :index
+      unarchived_post = create(:post, standup: standup)
+      create(:post, archived: true, standup: standup)
+      get :index, standup_id: standup.id
       assigns[:posts].should == [ unarchived_post ]
+    end
+
+    it "does not include posts associated with other standups" do
+      standup_post = create(:post, standup: standup)
+      create(:post, standup: create(:standup))
+      get :index, standup_id: standup.id
+      assigns[:posts].should == [ standup_post ]
     end
   end
 
   describe "#archived" do
-    it "lists the archived posts" do
-      create(:post)
-      archived_post = create(:post, archived: true)
+    let(:standup) { create(:standup) }
 
-      get :archived
+    it "lists the archived posts" do
+      create(:post, standup: standup)
+      archived_post = create(:post, archived: true, standup: standup)
+
+      get :archived, standup_id: standup.id
 
       assigns[:posts].should =~ [ archived_post  ]
       response.should render_template('archived')
       response.body.should include(archived_post.title)
+    end
+
+    it "lists the archived posts associated with the standup" do
+      standup_post = create(:post, standup: standup, archived: true)
+      other_post = create(:post, standup: create(:standup), archived: true)
+
+      get :archived, standup_id: standup.id
+
+      assigns[:posts].should =~ [ standup_post  ]
+      response.body.should include(standup_post.title)
     end
   end
 
@@ -134,11 +156,12 @@ describe PostsController do
   end
 
   describe "#archive" do
+    let(:post) { create(:post) }
+
     it "archives the post" do
-      @post = create(:post)
-      put :archive, id: @post.id
-      @post.reload.should be_archived
-      response.should redirect_to root_url
+      put :archive, id: post.id
+      post.reload.should be_archived
+      response.should redirect_to post.standup
     end
 
     it "redirects back to index with a flash if it fails" do

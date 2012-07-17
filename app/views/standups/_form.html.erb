@@ -1,0 +1,18 @@
+<%= form_for standup do |form| %>
+  <div class='title'>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class='subject_prefix'>
+    <%= form.label :subject_prefix %>
+    <%= form.text_field :subject_prefix %>
+  </div>
+
+  <div class='to_address'>
+    <%= form.label :to_address %>
+    <%= form.text_field :to_address %>
+  </div>
+
+  <%= form.submit nil %>
+<%- end %>

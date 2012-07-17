@@ -1,5 +1,5 @@
-<% form_for_item = @post ? [@post, @item] : @item %>
-<%= form_for(form_for_item, html: { class: 'form-horizontal' }) do |f| %>
+<%- form_object = @item.new_record? ? [@standup, @item] : @item %>
+<%= form_for(form_object, html: { class: 'form-horizontal' }) do |f| %>
     <% if @item.errors.any? %>
         <div id="errorExplanation">
           <h2><%= pluralize(@item.errors.count, "error") %> prohibited
@@ -13,6 +13,7 @@
     <% end %>
 
   <fieldset>
+    <%= f.hidden_field :post_id %>
     <div class='control-group'>
       <div class='controls'>
         <div class="btn-group" data-toggle-name="item[kind]" data-toggle="buttons-radio" >

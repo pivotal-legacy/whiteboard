@@ -4,8 +4,7 @@
 <div class="bottom navbar navbar-fixed-bottom">
   <div class="navbar-inner">
     <div class="container">
-
-      <%=  form_tag '/posts', method: 'post', class: 'navbar-form pull-right' do %>
+      <%=  form_tag "/standups/#{@standup.id}/posts", method: 'post', class: 'navbar-form pull-right' do %>
         <%= text_field_tag 'post[from]', nil,  placeholder: "Blogger Name(s)" %>
         <%= text_field_tag 'post[title]', nil, placeholder: "Post Title (eg: Best Standup Ever)" %>
         <%= submit_tag "Create Post",

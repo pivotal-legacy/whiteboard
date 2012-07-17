@@ -1,7 +1,10 @@
 class Post < ActiveRecord::Base
+  belongs_to :standup
+
   has_many :items
   has_many :public_items, conditions: { public: true }, class_name: "Item"
 
+  validates :standup, presence: true
   validates :title, presence: true
 
   attr_accessible :title, :from
@@ -19,7 +22,11 @@ class Post < ActiveRecord::Base
   end
 
   def title_for_email
-    "[Standup][SF] " + title_for_blog
+    if ENV['SUBJECT_PREFIX'].present?
+      "#{ENV['SUBJECT_PREFIX']} " + title_for_blog
+    else
+      "[Standup] " + title_for_blog
+    end
   end
 
   def title_for_blog

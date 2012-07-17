@@ -1,0 +1,14 @@
+<h1>Choose a Standup</h1>
+
+<table>
+  <% @standups.each do |standup| %>
+    <tr>
+      <td><h1><%= link_to standup.title, standup %></h1></td>
+      <td class='pull-right'><%= link_to 'Edit', edit_standup_path(standup) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div>
+  <%= link_to('New Standup', new_standup_path) %>
+</div>
