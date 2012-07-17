@@ -10,6 +10,7 @@ describe Item do
 
   describe "validations" do
     it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:standup) }
   end
 
   describe "kind" do

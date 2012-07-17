@@ -4,8 +4,9 @@ class Item < ActiveRecord::Base
   belongs_to :post
   belongs_to :standup
 
-  validates :title, presence: true
   validates :kind, inclusion: KINDS
+  validates :standup, presence: true
+  validates :title, presence: true
 
   attr_accessible :title, :description, :kind, :public, :post_id
 
