@@ -1,4 +1,6 @@
 class StandupsController < ApplicationController
+  before_filter :load_standup, except: [:index, :new, :create]
+
   def create
     @standup = Standup.new(params[:standup])
     if @standup.save
@@ -39,5 +41,12 @@ class StandupsController < ApplicationController
     @standup = Standup.find(params[:id])
     @standup.destroy
     redirect_to standups_path
+  end
+
+
+  private
+
+  def load_standup
+    @standup = Standup.find(params[:id])
   end
 end

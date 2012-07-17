@@ -103,10 +103,10 @@ describe ItemsController do
   describe "#destroy" do
     it "should destroy the item" do
       item = create(:item)
+      standup = item.standup
       delete :destroy, id: item.id
       Item.find_by_id(item.id).should_not be
-      response.should redirect_to('/')
-
+      response.should redirect_to(standup)
     end
 
     it "redirects to the post if there is one" do
@@ -137,14 +137,24 @@ describe ItemsController do
       item = create(:item)
       put :update, id: item.id, item: { title: "New Title" }
       item.reload.title.should == "New Title"
-      response.should redirect_to('/')
     end
 
-    it "redirects to the post if there is one" do
-      item = create(:item, post: create(:post))
-      put :update, id: item.id, post_id: item.post, item: { title: "New Title" }
-      item.reload.title.should == "New Title"
-      response.should redirect_to(edit_post_path(item.post))
+    context "with a post" do
+      let(:item) { create(:item, post: create(:post)) }
+
+      it "redirects to the edit post page" do
+        put :update, id: item.id, post_id: item.post, item: { title: "New Title" }
+        response.should redirect_to(edit_post_path(item.post))
+      end
+    end
+
+    context "without a post" do
+      let(:item) { create(:item, post: nil) }
+
+      it "redirects to the standup page" do
+        put :update, id: item.id, post_id: item.post, item: { title: "New Title" }
+        response.should redirect_to(item.standup)
+      end
     end
 
     describe "when the item is invalid" do

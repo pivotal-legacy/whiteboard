@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_filter :load_post, except: [:create, :index, :archived]
+  before_filter :load_standup
 
   def create
     @standup = Standup.find_by_id(params[:standup_id])
@@ -23,11 +24,11 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.pending
+    @posts = @standup.posts.pending
   end
 
   def archived
-    @posts = Post.archived
+    @posts = @standup.posts.archived
   end
 
   def send_email
@@ -68,5 +69,13 @@ class PostsController < ApplicationController
     @post = Post.find_by_id(params[:id])
     @standup = @post.standup if @post.present?
     head 404 unless @post
+  end
+
+  def load_standup
+    if params[:standup_id].present?
+      @standup = Standup.find(params[:standup_id])
+    else
+      @standup = Post.find(params[:id]).standup
+    end
   end
 end
