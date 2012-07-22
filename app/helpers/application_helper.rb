@@ -1,8 +1,8 @@
 module ApplicationHelper
   STANDUP_CLOSINGS = [
-    "And That's The Standup",
     "STRETCH!",
-    "Clap"
+    "STRETCH! It's good for you!",
+    "STRETCH!!!!!"
   ]
 
   def wordpress_enabled?
