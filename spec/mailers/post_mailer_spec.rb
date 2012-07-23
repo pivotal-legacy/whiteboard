@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PostMailer do
   describe 'send_to_all' do
-    let(:post) { create(:post, items: [ create(:item) ]) }
+    let(:post) { create(:post, items: [create(:item, title: '"Winning"',description: 'Like this & like "that"')]) }
     let(:mail) { PostMailer.send_to_all(post) }
 
     it 'sets the title to be the posts title' do
@@ -15,6 +15,11 @@ describe PostMailer do
 
     it 'renders the items in the body of the message' do
       mail.body.should include(post.items.first.title)
+    end
+
+    it 'properly deals with & and " by not escaping them' do
+      mail.body.should include('"Winning"')
+      mail.body.should include('Like this & like "that"')
     end
   end
 end

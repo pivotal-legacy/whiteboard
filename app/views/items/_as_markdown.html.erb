@@ -1,14 +1,14 @@
 <% Item::KINDS.each do |kind| %>
   <% if items[kind].present? %>
-## <%= kind.pluralize %>
+    ## <%= kind.pluralize %>
 
-      <% items[kind].each do |item| %>
-* <%= item.title %>
-        <% if item.description.present? %>
+    <% items[kind].each do |item| %>
+      * <%= item.title.html_safe %>
+      <% if item.description.present? %>
 
-<%= item.description %>
+        <%= item.description.html_safe %>
 
-       <% end %>
+      <% end %>
     <% end %>
   <% end %>
 
