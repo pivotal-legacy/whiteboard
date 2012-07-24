@@ -1,12 +1,16 @@
 <% Item::KINDS.each do |kind| %>
   <% if items[kind].present? %>
-    ## <%= kind.pluralize %>
+## <%= kind.pluralize %>
 
     <% items[kind].each do |item| %>
-      * <%= item.title.html_safe %>
+      <% if item.date.present? %>
+* <%= Date::DAYNAMES[item.date.wday] %>: <%= item.title %>
+      <% else %>
+* <%= item.title.html_safe %>
+      <% end %>
       <% if item.description.present? %>
 
-        <%= item.description.html_safe %>
+<%= item.description.html_safe %>
 
       <% end %>
     <% end %>

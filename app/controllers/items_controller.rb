@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
 
   def index
     @standup = Standup.find_by_id(params[:standup_id])
-    @items = @standup.items.orphans
+    @items = @standup.items.orphans.merge(Item.events_on_or_after(Date.today))
   end
 
   def destroy

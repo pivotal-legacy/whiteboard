@@ -11,6 +11,9 @@
             <ul class='large-font'>
               <% items[kind].each do |item| %>
                 <li>
+                  <% if item.date.present? %>
+                    <%= Date::DAYNAMES[item.date.wday] %>:
+                  <% end %>
                   <%= item.title %>
                   <%= link_to edit_item_path(item) do %>
                     <i class="icon-pencil"></i>

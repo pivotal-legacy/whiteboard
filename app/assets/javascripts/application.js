@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery.qtip.min
+//= require bootstrap-datepicker
 //= require_tree .
 
 jQuery(function($) {
@@ -49,5 +50,9 @@ jQuery(function($) {
                 button.addClass('active');
             }
         });
+    });
+
+    $("#item_date").datepicker({
+      show: new Date()
     });
 });

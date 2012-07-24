@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
   end
 
   def adopt_all_the_items
-    self.items = Item.where(post_id: nil, bumped: false)
+    self.items = Item.where(post_id: nil, bumped: false).where("kind != 'Event'")
   end
 
   def title_for_email
@@ -34,11 +34,13 @@ class Post < ActiveRecord::Base
   end
 
   def items_by_type
-    sorted_by_type(items)
+    sorted_by_type(items).
+      merge(Item.events_on_or_after(Date.today))
   end
 
   def public_items_by_type
-    sorted_by_type(public_items)
+    sorted_by_type(public_items).
+      merge(Item.public.events_on_or_after(Date.today))
   end
 
   def deliver_email
