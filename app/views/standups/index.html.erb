@@ -1,14 +1,18 @@
-<h1>Choose a Standup</h1>
+<div class="container">
+  <div class="hero-unit">
+    <h2>Choose a Standup</h2>
 
-<table>
-  <% @standups.each do |standup| %>
-    <tr>
-      <td><h1><%= link_to standup.title, standup %></h1></td>
-      <td class='pull-right'><%= link_to 'Edit', edit_standup_path(standup) %></td>
-    </tr>
-  <% end %>
-</table>
+    <table>
+      <% @standups.each do |standup| %>
+        <tr>
+          <td><h3><%= link_to standup.title, standup %></h3></td>
+          <td class='pull-right'><%= link_to 'Edit', edit_standup_path(standup) %></td>
+        </tr>
+      <% end %>
+    </table>
 
-<div>
-  <%= link_to('New Standup', new_standup_path) %>
+    <div>
+      <%= link_to('New Standup &raquo;'.html_safe, new_standup_path, class: 'btn btn-primary btn-large') %>
+    </div>
+  </div>
 </div>

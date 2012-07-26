@@ -45,7 +45,7 @@ class Post < ActiveRecord::Base
     if sent_at
       raise "Duplicate Email"
     else
-      PostMailer.send_to_all(self).deliver
+      PostMailer.send_to_all(self, standup.to_address).deliver
       self.sent_at = Time.now
       self.save!
     end
