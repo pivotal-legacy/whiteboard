@@ -40,12 +40,9 @@ describe Post do
 
   describe '#title_for_email' do
     context 'when there is a subject prefix set' do
-      before { ENV['SUBJECT_PREFIX'] = '[Standup][NY]' }
-      after { ENV['SUBJECT_PREFIX'] = nil }
-
-      it 'prepends [Standup][SF] and the date' do
+      it 'prepends the subject prefix and the date' do
         post = create(:post, title: "With Feeling", created_at: Time.parse("2012-06-02 12:00:00 -0700"))
-        post.title_for_email.should == "#{ENV['SUBJECT_PREFIX']} 06/02/12: With Feeling"
+        post.title_for_email.should == "#{post.subject_prefix} 06/02/12: With Feeling"
       end
     end
 
@@ -68,13 +65,13 @@ describe Post do
     it "sends an email" do
       post = create(:post, items: [create(:item)])
       post.deliver_email
-      ActionMailer::Base.deliveries.last.to.should == ['everyone@example.com']
+      ActionMailer::Base.deliveries.last.to.should == [post.to_address]
     end
 
     it "raises an error if you send it twice" do
       post = create(:post, items: [create(:item)])
       post.deliver_email
-      ActionMailer::Base.deliveries.last.to.should == ['everyone@example.com']
+      ActionMailer::Base.deliveries.last.to.should == [post.to_address]
       expect { post.deliver_email }.should raise_error("Duplicate Email")
     end
   end
