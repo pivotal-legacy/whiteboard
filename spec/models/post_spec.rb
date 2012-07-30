@@ -87,4 +87,30 @@ describe Post do
       post.items_by_type['Help'].should == items.reverse
     end
   end
+
+  describe "#subject_prefix" do
+    let(:post) { create(:post, standup: standup) }
+    subject { post.subject_prefix }
+
+    context "when the standup has a subject_prefix" do
+      let(:standup) { create(:standup, subject_prefix: "Prefixed") }
+      it { should == standup.subject_prefix }
+    end
+
+    context "when the standup does not have a subject_prefix" do
+      let(:standup) { create(:standup, subject_prefix: nil) }
+      it { should == "[Standup]" }
+    end
+  end
+
+  describe "#to_address" do
+    let(:standup) { create(:standup) }
+    let(:post) { create(:post, standup: standup) }
+
+    it 'delegates to the standup' do
+      standup.should_receive(:to_address)
+
+      post.to_address
+    end
+  end
 end
