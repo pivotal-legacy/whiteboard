@@ -10,6 +10,10 @@ describe "items", type: :request, js: true do
     find('a[data-kind="New face"] i').click
     fill_in 'item_title', :with => "Johnathon McKenzie"
     click_button 'Create New Face'
+    find('a[data-kind="Event"] i').click
+    fill_in 'item_title', :with => "Party"
+    fill_in 'item_date', :with => 5.days.from_now.to_date.strftime("%Y-%m-%d")
+    click_button 'Create Item'
   end
 
   it "happy path blog post" do
@@ -36,6 +40,7 @@ describe "items", type: :request, js: true do
     find('.email_post').should have_content("Johnathon McKenzie")
     find('.email_post').should have_content("IE8 doesn't work")
     find('.email_post').should have_content("Rubymine 5.0 is Out")
+    find('.email_post').should have_content("Party")
 
     find('.blog_post').should_not have_content("Johnathon McKenzie")
     find('.blog_post').should_not have_content("IE8 doesn't work")
@@ -63,6 +68,7 @@ describe "items", type: :request, js: true do
     find('section.deck-current').should have_content "Interestings"
     page.execute_script("$.deck('next')")
     find('section.deck-current').should have_content "Events"
+    find('section.deck-current').should have_content "Party"
     page.execute_script("$.deck('next')")
     find('section.deck-current').should_not have_content "Events"
   end
