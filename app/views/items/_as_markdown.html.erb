@@ -4,9 +4,9 @@
 
     <% items[kind].each do |item| %>
       <% if item.date.present? %>
-  * <%= Date::DAYNAMES[item.date.wday] %>: <%= item.title %>
+### <%= Date::DAYNAMES[item.date.wday] %>: <%= item.title %>
       <% else %>
-  * <%= item.title.html_safe %>
+### <%= item.title.html_safe %>
       <% end %>
     <% if item.description.present? %>
 

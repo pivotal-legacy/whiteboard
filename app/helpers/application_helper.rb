@@ -14,6 +14,8 @@ module ApplicationHelper
   end
 
   def standup_closing
+    return "STRETCH! It's Floor Friday!" if Date.today.wday == 5
+    
     index = rand(STANDUP_CLOSINGS.length)
     STANDUP_CLOSINGS[index]
   end
@@ -29,4 +31,10 @@ module ApplicationHelper
       edit_post_path(post)
     end
   end
+
+  def markdown_placeholder
+    "A description will appear in the email (and the blog if public), but not be visible during standup. Wrap code in backticks (\"`\") and wrap URLs in angle brackets (\"<\" and \">\") for Markdown goodness."
+    
+  end
+
 end
