@@ -1,5 +1,4 @@
-<%- form_object = @item.new_record? ? [@standup, @item] : @item %>
-<%= form_for(form_object, html: { class: 'form-horizontal' }) do |f| %>
+<%= form_for(@item, html: { class: 'form-horizontal' }) do |f| %>
     <% if @item.errors.any? %>
         <div id="errorExplanation">
           <h2><%= pluralize(@item.errors.count, "error") %> prohibited
@@ -35,6 +34,13 @@
            sure they would like to be mentioned) or include information only of
            interest to people working in the office."></i>
         <%=  f.hidden_field :public, value: @item.public ? '1' : '0' %>
+      </div>
+    </div>
+
+    <div class='control-group'>
+      <%= f.label :standup_id, 'Location', class: 'control-label' %>
+      <div class='controls'>
+        <%= f.collection_select(:standup_id, Standup.all, :id, :title) %>
       </div>
     </div>
 

@@ -8,26 +8,30 @@ describe ItemsController do
   end
 
   describe "#create" do
+    let(:valid_params) { {item: attributes_for(:item).merge(standup_id: standup.to_param)} }
+
     it "should allow you to create an item" do
       expect {
-        post :create, params.merge(item: attributes_for(:item))
+        post :create, valid_params
       }.should change { standup.items.count }.by(1)
     end
 
     it "should redirect to root on success" do
-      post :create, params.merge(item: attributes_for(:item))
+      post :create, valid_params
       response.location.should == "http://test.host/standups/#{standup.id}"
     end
 
     it "should render new on failure" do
-      post :create, params.merge(item: {})
+      post :create, item: {}
       response.should render_template 'items/new'
     end
 
     it "sets the post_id if one is provided" do
       standup_post = create(:post)
       expect {
-        post :create, params.merge(item: attributes_for(:item, post_id: standup_post.id))
+        post :create, (valid_params.tap do |params|
+          params[:item][:post_id] =  standup_post.to_param
+        end)
       }.should change { standup_post.items.count }.by(1)
       response.should redirect_to(edit_post_path(standup_post))
     end

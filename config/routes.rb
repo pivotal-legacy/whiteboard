@@ -1,7 +1,8 @@
 Whiteboard::Application.routes.draw do
+  resources :items, only: :create
 
   resources :standups, shallow: true do
-    resources :items, only: [ :new, :create ]
+    resources :items, only: :new
     resources :items do
       collection do
         get 'presentation'

@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
   validates :standup, presence: true
   validates :title, presence: true
 
-  attr_accessible :title, :description, :kind, :public, :post_id, :date
+  attr_accessible :title, :description, :kind, :public, :post_id, :date, :standup_id
 
   def self.public
     where(public: true)

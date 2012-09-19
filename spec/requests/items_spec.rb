@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "items", type: :request, js: true do
-  let!(:standup) { FactoryGirl.create(:standup) }
+  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco') }
+  let!(:other_standup) { FactoryGirl.create(:standup, title: 'New York') }
   before do
     mock_omniauth
     visit '/auth/google_apps/callback'
@@ -18,6 +19,7 @@ describe "items", type: :request, js: true do
 
   it "happy path blog post" do
     find('a[data-kind=Help] i').click
+    select 'San Francisco', from: 'Location'
     fill_in 'item_title', :with => "IE8 doesn't work"
     fill_in 'item_description', :with => "No, srsly.  It doesn't work"
     click_button 'Create Item'
