@@ -90,6 +90,17 @@ describe ItemsController do
       assigns[:items]['Interesting'].should == [ interesting ]
       response.should be_ok
     end
+
+    it "does not include items associated with other standups" do
+      other_standup = create(:standup)
+      standup_event = create(:item, kind: "Event", standup: standup, date: Date.tomorrow)
+      other_standup_event = create(:item, kind: "Event", standup: other_standup, date: Date.tomorrow)
+
+      get :index, params
+
+      assigns[:items]['Event'].should include standup_event
+      assigns[:items]['Event'].should_not include other_standup_event
+    end
   end
 
   describe "#presentation" do
@@ -101,6 +112,17 @@ describe ItemsController do
     it "loads the posts" do
       get :presentation, params
       assigns[:items].should be
+    end
+
+    it "only loads items from the current standup" do
+      other_standup = create(:standup)
+      other_standup_event = create(:item, standup: other_standup, date: Date.tomorrow, kind: "Event")
+      standup_event = create(:item, standup: standup, date: Date.tomorrow, kind: "Event")
+
+      get :presentation, params
+
+      assigns[:items]['Event'].should include standup_event
+      assigns[:items]['Event'].should_not include other_standup_event
     end
   end
 
