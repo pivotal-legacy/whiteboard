@@ -34,4 +34,21 @@ describe Item do
       Item.new.public.should == false
     end
   end
+
+  describe ".events_on_or_after" do
+    subject { Item.events_on_or_after(date)['Event'] }
+
+    let(:date) { Date.parse('1/1/1970') }
+    let!(:event_before_date) { create(:item, date: (date - 1.day), kind: 'Event') }
+    let!(:event_after_date) { create(:item, date: (date + 1.day), kind: 'Event') }
+    let!(:event_on_date) { create(:item, date: (date), kind: 'Event') }
+
+    it { should_not include event_before_date }
+    it { should include event_on_date }
+    it { should include event_after_date }
+
+    it "orders the events by date" do
+      subject.should == [event_on_date, event_after_date]
+    end
+  end
 end

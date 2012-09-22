@@ -40,4 +40,18 @@ describe ApplicationHelper do
       helper.show_or_edit_post_path(post).should == post_path(post)
     end
   end
+
+  describe "#format_title" do
+    subject { helper.format_title(item) }
+
+    context "the item is an event" do
+      let(:item) { double(:item, kind: "Event", title: "Not Interesting", date: Date.tomorrow) }
+      it { should == "#{item.date.strftime("%A(%m/%d)")}: #{item.title}" }
+    end
+
+    context "the item is not an event" do
+      let(:item) { double(:item, kind: "Interesting", title: "Not Interesting") }
+      it { should == item.title }
+    end
+  end
 end

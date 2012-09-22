@@ -19,7 +19,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.events_on_or_after(date)
-    where(kind: "Event").where("date >= ?", date).group_by(&:kind)
+    where(kind: "Event").where("date >= ?", date).order("date").group_by(&:kind)
   end
 
   def possible_template_name

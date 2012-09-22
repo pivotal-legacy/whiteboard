@@ -8,7 +8,7 @@
     <% if @items[kind] %>
       <ul>
       <% @items[kind].each do |item| %>
-        <li><%=  item.title %></li>
+        <li><%= format_title(item) %></li>
       <% end %>
       </ul>
     <% end %>
