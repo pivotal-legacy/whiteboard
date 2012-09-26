@@ -23,6 +23,7 @@ group :development do
   gem 'debugger'
   gem 'heroku'
   gem 'heroku_san'
+  gem 'letter_opener'
 end
 
 group :assets do

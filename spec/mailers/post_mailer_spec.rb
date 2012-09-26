@@ -18,6 +18,10 @@ describe PostMailer do
       mail.body.should include(post.items.first.title)
     end
 
+    it 'includes a link to the whiteboard app' do
+      mail.body.should include(root_url)
+    end
+
     it 'properly deals with & and " by not escaping them' do
       mail.body.should include('"Winning"')
       mail.body.should include('Like this & like "that"')
