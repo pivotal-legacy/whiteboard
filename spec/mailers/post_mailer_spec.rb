@@ -4,7 +4,7 @@ describe PostMailer do
   describe 'send_to_all' do
     let(:post) { create(:post, items: [create(:item, title: '"Winning"',description: 'Like this & like "that"')]) }
     let(:destination) { Faker::Internet.email }
-    let(:mail) { PostMailer.send_to_all(post, destination) }
+    let(:mail) { PostMailer.send_to_all(post, destination, post.standup_id) }
 
     it 'sets the title to be the posts title' do
       mail.subject.should == post.title_for_email
@@ -18,8 +18,8 @@ describe PostMailer do
       mail.body.should include(post.items.first.title)
     end
 
-    it 'includes a link to the whiteboard app' do
-      mail.body.should include(root_url)
+    it 'includes a link to the standup' do
+      mail.body.should include(standup_items_url(post.standup))
     end
 
     it 'properly deals with & and " by not escaping them' do

@@ -1,1 +1,3 @@
 <%=  render partial: 'items/as_markdown', formats: :html, locals: { items: @post.items_by_type } %>
+---------------------------
+This standup starts at <%= standup_items_url(@standup_id) %>
