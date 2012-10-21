@@ -3,4 +3,21 @@
  *= require core/deck.core
  *= require themes/style/swiss
  *= require extensions/hash/deck.hash
+ *= require jquery.qtip.min
 */
+
+@import "jquery.qtip.min";
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import 'font-awesome';
+@import "compass/css3/box";
+
+i {
+  color: #08C;
+  font-size: 28px;
+  line-height: 28px;
+}
+
+.ui-tooltip {
+  font-size: 16px !important;
+}

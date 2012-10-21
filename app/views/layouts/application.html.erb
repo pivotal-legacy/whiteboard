@@ -23,14 +23,15 @@
         Whiteboard
       </a>
       <% if @standup.present? && @standup.persisted? %>
-        <div class="nav-collapse">
+        <div class="nav-collapse posts">
           <ul class="nav">
-            <li><%= link_to @standup.title, @standup %></li>
             <li class="dropdown">
-              <a class='dropdown-toggle posts' data-toggle='dropdown'>Posts<b class="caret"></b></a>
+              <a class='dropdown-toggle posts' data-toggle='dropdown'><%= @standup.title %><b class="caret"></b></a>
               <ul class="dropdown-menu">
+                <li><%= link_to "Current Post", standup_path(@standup) %></li>
                 <li><%= link_to "Pending Posts (#{pending_post_count(@standup)})", standup_posts_path(@standup) %></li>
                 <li><%= link_to "Archived Posts", archived_standup_posts_path(@standup) %></li>
+                <li><%= link_to "Preferences", edit_standup_path(@standup) %></li>
               </ul>
             </li>
             <li><%= link_to "Presentation", presentation_standup_items_path(@standup) %></li>
