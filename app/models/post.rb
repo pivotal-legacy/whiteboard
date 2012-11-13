@@ -37,12 +37,12 @@ class Post < ActiveRecord::Base
 
   def items_by_type
     sorted_by_type(items).
-      merge(Item.events_on_or_after(Date.today))
+      merge(Item.events_on_or_after(Date.today, standup))
   end
 
   def public_items_by_type
     sorted_by_type(public_items).
-      merge(Item.public.events_on_or_after(Date.today))
+      merge(Item.public.events_on_or_after(Date.today, standup))
   end
 
   def deliver_email

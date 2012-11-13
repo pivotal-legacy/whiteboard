@@ -47,12 +47,13 @@ describe Item do
   end
 
   describe ".events_on_or_after" do
-    subject { Item.events_on_or_after(date)['Event'] }
+    subject { Item.events_on_or_after(date, standup)['Event'] }
 
+    let(:standup) { create(:standup) }
     let(:date) { Date.parse('1/1/1970') }
-    let!(:event_before_date) { create(:item, date: (date - 1.day), kind: 'Event') }
-    let!(:event_after_date) { create(:item, date: (date + 1.day), kind: 'Event') }
-    let!(:event_on_date) { create(:item, date: (date), kind: 'Event') }
+    let!(:event_before_date) { create(:item, date: (date - 1.day), kind: 'Event', standup: standup) }
+    let!(:event_after_date) { create(:item, date: (date + 1.day), kind: 'Event', standup: standup) }
+    let!(:event_on_date) { create(:item, date: (date), kind: 'Event', standup: standup) }
 
     it { should_not include event_before_date }
     it { should include event_on_date }

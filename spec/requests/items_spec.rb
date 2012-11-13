@@ -27,8 +27,15 @@ describe "items", type: :request, js: true do
     click_button 'Create New Face'
 
     find('a[data-kind="Event"] i').click
+    fill_in 'item_title', :with => "Meetup"
+    fill_in 'item_date', :with => 5.days.from_now.to_date.strftime("%Y-%m-%d")
+    select 'New York', :from => 'Location'
+    click_button 'Create Item'
+
+    find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Party"
     fill_in 'item_date', :with => 5.days.from_now.to_date.strftime("%Y-%m-%d")
+    select 'San Francisco', from: 'Location'
     click_button 'Create Item'
 
     find('a[data-kind="Interesting"] i').click
@@ -67,6 +74,7 @@ describe "items", type: :request, js: true do
     find('.email_post').should have_content("Rubymine 5.0 is Out")
     find('.email_post').should have_content("Linus Torvalds")
     find('.email_post').should have_content("Party")
+    find('.email_post').should_not have_content("Meetup")
     find('.email_post').should_not have_content("Jane Doe")
     find('.email_post').should_not have_content("Fred Flintstone")
 
@@ -105,6 +113,7 @@ describe "items", type: :request, js: true do
 
     find('section.deck-current').should have_content "Events"
     find('section.deck-current').should have_content "Party"
+    find('section.deck-current').should_not have_content "Meetup"
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should_not have_content "Events"

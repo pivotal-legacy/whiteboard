@@ -19,8 +19,11 @@ class Item < ActiveRecord::Base
     where(post_id: nil).where("kind != 'Event'").order("created_at ASC").group_by(&:kind)
   end
 
-  def self.events_on_or_after(date)
-    where(kind: "Event").where("date >= ?", date).order("date").group_by(&:kind)
+  def self.events_on_or_after(date, standup)
+    where(kind: "Event").
+      where("standup_id = #{standup.id} OR standup_id IS NULL").
+      where("date >= ?", date).
+      order("date").group_by(&:kind)
   end
 
   def self.for_post(standup)

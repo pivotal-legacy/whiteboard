@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
 
   def index
     @standup = Standup.find_by_id(params[:standup_id])
-    events = @standup.items.events_on_or_after(Date.today)
+    events = Item.events_on_or_after(Date.today, @standup)
     @items = @standup.items.orphans.merge(events)
   end
 
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def presentation
-    events = @standup.items.events_on_or_after(Date.today)
+    events = Item.events_on_or_after(Date.today, @standup)
     @items = @standup.items.orphans.merge(events)
     render layout: 'deck'
   end
