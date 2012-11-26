@@ -1,47 +1,28 @@
 <%= form_for(@item, html: { class: 'form-horizontal' }) do |f| %>
-  <% if @item.errors.any? %>
-    <div id="errorExplanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited
-        this item from being saved:</h2>
-      <ul>
-        <% @item.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: 'errors',  locals: { f: f, item: @item} %>
 
-  <fieldset>
-    <legend>New Face</legend>
-    <div class='control-group'>
-      <%= f.label :standup_id, 'Location', class: 'control-label' %>
-      <div class='controls'>
-        <%= f.collection_select(:standup_id, Standup.all, :id, :title) %>
-      </div>
-    </div>
+  <div class="block header">
+    <h2>New Face</h2>
+  </div>
 
-    <div class='control-group'>
-      <%= f.label :title, "Name", class: 'control-label' %>
-      <div class='controls'>
-        <%= f.text_field :title, placeholder: 'John Smith - Interviewing with Rob' %>
-        <span class="help-block">Including why they are in the office makes for a much friendly welcome, e.g. Interviewing, New Pivot or Client Developer.</span>
-      </div>
-    </div>
+  <div class="block">
+    <%= f.collection_select(:standup_id, Standup.all, :id, :title, {}, :class => "wide") %>
+  </div>
 
-    <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
+  <div class="block with-hint">
+    <%= f.text_field :title, placeholder: 'John Smith - Interviewing with Rob', class: "wide" %>
+    <div class="hint always">
+      Including why they are in the office makes for a much friendly welcome, e.g. Interviewing, New Pivot or Client Developer.
+    </div>
+  </div>
 
-    <div class="field">
-      <%= f.hidden_field :post_id %>
-    </div>
+  <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
 
-    <div class="field">
-      <%= f.hidden_field :public, value: false %>
-    </div>
-    <div class="field">
-      <%=  f.hidden_field :kind, value: 'New face' %>
-    </div>
-    <div class="form-actions">
-      <%= f.submit "#{@item.persisted? ? "Update" : "Create"} New Face", class: 'btn btn-primary' %>
-    </div>
-  </fieldset>
+  <%= f.hidden_field :post_id %>
+  <%= f.hidden_field :public, value: false %>
+  <%=  f.hidden_field :kind, value: 'New face' %>
+
+  <div class="block">
+    <%= f.submit "#{@item.persisted? ? "Update" : "Create"} New Face", class: "btn btn-primary btn-block" %>
+  </div>
 <% end %>

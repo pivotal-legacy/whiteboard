@@ -12,30 +12,30 @@ describe "items", type: :request, js: true do
 
     find('a[data-kind="New face"] i').click
     fill_in 'item_title', :with => "Fred Flintstone"
-    select 'New York', :from => 'Location'
+    select 'New York', :from => 'item[standup_id]'
     click_button 'Create New Face'
 
     find('a[data-kind="New face"] i').click
     fill_in 'item_title', :with => "Johnathon McKenzie"
-    select 'San Francisco', from: 'Location'
+    select 'San Francisco', from: 'item[standup_id]'
     click_button 'Create New Face'
 
     find('a[data-kind="New face"] i').click
     fill_in 'item_title', :with => "Jane Doe"
     fill_in 'item_date', :with => 5.days.from_now.to_date.strftime("%Y-%m-%d")
-    select 'San Francisco', from: 'Location'
+    select 'San Francisco', from: 'item[standup_id]'
     click_button 'Create New Face'
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Meetup"
     fill_in 'item_date', :with => 5.days.from_now.to_date.strftime("%Y-%m-%d")
-    select 'New York', :from => 'Location'
+    select 'New York', from: 'item[standup_id]'
     click_button 'Create Item'
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Party"
     fill_in 'item_date', :with => 5.days.from_now.to_date.strftime("%Y-%m-%d")
-    select 'San Francisco', from: 'Location'
+    select 'San Francisco', from: 'item[standup_id]'
     click_button 'Create Item'
 
     find('a[data-kind="Interesting"] i').click
@@ -46,7 +46,7 @@ describe "items", type: :request, js: true do
 
   it "happy path blog post" do
     find('a[data-kind=Help] i').click
-    select 'San Francisco', from: 'Location'
+    select 'San Francisco', from: 'item[standup_id]'
     fill_in 'item_title', :with => "IE8 doesn't work"
     fill_in 'item_description', :with => "No, srsly.  It doesn't work"
     click_button 'Create Item'
@@ -61,7 +61,7 @@ describe "items", type: :request, js: true do
     fill_in 'item_title', :with => "Rubymine 5.0 is Out"
     fill_in 'item_author', :with => "Linus Torvalds"
     fill_in 'item_description', :with => "Better than ed"
-    find("button:contains('Public')").click
+    find("button:contains('Post to Blog')").click
     click_button 'Create Item'
 
     fill_in 'post_from', with: 'Matthew'

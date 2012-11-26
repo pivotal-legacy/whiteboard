@@ -1,39 +1,46 @@
 <div class='outer'>
   <% Item::KINDS.each_slice(2) do |pair_of_kinds| %>
-    <div class='two-wide'>
-      <% pair_of_kinds.each do |kind| %>
-        <div class='kind'>
-          <h2><%= kind.pluralize %> <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind), 'data-kind' => kind  do %>
-              <i class="icon-plus-sign"></i></h2>
+      <div class='two-wide'>
+        <% pair_of_kinds.each do |kind| %>
+            <div class='kind'>
+              <div class="block header">
+                <h2><%= kind.pluralize %></h2>
+                <div class="spacer"></div>
+                <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind), 'data-kind' => kind do %>
+                    <i class="icon-plus-sign"></i>
+                <% end %>
+              </div>
+              <% if items[kind].present? %>
+                  <% items[kind].each do |item| %>
+                      <div class="block item">
+                        <% if item.author.present? %>
+                          <div class="author"><%= "#{item.author}" %></div>
+                        <% end %>
+                        <div class="text">
+                          <ul>
+                            <li><%= date_label(item) %><%= item.title %> </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="block tools">
+                        <div class="spacer"></div>
+                        <%= link_to edit_item_path(item) do %>
+                            <i class="icon-pencil"></i>
+                        <% end %>
+                        <%= link_to item, confirm: 'Are you sure?', method: :delete do %>
+                            <i class='icon-trash'></i>
+                        <% end %>
+                        <% if item.description.present? %>
+                            <a>
+                              <i class='icon-info-sign has-qtip' title="<pre><%= item.description %></pre>"></i>
+                            </a>
+                        <% end %>
+                        <div class="spacer"></div>
+                      </div>
+                  <% end %>
               <% end %>
-          <hr>
-          <% if items[kind].present? %>
-            <ul class='large-font'>
-              <% items[kind].each do |item| %>
-                <li>
-                  <%= date_label(item) %>
-                  <%= item.title %>
-                  <% if item.author.present? %>
-                    <%= "(#{item.author})" %>
-                  <% end %>
-                  <%= link_to edit_item_path(item) do %>
-                    <i class="icon-pencil"></i>
-                  <% end %>
-                  <%= link_to item, confirm: 'Are you sure?',
-                              method: :delete do %>
-                    <i class='icon-trash'></i>
-                  <% end %>
-                  <% if item.description.present? %>
-                    <i class='icon-info-sign has-qtip'
-                       title="<pre><%= item.description %></pre>">
-                    </i>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+            </div>
+        <% end %>
+      </div>
   <% end %>
 </div>

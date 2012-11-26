@@ -1,18 +1,11 @@
-<div class="container">
-  <div class="hero-unit">
-    <h2>Choose a Standup:</h2>
-
-    <table>
-      <% @standups.each do |standup| %>
-        <tr>
-          <td><h1><%= link_to standup.title, standup %></h1></td>
-        </tr>
-      <% end %>
-    </table>
-
-    <br />
-    <div>
-      <%= link_to('New Standup &raquo;'.html_safe, new_standup_path, class: 'btn btn-primary btn-large') %>
+<div class="block header">
+  <h2>Choose a Standup:</h2>
+</div>
+<% @standups.each do |standup| %>
+    <div class="block">
+      <h1><%= link_to standup.title, standup %></h1>
     </div>
-  </div>
+<% end %>
+<div class="block buttons">
+  <%= link_to('New Standup &raquo;'.html_safe, new_standup_path, class: 'btn btn-primary btn-large btn-block') %>
 </div>

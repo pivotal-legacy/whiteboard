@@ -1,36 +1,27 @@
 <%= form_for standup, html: {class: 'form-horizontal'} do |form| %>
-  <fieldset>
-    <div class='title control-group'>
-      <div class='controls'>
-        <%= form.label :title %>
-        <%= form.text_field :title %>
-      </div>
-    </div>
+<fieldset>
+  <div class='block title'>
+    <%= form.label :title %>
+    <%= form.text_field :title, :placeholder => 'Title', :size => nil, :class => "wide" %>
+  </div>
 
-    <div class='subject_prefix'>
-      <div class='controls'>
-        <%= form.label :subject_prefix %>
-        <%= form.text_field :subject_prefix %>
-      </div>
-    </div>
+  <div class='block subject_prefix'>
+    <%= form.label :subject_prefix %>
+    <%= form.text_field :subject_prefix, :placeholder => 'Email Subject Prefix', :size => nil, :class => "wide" %>
+  </div>
 
-    <div class='ip_key'>
-      <div class='controls'>
-        <%= form.label :ip_key %>
-        <%= form.select(:ip_key, AuthorizedIps::AUTHORIZED_IP_ADDRESSES.keys) %>
-      </div>
-    </div>
+  <div class='block ip_key'>
+    <%= form.label :ip_key %>
+    <%= form.select :ip_key, AuthorizedIps::AUTHORIZED_IP_ADDRESSES.keys, {}, :class => "wide" %>
+  </div>
 
-    <div class='to_address'>
-      <div class='controls'>
-        <%= form.label :to_address %>
-        <%= form.text_field :to_address %>
-      </div>
-    </div>
-
-
-    <div class='form-actions'>
-      <%= form.submit class: 'btn, btn-primary' %>
-    </div>
-  </fieldset>
+  <div class='block to_address'>
+    <%= form.label :to_address %>
+    <%= form.text_field :to_address, :placeholder => 'Send Email To (address)', :size => nil, :class => "wide" %>
+  </div>
+</fieldset>
+<div class='block'>
+  <%= form.submit class: 'btn btn-primary btn-block' %>
+</div>
 <%- end %>
+

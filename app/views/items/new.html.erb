@@ -1,75 +1,66 @@
-<%= form_for(@item, html: { class: 'form-horizontal' }) do |f| %>
-    <% if @item.errors.any? %>
-        <div id="errorExplanation">
-          <h2><%= pluralize(@item.errors.count, "error") %> prohibited
-            this item from being saved:</h2>
-          <ul>
-            <% @item.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+<%= form_for(@item, html: {class: 'form-horizontal'}) do |f| %>
 
-  <fieldset>
-    <%= f.hidden_field :post_id %>
-    <div class='control-group'>
-      <div class='controls'>
-        <div class="btn-group" data-toggle-name="item[kind]" data-toggle="buttons-radio" >
-          <% (Item::KINDS - ['New face']).each do |kind| %>
-            <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button"><%= kind %></button>
-          <% end %>
-        </div>
-        <%=  f.hidden_field :kind %>
-      </div>
+  <%= render partial: 'errors', locals: {f: f, item: @item} %>
+
+  <div class="block">
+    <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
+      <% (Item::KINDS - ['New face']).each do |kind| %>
+        <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button">
+          <div class="spacer"></div>
+          <%= kind %>
+          <div class="spacer"></div>
+        </button>
+      <% end %>
     </div>
+  </div>
 
-    <div class='control-group'>
-      <div class='controls'>
-        <span class="btn-group" data-toggle-name="item[public]" data-toggle="buttons-radio" >
-          <button type="button" value="0" class="btn btn-warning" data-toggle="button">Private</button>
-          <button type="button" value="1" class="btn btn-warning" data-toggle="button">Public</button>
-        </span>
-        <i class='icon-question-sign has-qtip'
-           title="Public items will be posted to the blog.  Please do not include client names (unless you are
+  <div class="block with-hint">
+    <div class="with-qtip">
+      <div class="btn-group btn-block" data-toggle-name="item[public]" data-toggle="buttons-radio">
+        <button type="button" value="0" class="btn btn-warning" data-toggle="button">
+          <div class="spacer"></div>
+          Private
+          <div class="spacer"></div>
+        </button>
+        <button type="button" value="1" class="btn btn-warning" data-toggle="button">
+          <div class="spacer"></div>
+          Post to Blog
+          <div class="spacer"></div>
+        </button>
+      </div>
+      <i class='icon-question-sign has-qtip'
+         title="Public items will be posted to the blog.  Please do not include client names (unless you are
            sure they would like to be mentioned) or include information only of
            interest to people working in the office."></i>
-        <%=  f.hidden_field :public, value: @item.public ? '1' : '0' %>
-      </div>
     </div>
-
-    <div class='control-group'>
-      <%= f.label :standup_id, 'Location', class: 'control-label' %>
-      <div class='controls'>
-        <%= f.collection_select(:standup_id, Standup.all, :id, :title) %>
-      </div>
+    <div class="hint">
+      Please do not post client information to the blog without explicit permission.
     </div>
+    <%= f.hidden_field :public, value: @item.public ? '1' : '0' %>
+  </div>
 
-    <div class='control-group'>
-      <%= f.label :title, class: 'control-label' %>
-      <div class='controls'>
-        <%= f.text_field :title %>
-      </div>
-    </div>
+  <div class="block">
+    <%= f.collection_select(:standup_id, Standup.all, :id, :title, {}, :class => "wide") %>
+  </div>
 
-    <div class='control-group'>
-      <%= f.label :author, class: 'control-label' %>
-      <div class='controls'>
-        <%= f.text_field :author %>
-      </div>
-    </div>
+  <div class="block">
+    <%= f.text_field :title, placeholder: "Item Title", size: nil, class: "wide" %>
+  </div>
 
-    <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
+  <div class="block">
+    <%= f.text_field :author, placeholder: "Author", size: nil, class: "wide" %>
+  </div>
 
-    <div class='control-group'>
-      <%= f.label :description, class: 'control-label' %><br />
-      <div class='controls'>
-        <%= f.text_area :description, placeholder: markdown_placeholder %>
-      </div>
-    </div>
+  <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
 
-    <div class="form-actions">
-      <%= f.submit nil, class: 'btn btn-primary' %>
-    </div>
-  </fieldset>
+  <div class="block has-bottom-border">
+    <%= f.text_area :description, placeholder: markdown_placeholder, rows: 5, cols: nil, class: "wide" %>
+  </div>
+
+  <%= f.hidden_field :post_id %>
+  <%= f.hidden_field :kind %>
+
+  <div class="block">
+    <%= f.submit nil, class: 'btn btn-primary btn-block' %>
+  </div>
 <% end %>

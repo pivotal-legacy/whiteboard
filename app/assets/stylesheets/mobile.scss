@@ -1,0 +1,112 @@
+//
+// Mobile-specific media queries
+//
+
+@import "jquery.qtip.min";
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import 'font-awesome';
+@import "compass/css3/box";
+
+// Swap the below two lines when debugging/styling in Chrome, which
+// can't get smaller than 400px wide
+@media (max-width: 481px) {
+
+// correct for Bootstrap's padding
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+// un-correct correction of Bootstrap's padding
+  .navbar {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .block {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0;
+
+    &.header {
+      padding-right: 4px;
+      background-color: #eee;
+    }
+
+    &.with-hint {
+      padding-bottom: 8px;
+    }
+
+    &.item {
+      border-bottom: none;
+    }
+  }
+
+  .block:first-child {
+    margin-top: 0;
+  }
+
+  .block:last-child {
+    border-bottom: none;
+    padding-bottom: 8px;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+  }
+
+  form .block label {
+    display: none;
+  }
+
+  input, select, textarea {
+
+    &.wide {
+      display: block;
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 8px;
+    }
+  }
+
+  textarea.wide {
+    box-sizing: border-box;
+  }
+
+  .hint {
+    display: inherit;
+    padding: 0 14px;
+  }
+
+  .has-qtip {
+    display: none;
+  }
+
+// copied from a more recent version of Bootstrap to get full-width buttons
+  .btn.btn-block {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    display: block;
+  }
+
+  .btn-group.btn-block {
+    @include display-box;
+    @include box-orient(horizontal);
+    padding-left: 0;
+    padding-right: 0;
+
+    width: 100%;
+    margin-bottom: 8px;
+
+    button {
+      @include display-box;
+      @include box-orient(horizontal);
+      @include box-pack(center);
+      @include box-flex(1);
+    }
+  }
+}
+
