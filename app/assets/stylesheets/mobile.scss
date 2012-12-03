@@ -2,7 +2,6 @@
 // Mobile-specific media queries
 //
 
-@import "jquery.qtip.min";
 @import "bootstrap";
 @import "bootstrap-responsive";
 @import 'font-awesome';
@@ -29,7 +28,6 @@
     padding-bottom: 0;
 
     &.header {
-      padding-right: 4px;
       background-color: #eee;
     }
 
@@ -37,7 +35,7 @@
       padding-bottom: 8px;
     }
 
-    &.item {
+    &.item, &.description {
       border-bottom: none;
     }
   }
@@ -76,12 +74,7 @@
   }
 
   .hint {
-    display: inherit;
     padding: 0 14px;
-  }
-
-  .has-qtip {
-    display: none;
   }
 
 // copied from a more recent version of Bootstrap to get full-width buttons

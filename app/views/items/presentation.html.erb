@@ -13,11 +13,6 @@
           <% if item.author.present? %>
             <%= "(#{ item.author })" %>
           <% end %>
-          <% if item.description.present? %>
-            <i class='icon-info-sign has-qtip'
-               title="<pre><%= item.description %></pre>">
-            </i>
-          <% end %>
         </li>
       <% end %>
       </ul>

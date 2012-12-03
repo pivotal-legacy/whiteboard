@@ -13,28 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require jquery.qtip.min
 //= require bootstrap-datepicker
 //= require_tree .
 
 jQuery(function($) {
-    $('.has-qtip').qtip({
-        position: {
-            viewport: $(window),
-            my: 'top middle',
-            at: 'bottom middle'
-        },
-        style: {
-            classes: 'ui-tooltip-bootstrap'
-        },
-        events: {
-            render: function(event, api) {
-                api.elements.target.click(api.toggle);
-                api.elements.tooltip.click(api.hide);
-            }
-        }
-    });
-
 
     $('div.btn-group[data-toggle-name=*], span.btn-group[data-toggle-name=*]').each(function(){
         var group   = $(this);
@@ -55,4 +37,10 @@ jQuery(function($) {
     $("#item_date").datepicker({
       show: new Date()
     });
+
+  $('a[data-toggle]').click(function() {
+    $('.collapse').css('height', '100%');
+  });
+
+
 });
