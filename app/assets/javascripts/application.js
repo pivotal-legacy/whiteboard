@@ -39,7 +39,9 @@ jQuery(function($) {
     });
 
   $('a[data-toggle]').click(function() {
-    $('.collapse').css('height', '100%');
+    var collapsed = $(this).data('data-target');
+
+    $(collapsed).css('height', '100%');
   });
 
 
