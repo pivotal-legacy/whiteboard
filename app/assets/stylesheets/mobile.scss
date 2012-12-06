@@ -28,15 +28,18 @@
     padding-bottom: 0;
 
     &.header {
-      background-color: #eee;
-    }
+      background-color: #444;
 
-    &.with-hint {
-      padding-bottom: 8px;
-    }
+      h2 {
+        font-size: 1rem;
+        line-height: 1.1rem;
+        color: white;
+      }
 
-    &.item, &.description {
-      border-bottom: none;
+      i.icon-plus-sign {
+        margin-top: 0;
+        font-size: 1rem;
+      }
     }
   }
 
@@ -44,14 +47,8 @@
     margin-top: 0;
   }
 
-  .block:last-child {
-    border-bottom: none;
+  .with-hint {
     padding-bottom: 8px;
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
   }
 
   form .block label {
@@ -83,6 +80,7 @@
     padding-left: 0;
     padding-right: 0;
     display: block;
+    margin-bottom: 8px;
   }
 
   .btn-group.btn-block {
@@ -103,3 +101,8 @@
   }
 }
 
+@media (max-width: 1025px) {
+  .bottom.navbar form {
+    display: none;
+  }
+}

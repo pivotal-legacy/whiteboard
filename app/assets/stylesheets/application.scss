@@ -37,12 +37,14 @@ a:hover {
 }
 
 .outer {
-  height: 100%;
-  width: 100%;
   @include display-box;
   @include box-orient(horizontal);
   @include box-pack(top);
   @include box-align(top);
+
+  height: 100%;
+  width: 100%;
+  margin-top: -18px;
 
   @media (max-width: 979px) {
     @include box-orient(vertical);
@@ -82,24 +84,6 @@ a:hover {
       line-height: 90px;
       font-size: 80px;
     }
-    li {
-      line-height: 80px;
-      font-size: 65px;
-    }
-  }
-
-  @media (min-width: 980px) and (max-width: 3840px) {
-    li {
-      line-height: 32px;
-      font-size: 24px;
-    }
-  }
-
-  @media (min-width: 481px) and (max-width: 979px) {
-    li {
-      line-height: 24px;
-      font-size: 20px;
-    }
   }
 }
 
@@ -109,7 +93,21 @@ a:hover {
 
   padding: 8px;
 
-  h1, h2, a {
+  &.header {
+    border-bottom: 1px solid #ccc;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  &.errors {
+    @include box-orient(vertical);
+
+    ul {
+      @include display-box;
+    }
+  }
+
+  h1 {
     padding-bottom: 8px;
   }
 
@@ -118,9 +116,15 @@ a:hover {
   }
 
   i.icon-plus-sign {
-    margin-top: 10px;
+    margin-top: 0.5rem;
     color: #08C;
-    font-size: 24px;
+    font-size: 1.5rem;
+  }
+
+
+  .field_with_errors {
+    @include display-box;
+    @include box-flex(1);
   }
 }
 
@@ -132,11 +136,11 @@ a:hover {
   line-height: 1.2rem;
 
   .author {
-    color: #aaa;
     padding-bottom: 8px;
+    color: #aaa;
   }
 
-  .text {
+  .title {
     padding-bottom: 8px;
     color: black;
   }
@@ -147,8 +151,10 @@ a:hover {
   padding-bottom: 0;
   margin-top: 8px;
   margin-bottom: 8px;
-}
 
+  color: #444;
+  font-size: .8rem;
+}
 
 .with-hint {
   @include box-orient(vertical);
@@ -166,7 +172,7 @@ a:hover {
   @include box-align(center);
   @include box-pack(justify);
 
-  border-top: none;
+  padding-bottom: 8px;
 
   a {
     margin: 0 30px;

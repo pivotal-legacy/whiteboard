@@ -2,12 +2,12 @@
 <html>
 <head>
   <title>Whiteboard</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%= asset_path 'whiteboard-icon-144x144.png' %>">
-  <link rel="shortcut icon" href="<%= asset_path 'whiteboard-icon-144x144.png' %>" />
+  <link rel="shortcut icon" href="<%= asset_path 'whiteboard-icon-144x144.png' %>"/>
 </head>
 <body>
 
@@ -36,19 +36,19 @@
             </li>
             <li><%= link_to "Presentation", presentation_standup_items_path(@standup) %></li>
           </ul>
-            <ul class="nav pull-right">
-              <li>
+          <ul class="nav pull-right">
+            <li>
               <%= link_to "All Standups", standups_path %>
-              </li>
-              <% if session['logged_in'] %>
-                <li>
+            </li>
+            <% if session['logged_in'] %>
+              <li>
                 <%= link_to '/logout' do %>
                   <i class='icon-signout hidden-phone'></i>
                   <span class='visible-phone'>Logout</span>
                 <%- end -%>
-                </li>
-              <% end %>
-            </ul>
+              </li>
+            <% end %>
+          </ul>
         </div>
       <% end %>
     </div>
@@ -62,7 +62,9 @@
   <p class="alert alert-success"><%= flash[:notice] %></p>
 <% end %>
 
-<%= yield %>
+<div class="outer">
+  <%= yield %>
+</div>
 
 </body>
 </html>
