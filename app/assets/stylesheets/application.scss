@@ -46,9 +46,16 @@ a:hover {
   width: 100%;
   margin-top: -18px;
 
-  @media (max-width: 979px) {
+  @media (max-width: 1024px) {
     @include box-orient(vertical);
   }
+}
+
+.standup {
+  @include display-box;
+  @include box-orient(vertical);
+  @include box-pack(top);
+  @include box-align(top);
 }
 
 .two-wide {
