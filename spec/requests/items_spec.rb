@@ -41,6 +41,7 @@ describe "items", type: :request, js: true do
     find('a[data-kind="Interesting"] i').click
     fill_in 'item_title', :with => "Linux 3.2 out"
     fill_in 'item_author', :with => "Linus Torvalds"
+    fill_in 'item_description', with: "Check it out!"
     click_button 'Create Item'
   end
 
@@ -109,6 +110,9 @@ describe "items", type: :request, js: true do
     find('section.deck-current').should have_content "Interestings"
     find('section.deck-current').should have_content("Linux 3.2 out")
     find('section.deck-current').should have_content("Linus Torvalds")
+    find('section.deck-current').should_not have_selector('.in')
+    find('section.deck-current a[data-toggle]').click
+    find('section.deck-current').should have_selector('.in')
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should have_content "Events"

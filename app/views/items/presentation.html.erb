@@ -13,6 +13,14 @@
           <% if item.author.present? %>
             <%= "(#{ item.author })" %>
           <% end %>
+          <% if item.description.present? %>
+            <a data-toggle="collapse" data-target="#item_<%= item.id %>">
+              <i class="icon-info-sign"></i>
+            </a>
+            <div class="block description collapse" id="item_<%= item.id %>">
+              <%= item.description %>
+            </div>
+          <% end %>
         </li>
       <% end %>
       </ul>
