@@ -1,12 +1,12 @@
 <% Item::KINDS.each do |kind| %>
   <% if items[kind].present? %>
-## <%= kind.pluralize %>
+<h2><%= kind.pluralize %></h2>
 
     <% items[kind].each do |item| %>
       <% if item.date.present? %>
-### <%= date_label(item) %><%= item.title %>
+<h3><%= date_label(item) %><%= item.title %></h3>
       <% else %>
-### <%= item.title.html_safe %>
+<h3><%= item.title.html_safe %></h3>
       <% end %><%= "(#{item.author})" if include_authors && item.author.present? %>
     <% if item.description.present? %>
 

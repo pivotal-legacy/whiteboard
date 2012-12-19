@@ -48,7 +48,7 @@ class PostsController < ApplicationController
     else
       wordpress = WordpressService.new(:username => ENV['WORDPRESS_USER'], :password => ENV['WORDPRESS_PASSWORD'], :blog => ENV['WORDPRESS_BLOG'])
       wordpress.post(title: @post.title,
-                     body: render_to_string(partial: 'items/as_markdown',
+                     body: render_to_string(partial: 'items/as_blog_post',
                                             layout: false,
                                             locals: {items: @post.public_items_by_type, include_authors: false}) )
       @post.blogged_at = Time.now

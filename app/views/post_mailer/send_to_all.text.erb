@@ -1,3 +1,3 @@
-<%=  render partial: 'items/as_markdown', handlers: [:erb], formats: :html, locals: { items: @post.items_by_type, include_authors: true } %>
+<%=  render partial: 'items/as_blog_post', handlers: [:erb], formats: :html, locals: { items: @post.items_by_type, include_authors: true } %>
 ---------------------------
 This standup starts at <%= standup_items_url(@standup_id) %>

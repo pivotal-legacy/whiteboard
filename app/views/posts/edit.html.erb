@@ -29,7 +29,7 @@
 Subject: <%= @post.title_for_email %>
 From: <%= @post.from %>
 
-<%=  render partial: 'items/as_markdown', locals: { items: @post.items_by_type, include_authors: true } %>
+<%= raw CGI::escapeHTML(render partial: 'items/as_blog_post', locals: { items: @post.items_by_type, include_authors: true }) %>
   </pre>
 </div>
 
@@ -52,7 +52,7 @@ From: <%= @post.from %>
   (Title: <%= @post.title_for_blog %>)
 
   <pre>
-<%=  render partial: 'items/as_markdown', locals: { items: @post.public_items_by_type, include_authors: false } %>
+<%= raw CGI::escapeHTML(render partial: 'items/as_blog_post', locals: { items: @post.public_items_by_type, include_authors: false }) %>
   </pre>
 </div>
 
