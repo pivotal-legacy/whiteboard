@@ -1,68 +1,73 @@
 <h3 class='well'>Please update these items with any new information from standup:</h3>
 
-<%= render partial: 'items/as_html', locals: { items: @post.items_by_type } %>
+<%= render partial: 'items/as_html', locals: {items: @post.items_by_type} %>
 
 <hr>
+<div class='well'>
+  <h3>Update the author(s) and title if necessary:</h3>
+  <%= form_for(@post, html: {class: 'form-inline'}) do |f| %>
+    <% if @post.errors.any? %>
+      <div id="errorExplanation">
+        <h2><%= pluralize(@post.errors.count, "error") %> prohibited
+          this item from being saved:</h2>
+        <ul>
+          <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<h3 class='well'>Update the author(s) and title if necessary:</h3>
-<%= form_for(@post, html: { class: 'form-inline'})  do |f| %>
-  <% if @post.errors.any? %>
-    <div id="errorExplanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-        this item from being saved:</h2>
-      <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= f.text_field :from %>
-  <%= f.text_field :title %>
+    <%= f.text_field :from %>
+    <%= f.text_field :title %>
     <%= f.submit "Update", class: 'btn btn-primary' %>
-<% end %>
+  <% end %>
+</div>
 
-<h3 class='well'>Please double check this email for accuracy.  When you are ready, press the 'send email now' button:</h3>
-<div class='email_post preview'>
-  <pre>
+<div class='well'>
+  <h3>Please double check this email for accuracy. When you are ready, press the 'send email now' button:</h3>
+
+  <div class='email_post preview'>
+      <pre>
 Subject: <%= @post.title_for_email %>
 From: <%= @post.from %>
 
-<%= raw CGI::escapeHTML(render partial: 'items/as_blog_post', locals: { items: @post.items_by_type, include_authors: true }) %>
-  </pre>
+<%= raw CGI::escapeHTML(render partial: 'items/as_blog_post', locals: {items: @post.items_by_type, include_authors: true}) %>
+      </pre>
+  </div>
+
+  <% if @post.sent_at %>
+    This email was sent at <%= @post.sent_at %>
+  <% else %>
+    <%= link_to 'Send Email', send_email_post_path(@post),
+                :confirm => 'Emails can not be unsent.  Are you sure?',
+                :method => :put,
+                :class => 'btn btn-warning'
+    %>
+  <% end %>
 </div>
 
-
-<% if @post.sent_at %>
-  This email was sent at <%=  @post.sent_at %>
-<% else %>
-  <%= link_to 'Send Email', send_email_post_path(@post),
-              :confirm => 'Emails can not be unsent.  Are you sure?',
-              :method => :put,
-              :class => 'btn btn-warning'
-  %>
-<% end %>
-<br><br>
-
-<h3 class='well'>Please double check the blog post.  Ensure that there are no client names in the post, and that
+<div class='well'>
+<h3>Please double check the blog post. Ensure that there are no client names in the post, and that
   the content is of interest to the general public. When you are ready, please copy the markdown into a blog post.</h3>
 
 <div class='blog_post preview'>
-  (Title: <%= @post.title_for_blog %>)
+(Title: <%= @post.title_for_blog %>)
 
   <pre>
-<%= raw CGI::escapeHTML(render partial: 'items/as_blog_post', locals: { items: @post.public_items_by_type, include_authors: false }) %>
+<%= raw CGI::escapeHTML(render partial: 'items/as_blog_post', locals: {items: @post.public_items_by_type, include_authors: false}) %>
   </pre>
 </div>
-
 <% if @post.blogged_at %>
-  This entry was posted at <%=  @post.blogged_at %>
+  This entry was posted at <%= @post.blogged_at %>
 <% elsif wordpress_enabled? %>
   <%= link_to 'Post Blog Entry', post_to_blog_post_path(@post),
               :confirm => 'This will post to wordpress.  Are you sure?',
               :method => :put %>
 <% end %>
+</div>
 
-<h3 class='well'> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
-<%= link_to 'Archive The Post', archive_post_path(@post), :method => :put, :class => 'btn btn-warning' %>
+<div class='well'>
+  <h3> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
+  <%= link_to 'Archive The Post', archive_post_path(@post), :method => :put, :class => 'btn btn-warning' %>
+</div>

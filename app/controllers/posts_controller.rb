@@ -23,6 +23,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    @boxed = false
+  end
+
   def index
     @posts = @standup.posts.pending
   end

@@ -62,9 +62,10 @@
   <p class="alert alert-success"><%= flash[:notice] %></p>
 <% end %>
 
-<div class="outer">
-  <%= yield %>
-</div>
+<% if @boxed %><div class="outer"><% end %>
+<%= yield %>
+<% if @boxed %></div><% end %>
+
 
 </body>
 </html>
