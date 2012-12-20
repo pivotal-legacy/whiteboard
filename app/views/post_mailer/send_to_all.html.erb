@@ -1,0 +1,3 @@
+<%= raw CGI::escapeHTML(GitHub::Markdown.render(render partial: 'items/as_markdown', handlers: [:erb], formats: :html, locals: { items: @post.items_by_type, include_authors: true })) %>
+---------------------------
+This standup starts at <%= link_to standup_items_url(@standup_id) %>
