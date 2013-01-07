@@ -6,6 +6,7 @@ gem 'pg'
 gem 'unicorn'
 gem 'jquery-rails'
 gem 'omniauth-google-apps'
+gem 'github-markdown', :require => 'github/markdown'
 
 group :test, :development do
   gem 'rspec-rails'

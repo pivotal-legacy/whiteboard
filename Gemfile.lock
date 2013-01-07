@@ -85,6 +85,7 @@ GEM
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
     fssm (0.2.9)
+    github-markdown (0.5.3)
     hashie (1.2.0)
     heroku (2.26.2)
       heroku-api (~> 0.2.1)
@@ -235,6 +236,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-sass-rails
+  github-markdown
   heroku
   heroku_san
   jquery-rails
