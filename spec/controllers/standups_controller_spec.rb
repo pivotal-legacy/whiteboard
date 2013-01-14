@@ -91,11 +91,27 @@ describe StandupsController do
     let!(:new_york) { create(:standup, ip_key: "nyc") }
     let!(:san_fran) { create(:standup, ip_key: "sf") }
 
-    it "redirects to the standup that corresponds with the given ip" do
-      with_authorized_ips({nyc: [IPAddr.new("127.0.0.1/32")], sf: [IPAddr.new("123.4.5.6/32")]}) do
-        request.stub(remote_ip: '123.4.5.6')
-        get :route
-        response.should redirect_to standup_items_path(san_fran)
+    context "when a standup matches the ip address" do
+      let!(:new_york2) { create(:standup, ip_key: 'nyc') }
+      let!(:no_location) { create(:standup, ip_key: 'none') }
+
+      before do
+        with_authorized_ips({nyc: [IPAddr.new("123.4.5.6/32")], sf: [IPAddr.new("127.0.0.1/32")]}) do
+          request.stub(remote_ip: '123.4.5.6')
+          get :route
+        end
+      end
+
+      it 'renders the standups index' do
+        response.should render_template :index
+      end
+
+      it 'includes all standups with the specified ip address' do
+        assigns(:standups).should include new_york, new_york2
+      end
+
+      it 'includes all standups with the specified ip address' do
+        assigns(:standups).should include no_location
       end
     end
 
