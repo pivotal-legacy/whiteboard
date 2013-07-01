@@ -51,8 +51,9 @@ Subject: <%= @post.title_for_email %>
 </div>
 
 <div class='well'>
-  <h3>Please double check the blog post. Ensure that there are no client names in the post, and that
-    the content is of interest to the general public. When you are ready, please copy the HTML into a blog post.</h3>
+  <h3>Please double check the blog post. Ensure that there are no client names or private info in the post, and that
+    the content is of interest to the general public. Don't click the button if the blog post is empty. Otherwise,
+    click the "Post Blog Entry" button to post it to <%= link_to "http://www.pivotallabs.com/community", "http://www.pivotallabs.com/community" %>.</h3>
 
   <div class='blog_post preview'>
     (Title: <%= @post.title_for_blog %>)
