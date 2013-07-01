@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/kendagriff/ruby-openid.git
+  revision: 79beaa419d4754e787757f2545331509419e222e
+  ref: 79beaa419d4754e787757f2545331509419e222e
+  specs:
+    ruby-openid (2.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -179,7 +186,6 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
-    ruby-openid (2.1.8)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
     rubyzip (0.9.9)
@@ -245,6 +251,7 @@ DEPENDENCIES
   pry
   rails (= 3.2.13)
   rspec-rails (= 2.13.0)
+  ruby-openid!
   sass-rails
   shoulda-matchers
   sqlite3
