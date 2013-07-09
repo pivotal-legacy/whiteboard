@@ -34,7 +34,13 @@
   </div>
 
   <div class="block">
-    <%= f.collection_select(:standup_id, Standup.all, :id, :title, {}, :class => "wide") %>
+    <%= f.collection_select(:standup_id,
+                            Standup.all,
+                            :id,
+                            :title,
+                            {},
+                            { :class => "wide",
+                              "aria-label" => "Standup" }) %>
   </div>
 
   <div class="block">

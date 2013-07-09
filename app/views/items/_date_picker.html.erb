@@ -1,3 +1,9 @@
 <div class='block'>
-  <%= f.text_field :date, value: item.date || Date.today, "data-date-format" => "yyyy-mm-dd", :size => nil, :class => "wide" %>
+  <%= f.text_field :date,
+    value: item.date || Date.today,
+    "data-date-format" => "yyyy-mm-dd",
+    :size => nil,
+    :class => "wide",
+    'aria-label' => 'Date'
+  %>
 </div>

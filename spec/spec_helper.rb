@@ -6,7 +6,7 @@ require 'rspec/autorun'
 
 require 'capybara/rails'
 require 'capybara/rspec'
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :accessible
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -28,6 +28,10 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  config.around(:each, inaccessible: true) do |example|
+    Capybara::Accessible.skip_audit { example }
   end
 
   # If true, the base class of anonymous controllers will be inferred

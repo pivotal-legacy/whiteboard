@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "publishing", type: :request, js: true do
+describe "publishing", type: :request, js: true, inaccessible: true do
   let!(:standup) { FactoryGirl.create(:standup, title: 'Camelot', subject_prefix: "[Standup][CO]") }
 
   before do

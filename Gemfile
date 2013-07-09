@@ -16,6 +16,7 @@ group :test, :development do
   gem 'faker'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'capybara-accessible'
   gem 'launchy'
   gem 'sqlite3'
   gem 'database_cleaner'
