@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   KINDS = ['New face', 'Help', 'Interesting', 'Event']
-  default_scope order('date ASC')
+  default_scope { order('date ASC') }
 
   belongs_to :post
   belongs_to :standup

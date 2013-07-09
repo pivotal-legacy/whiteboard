@@ -29,7 +29,7 @@
                         <%= link_to edit_item_path(item) do %>
                             <i class="icon-edit"></i>
                         <% end %>
-                        <%= link_to item, confirm: 'Are you sure?', method: :delete do %>
+                        <%= link_to item, data: { confirm: 'Are you sure?' }, method: :delete do %>
                             <i class='icon-trash'></i>
                         <% end %>
                         <% if item.description.present? %>

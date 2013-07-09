@@ -45,10 +45,10 @@ class StandupsController < ApplicationController
 
   def route
     ip_key = AuthorizedIps.corresponding_ip_key(request.remote_ip)
-    @standups = Standup.find_all_by_ip_key(ip_key)
+    @standups = Standup.where(ip_key: ip_key).to_a
 
     if @standups.any?
-      @standups |= Standup.find_all_by_ip_key('none')
+      @standups |= Standup.where(ip_key: 'none').to_a
       render :index
     else
       redirect_to standups_path

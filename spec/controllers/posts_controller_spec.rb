@@ -116,7 +116,7 @@ describe PostsController do
 
   describe "#post_to_blog" do
     before do
-      @fakeWordpress = mock("wordpress service", :"minimally_configured?" => true)
+      @fakeWordpress = double("wordpress service", :"minimally_configured?" => true)
       Rails.application.config.stub(:blogging_service) { @fakeWordpress }
 
       @item = create(:item, public: true)

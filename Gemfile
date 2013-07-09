@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.0'
 
 gem 'pg'
 gem 'unicorn'
@@ -8,9 +8,10 @@ gem 'jquery-rails'
 gem 'omniauth-google-apps'
 gem 'github-markdown', :require => 'github/markdown'
 gem 'exceptional'
+gem 'protected_attributes'
 
 group :test, :development do
-  gem 'rspec-rails', '2.13.0'
+  gem 'rspec-rails', '2.14.0'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -30,7 +31,7 @@ group :development do
 end
 
 group :assets do
-  gem 'compass-rails'
+  gem 'compass-rails', git: "git://github.com/milgner/compass-rails", branch: "rails4"
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'

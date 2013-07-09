@@ -24,8 +24,8 @@ Whiteboard::Application.routes.draw do
     end
   end
 
-  match '/auth/:provider/callback', to: 'sessions#create'
-  match '/logout', to: 'sessions#destroy'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
 
   root :to => 'standups#route'
 end

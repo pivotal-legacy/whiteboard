@@ -8,7 +8,7 @@ describe WordpressService do
     end
 
     it "calls the connection with the attributes for the post" do
-      connection = mock("mock_connection")
+      connection = double("mock_connection")
       subject.should_receive(:connection).and_return(connection)
 
       connection.should_receive(:call).with(
@@ -19,7 +19,7 @@ describe WordpressService do
         {post: :hash},
         true).and_return("mocked call")
 
-      blog_post = mock("blog post", post_hash: {post: :hash})
+      blog_post = double("blog post", post_hash: {post: :hash})
 
       subject.send!(blog_post).should == "mocked call"
     end

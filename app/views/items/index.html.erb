@@ -7,7 +7,7 @@
         <%= text_field_tag 'post[from]', nil, placeholder: 'Blogger Name(s)' %>
         <%= text_field_tag 'post[title]', nil, placeholder: 'Post Title (eg: Best Standup Ever)', class: 'wide-input' %>
         <%= submit_tag 'Create Post',
-                       confirm: 'This will remove these items from the board. Are you sure?',
+                       data: { confirm: 'This will remove these items from the board. Are you sure?' },
                        id: 'create-post',
                        class: 'btn btn-warning'
         %>

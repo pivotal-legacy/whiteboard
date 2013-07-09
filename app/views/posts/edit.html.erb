@@ -43,9 +43,9 @@ Subject: <%= @post.title_for_email %>
       <span class='notice'>There is no content to publish.</span>
   <% else %>
       <%= link_to 'Send Email', send_email_post_path(@post),
-                  :confirm => 'Emails can not be unsent.  Are you sure?',
-                  :method => :put,
-                  :class => 'btn btn-warning'
+                  data: { confirm: 'Emails can not be unsent.  Are you sure?' },
+                  method: :put,
+                  class: 'btn btn-warning'
       %>
   <% end %>
 </div>
@@ -69,9 +69,9 @@ Subject: <%= @post.title_for_email %>
       <span class='notice'>There is no content to publish, please verify that the helps / interestings are marked as public if you want to include them in the blog post.</span>
   <% elsif wordpress_enabled? %>
       <%= link_to 'Post Blog Entry', post_to_blog_post_path(@post),
-                  :confirm => 'This will post to wordpress.  Are you sure?',
-                  :method => :put,
-                  :class => 'btn btn-warning' %>
+                  data: { confirm: 'This will post to wordpress.  Are you sure?' },
+                  method: :put,
+                  class: 'btn btn-warning' %>
   <% elsif !wordpress_enabled? %>
       <p class='btn btn-warning' disabled='disabled' title='Wordpress is not configured. You can not send blog posts.'>Post
         Blog Entry</p>
@@ -80,5 +80,5 @@ Subject: <%= @post.title_for_email %>
 
 <div class='well'>
   <h3> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
-  <%= link_to 'Archive Post', archive_post_path(@post), :method => :put, :class => 'btn btn-warning' %>
+  <%= link_to 'Archive Post', archive_post_path(@post), method: :put, class: 'btn btn-warning' %>
 </div>
