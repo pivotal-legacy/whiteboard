@@ -18,8 +18,8 @@
           </div>
       <% end %>
 
-      <%= f.text_field :from %>
-      <%= f.text_field :title %>
+      <%= f.text_field :from, :'aria-label' => 'From' %>
+      <%= f.text_field :title, :'aria-label' => 'Title' %>
       <%= f.submit "Update", class: 'btn btn-primary' %>
   <% end %>
 </div>
