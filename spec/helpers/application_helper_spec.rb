@@ -1,19 +1,6 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
-  describe "#close_standup" do
-    it "picks a closing" do
-      Date.stub_chain(:today, :wday).and_return(4)
-      helper.should_receive(:rand).and_return(0)
-      helper.standup_closing.should == "STRETCH!"
-    end
-
-    it "should remind us when its Floor Friday" do
-      Date.stub_chain(:today, :wday).and_return(5)
-      helper.standup_closing.should == "STRETCH! It's Floor Friday!"
-    end
-  end
-
   describe "#pending_post_count" do
     let(:standup) { create(:standup) }
     let(:other_standup) { create(:standup) }

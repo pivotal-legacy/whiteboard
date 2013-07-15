@@ -70,6 +70,7 @@ describe "items", type: :request, js: true do
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should_not have_content "Events"
+    find('section.deck-current').should have_content "Woohoo"
 
     all('.exit-presentation').first.click
 
