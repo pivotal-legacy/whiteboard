@@ -1,4 +1,10 @@
-<h3 class='well'>Please update these items with any new information from standup:</h3>
+<div class="well">
+  <h3>Please update these items with any new information from standup:</h3>
+  <div>
+    Add any answers/discussions that were brought up. <strong>If you missed anything, ask the owner of the help /
+    interesting to fill in details before you submit.</strong>
+  </div>
+</div>
 
 <%= render partial: 'items/as_html', locals: {items: @post.items_by_type} %>
 
