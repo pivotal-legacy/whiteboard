@@ -42,6 +42,13 @@ describe "items", type: :request, js: true do
     fill_in 'item_author', :with => "Linus Torvalds"
     fill_in 'item_description', with: "Check it out!"
     click_button 'Create Item'
+
+    find('a[data-kind="Event"] i').click
+    click_button('Interesting')
+    fill_in 'item_title', :with => "Rails 62 is out"
+    fill_in 'item_author', :with => "DHH"
+    fill_in 'item_description', with: "Now with more f-bombs"
+    click_button 'Create Item'
   end
 
   it 'deck.js for standup' do
@@ -59,14 +66,16 @@ describe "items", type: :request, js: true do
     find('section.deck-current').should have_content "Interestings"
     find('section.deck-current').should have_content("Linux 3.2 out")
     find('section.deck-current').should have_content("Linus Torvalds")
+    find('section.deck-current').should have_content("Rails 62 is out")
     find('section.deck-current').should_not have_selector('.in')
-    find('section.deck-current a[data-toggle]').click
+    first('section.deck-current a[data-toggle]').click
     find('section.deck-current').should have_selector('.in')
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should have_content "Events"
     find('section.deck-current').should have_content "Party"
     find('section.deck-current').should_not have_content "Meetup"
+    find('section.deck-current').should_not have_content("Rails 62 is out")
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should_not have_content "Events"
