@@ -40,7 +40,7 @@
 <% end %>
 
 <section class="slide">
-  <h1><%= standup_closing %></h1>
+  <h1><%= @standup.closing_message %></h1>
   <div class='footer'>
     <p>
       <%= link_to 'Exit', standup_items_path(@standup), class: 'btn btn-large btn-primary exit-presentation' %>

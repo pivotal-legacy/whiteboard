@@ -1,23 +1,10 @@
 module ApplicationHelper
-  STANDUP_CLOSINGS = [
-    "STRETCH!",
-    "STRETCH! It's good for you!",
-    "STRETCH!!!!!"
-  ]
-
   def wordpress_enabled?
     Rails.application.config.blogging_service.minimally_configured?
   end
 
   def dynamic_new_item_path(opts={})
     @post ? new_standup_post_item_path(@post, opts) : new_standup_item_path(@standup, opts)
-  end
-
-  def standup_closing
-    return "STRETCH! It's Floor Friday!" if Date.today.wday == 5
-
-    index = rand(STANDUP_CLOSINGS.length)
-    STANDUP_CLOSINGS[index]
   end
 
   def pending_post_count(standup)

@@ -62,9 +62,11 @@ class ItemsController < ApplicationController
 
   def load_standup
     if params[:standup_id].present?
-      @standup = Standup.find(params[:standup_id])
+      standup = Standup.find(params[:standup_id])
     else
-      @standup = Item.find(params[:id]).standup
+      standup = Item.find(params[:id]).standup
     end
+
+    @standup = StandupPresenter.new(standup)
   end
 end

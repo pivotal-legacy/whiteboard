@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "items", type: :request, js: true do
-  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]") }
+  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]", closing_message: 'Woohoo') }
   let!(:other_standup) { FactoryGirl.create(:standup, title: 'New York') }
 
   before do
@@ -70,6 +70,7 @@ describe "items", type: :request, js: true do
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should_not have_content "Events"
+    find('section.deck-current').should have_content "Woohoo"
 
     all('.exit-presentation').first.click
 
