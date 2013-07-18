@@ -14,6 +14,11 @@
 <div class='block to_address'>
   <%= form.text_field :to_address, :placeholder => 'Send Email To (address)', :size => nil, :class => "wide" %>
 </div>
+
+<div class='block closing_message'>
+  <%= form.text_field :closing_message, :placeholder => 'Closing Message (optional)', :size => nil, :class => "wide" %>
+</div>
+
 <div class='block'>
   <%= form.submit class: 'btn btn-primary btn-block' %>
 </div>
