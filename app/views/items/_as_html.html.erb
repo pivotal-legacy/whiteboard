@@ -1,16 +1,19 @@
-<% Item::KINDS.each_slice(2) do |pair_of_kinds| %>
+<% Item.kinds.each_slice(2) do |pair_of_kinds| %>
     <div class="two-wide">
       <% pair_of_kinds.each do |kind| %>
           <div class="kind">
             <div class="block header">
-              <h2 class="title"><%= kind.pluralize %></h2>
-              <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind), 'data-kind' => kind do %>
+              <h2 class="title"><%= kind.name.pluralize %></h2>
+              <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind.name), 'data-kind' => kind.name do %>
                   <i class="icon-plus-sign"></i>
+
               <% end %>
             </div>
-
-            <% if items[kind].present? %>
-                <% items[kind].each do |item| %>
+            <% if kind.subtitle.present? %>
+                <div class="subtitle"><%= kind.subtitle %></div>
+            <% end %>
+            <% if items[kind.name].present? %>
+                <% items[kind.name].each do |item| %>
                     <div class="block item">
 
                       <% if item.author.present? %>

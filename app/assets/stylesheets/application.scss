@@ -68,6 +68,13 @@ a:hover {
   @include box-flex(1);
 }
 
+.subtitle {
+  padding: 3px 8px 4px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 4px;
+  color: #666;
+}
+
 .block {
   @include display-box;
   @include box-orient(horizontal);

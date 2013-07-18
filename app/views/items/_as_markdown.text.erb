@@ -1,8 +1,8 @@
-<% Item::KINDS.each do |kind| %>
-  <% if items[kind].present? %>
-## <%= kind.pluralize.html_safe %>
+<% Item.kinds.each do |kind| %>
+  <% if items[kind.name].present? %>
+## <%= kind.name.pluralize.html_safe %>
 
-    <% items[kind].each do |item| %>
+    <% items[kind.name].each do |item| %>
       <% if item.date.present? %>
 ### <%= date_label(item) %><%= item.title.html_safe %>
       <% else %>

@@ -1,11 +1,14 @@
 class Item < ActiveRecord::Base
-  KINDS = ['New face', 'Help', 'Interesting', 'Event']
+  KINDS = [{name: 'New face', subtitle: ''},
+  {name: 'Help', subtitle: ''},
+  {name: 'Interesting', subtitle: 'News, Articles, Tools, Best Practices, Project Milestones, etc'},
+  {name: 'Event', subtitle: ''}]
   default_scope { order('date ASC') }
 
   belongs_to :post
   belongs_to :standup
 
-  validates :kind, inclusion: KINDS
+  validates_inclusion_of :kind, in: KINDS.map { |k| k[:name]}
   validates :standup, presence: true
   validates :title, presence: true
 
@@ -35,5 +38,9 @@ class Item < ActiveRecord::Base
 
   def possible_template_name
     kind && "items/new_#{kind.downcase.gsub(" ", '_')}"
+  end
+
+  def self.kinds
+    KINDS.map { |kind| Kind.new(kind[:name], kind[:subtitle]) }
   end
 end

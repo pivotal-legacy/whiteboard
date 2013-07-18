@@ -24,6 +24,23 @@ section > .footer {
   display: none;
 }
 
+section.deck-current .titles {
+  border-bottom: 3px solid #888;
+  margin-bottom: .66666em;
+
+  h2 {
+    margin: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .subtitle {
+    padding: 3px 8px 4px 0px;
+    margin-bottom: 4px;
+    color: #999;
+    font-size: 80%;
+  }
+}
+
 section.deck-current > .footer{
   display: block;
   position: fixed;

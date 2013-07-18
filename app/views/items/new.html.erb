@@ -4,7 +4,7 @@
 
   <div class="block">
     <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
-      <% (Item::KINDS - ['New face']).each do |kind| %>
+      <% (Item.kinds.map(&:name) - ['New face']).each do |kind| %>
         <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button">
           <div class="spacer"></div>
           <%= kind %>

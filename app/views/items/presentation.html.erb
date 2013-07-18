@@ -8,12 +8,15 @@
   </div>
 </section>
 
-<% Item::KINDS.each do |kind| %>
+<% Item.kinds.each do |kind| %>
   <section class="slide">
-    <h2><%= kind.pluralize %></h2>
-    <% if @items[kind] %>
+    <div class="titles">
+      <h2><%= kind.name.pluralize %></h2>
+      <div class="subtitle"><%= kind.subtitle %></div>
+    </div>
+    <% if @items[kind.name] %>
       <ul>
-      <% @items[kind].each do |item| %>
+      <% @items[kind.name].each do |item| %>
         <li>
           <%= format_title(item) %>
           <% if item.author.present? %>
