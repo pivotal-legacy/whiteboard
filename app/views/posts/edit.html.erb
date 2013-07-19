@@ -1,84 +1,95 @@
-<h3 class='well'>Please update these items with any new information from standup:</h3>
+<div class="fluid-container">
+  <h1>Review</h1>
 
-<%= render partial: 'items/as_html', locals: {items: @post.items_by_type} %>
+  <div class='well'>
+    <h3>Please update these items with any new information from standup:</h3>
 
-<hr>
-<div class='well'>
-  <h3>Update the author(s) and title if necessary:</h3>
-  <%= form_for(@post, html: {class: 'form-inline'}) do |f| %>
-      <% if @post.errors.any? %>
-          <div id="errorExplanation">
-            <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-              this item from being saved:</h2>
-            <ul>
-              <% @post.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
+    <%= render partial: 'items/as_html', locals: {items: @post.items_by_type} %>
+
+    <hr>
+    <div>
+      <h3>Update the author(s) and title if necessary:</h3>
+      <%= form_for(@post, html: {class: 'form-inline'}) do |f| %>
+          <% if @post.errors.any? %>
+              <div id="errorExplanation">
+                <h2><%= pluralize(@post.errors.count, "error") %> prohibited
+                  this item from being saved:</h2>
+                <ul>
+                  <% @post.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <%= f.text_field :from %>
+          <%= f.text_field :title %>
+          <%= f.submit "Update", class: 'btn btn-primary' %>
       <% end %>
+    </div>
+  </div>
 
-      <%= f.text_field :from %>
-      <%= f.text_field :title %>
-      <%= f.submit "Update", class: 'btn btn-primary' %>
-  <% end %>
-</div>
+  <h1>Publish</h1>
 
-<div class='well'>
-  <h3>Please double check this email for accuracy. When you are ready, press the 'send email now' button:</h3>
+  <div class='well'>
+    <h3>Please double check this email for accuracy. When you are ready, press the 'send email now' button:</h3>
 
-  <div class='email_post preview'>
+    <div class='email_post preview'>
       <pre>
 Subject: <%= @post.title_for_email %>
         From: <%= @post.from %>
 
         <%= raw CGI::escapeHTML(GitHub::Markdown.render(render partial: 'items/as_markdown', formats: [:text], handlers: [:erb], locals: {items: @post.items_by_type, include_authors: true})) %>
   </pre>
-  </div>
+    </div>
 
-  <% if @post.sent_at %>
-      This email was sent at <%= @post.sent_at %>
-  <% elsif @post.items.empty? %>
-      <p class='btn btn-warning' disabled='disabled'>Send Email</p>
-      <span class='notice'>There is no content to publish.</span>
-  <% else %>
-      <%= link_to 'Send Email', send_email_post_path(@post),
-                  data: { confirm: 'Emails can not be unsent.  Are you sure?' },
-                  method: :put,
-                  class: 'btn btn-warning'
-      %>
-  <% end %>
-</div>
+    <% if @post.sent_at %>
+        This email was sent at <%= @post.sent_at %>
+    <% elsif @post.items.empty? %>
+        <p class='btn btn-warning' disabled='disabled'>Send Email</p>
+        <span class='notice'>There is no content to publish.</span>
+    <% else %>
+        <%= link_to 'Send Email', send_email_post_path(@post),
+                    data: {confirm: 'Emails can not be unsent.  Are you sure?'},
+                    method: :put,
+                    class: 'btn btn-warning'
+        %>
+    <% end %>
+    <br/>
+    <br/>
 
-<div class='well'>
-  <h3>Please double check the blog post. Ensure that there are no client names or private info in the post, and that
-    the content is of interest to the general public. Don't click the button if the blog post is empty. Otherwise,
-    click the "Post Blog Entry" button to post it to <%= link_to "http://www.pivotallabs.com/community", "http://www.pivotallabs.com/community" %>.</h3>
+    <h3>Please double check the blog post. Ensure that there are no client names or private info in the post, and that
+      the content is of interest to the general public. Don't click the button if the blog post is empty. Otherwise,
+      click the "Post Blog Entry" button to post it
+      to <%= link_to "http://www.pivotallabs.com/community", "http://www.pivotallabs.com/community" %>.</h3>
 
-  <div class='blog_post preview'>
-    (Title: <%= @post.title_for_blog %>)
+    <div class='blog_post preview'>
+      (Title: <%= @post.title_for_blog %>)
 
   <pre>
 <%= raw CGI::escapeHTML(GitHub::Markdown.render(render partial: 'items/as_markdown', formats: [:text], handlers: [:erb], locals: {items: @post.public_items_by_type, include_authors: false})) %>
   </pre>
+    </div>
+    <% if @post.blogged_at %>
+        This entry was posted at <%= @post.blogged_at %>
+    <% elsif !@post.publishable_content? %>
+        <p class='btn btn-warning' disabled='disabled'>Post Blog Entry</p>
+        <span class='notice'>There is no content to publish, please verify that the helps / interestings are marked as public if you want to include them in the blog post.</span>
+    <% elsif wordpress_enabled? %>
+        <%= link_to 'Post Blog Entry', post_to_blog_post_path(@post),
+                    data: {confirm: 'This will post to wordpress.  Are you sure?'},
+                    method: :put,
+                    class: 'btn btn-warning' %>
+    <% elsif !wordpress_enabled? %>
+        <p class='btn btn-warning' disabled='disabled' title='Wordpress is not configured. You can not send blog posts.'>Post
+          Blog Entry</p>
+    <% end %>
   </div>
-  <% if @post.blogged_at %>
-      This entry was posted at <%= @post.blogged_at %>
-  <% elsif !@post.publishable_content? %>
-      <p class='btn btn-warning' disabled='disabled'>Post Blog Entry</p>
-      <span class='notice'>There is no content to publish, please verify that the helps / interestings are marked as public if you want to include them in the blog post.</span>
-  <% elsif wordpress_enabled? %>
-      <%= link_to 'Post Blog Entry', post_to_blog_post_path(@post),
-                  data: { confirm: 'This will post to wordpress.  Are you sure?' },
-                  method: :put,
-                  class: 'btn btn-warning' %>
-  <% elsif !wordpress_enabled? %>
-      <p class='btn btn-warning' disabled='disabled' title='Wordpress is not configured. You can not send blog posts.'>Post
-        Blog Entry</p>
-  <% end %>
-</div>
 
-<div class='well'>
-  <h3> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
-  <%= link_to 'Archive Post', archive_post_path(@post), method: :put, class: 'btn btn-warning' %>
+  <h1>Archive</h1>
+
+  <div class='well'>
+    <h3> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
+    <%= link_to 'Archive Post', archive_post_path(@post), method: :put, class: 'btn btn-warning' %>
+  </div>
 </div>
