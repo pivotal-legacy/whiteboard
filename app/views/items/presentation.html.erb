@@ -12,24 +12,18 @@
   <section class="slide">
     <h2><%= kind.pluralize %></h2>
     <% if @items[kind] %>
-      <ul>
-      <% @items[kind].each do |item| %>
-        <li>
-          <%= format_title(item) %>
-          <% if item.author.present? %>
-            <%= "(#{ item.author })" %>
-          <% end %>
-          <% if item.description.present? %>
-            <a data-toggle="collapse" data-target="#item_<%= item.id %>">
-              <i class="icon-info-sign"></i>
-            </a>
-            <div class="block description collapse" id="item_<%= item.id %>">
-              <%= item.description %>
-            </div>
-          <% end %>
-        </li>
+      <% if kind == 'Event' %>
+        <% @items[kind].group_by(&:relative_date).each do |group_name, events| %>
+          <h3 class="<%= group_name %>"><%= group_name.capitalize %></h3>
+          <ul>
+            <%= render partial: 'presentation_item', collection: events %>
+          </ul>
+        <% end %>
+      <% else %>
+          <ul>
+            <%= render partial: 'presentation_item', collection: @items[kind] %>
+          </ul>
       <% end %>
-      </ul>
     <% end %>
     <div class='footer'>
       <p>

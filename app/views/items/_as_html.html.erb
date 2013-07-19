@@ -10,35 +10,13 @@
             </div>
 
             <% if items[kind].present? %>
-                <% items[kind].each do |item| %>
-                    <div class="block item">
-
-                      <% if item.author.present? %>
-                          <div class="author"><%= "#{item.author}" %></div>
-                      <% end %>
-
-                      <div class="title">
-                        <%= date_label(item) %><%= item.title %>
-                      </div>
-
-                      <div class="description collapse" id="item_<%= item.id %>">
-                        <%= item.description %>
-                      </div>
-
-                      <div class="tools">
-                        <%= link_to edit_item_path(item) do %>
-                            <i class="icon-edit"></i>
-                        <% end %>
-                        <%= link_to item, data: { confirm: 'Are you sure?' }, method: :delete do %>
-                            <i class='icon-trash'></i>
-                        <% end %>
-                        <% if item.description.present? %>
-                            <a data-toggle="collapse" data-target="#item_<%= item.id %>">
-                              <i class="icon-info-sign"></i>
-                            </a>
-                        <% end %>
-                      </div>
-                    </div>
+                <% if kind == 'Event' %>
+                    <% items[kind].group_by(&:relative_date).each do |group_name, events| %>
+                      <h4 class="subheader <%= group_name %>"><%= group_name.capitalize %></h4>
+                      <%= render events %>
+                    <% end %>
+                <% else %>
+                    <%= render items[kind] %>
                 <% end %>
             <% end %>
           </div>

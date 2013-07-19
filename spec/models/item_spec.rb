@@ -112,4 +112,21 @@ describe Item do
       should_not include item_for_different_standup
     end
   end
+
+  describe "relative_date" do
+    it 'returns :today for an event taking place today' do
+      item = Item.new(date: Date.today)
+      item.relative_date.should == :today
+    end
+
+    it 'returns :tomorrow for an event taking place tomorrow' do
+      item = Item.new(date: Date.tomorrow)
+      item.relative_date.should == :tomorrow
+    end
+
+    it 'returns :upcoming for an event taking place after tomorrow' do
+      item = Item.new(date: 2.days.from_now.to_date)
+      item.relative_date.should == :upcoming
+    end
+  end
 end
