@@ -2,6 +2,8 @@
 
   <%= render partial: 'errors', locals: {f: f, item: @item} %>
 
+  <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.referer %>
+
   <div class="block">
     <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
       <% (Item::KINDS - ['New face']).each do |kind| %>

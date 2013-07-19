@@ -167,17 +167,17 @@ describe ItemsController do
       item.reload.title.should == "New Title"
     end
 
-    context "with a post" do
+    context "with a redirect_to param" do
       let(:item) { create(:item, post: create(:post)) }
 
       it "redirects to the edit post page" do
-        put :update, id: item.id, post_id: item.post, item: { title: "New Title" }
-        response.should redirect_to(edit_post_path(item.post))
+        put :update, id: item.id, post_id: item.post, item: { title: "New Title" }, redirect_to: '/foo'
+        response.should redirect_to('/foo')
       end
     end
 
-    context "without a post" do
-      let(:item) { create(:item, post: nil) }
+    context "without a redirect_to param" do
+      let(:item) { create(:item, post: create(:post)) }
 
       it "redirects to the standup page" do
         put :update, id: item.id, post_id: item.post, item: { title: "New Title" }

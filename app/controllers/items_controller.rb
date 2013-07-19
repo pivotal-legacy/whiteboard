@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.update_attributes(params[:item])
     if @item.save
-      redirect_to @item.post ? edit_post_path(@item.post) : @standup
+      redirect_to params[:redirect_to] || @standup
     else
       render_custom_item_template @item
     end
