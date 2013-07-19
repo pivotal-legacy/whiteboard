@@ -1,0 +1,14 @@
+<li>
+  <%= format_title(presentation_item) %>
+  <% if presentation_item.author.present? %>
+      <%= "(#{ presentation_item.author })" %>
+  <% end %>
+  <% if presentation_item.description.present? %>
+      <a data-toggle="collapse" data-target="#item_<%= presentation_item.id %>">
+        <i class="icon-info-sign"></i>
+      </a>
+      <div class="block description collapse" id="item_<%= presentation_item.id %>">
+        <%= presentation_item.description %>
+      </div>
+  <% end %>
+</li>

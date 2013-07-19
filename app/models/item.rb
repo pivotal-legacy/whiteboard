@@ -36,4 +36,13 @@ class Item < ActiveRecord::Base
   def possible_template_name
     kind && "items/new_#{kind.downcase.gsub(" ", '_')}"
   end
+
+  def relative_date
+    case date
+    when Date.today then :today
+    when Date.tomorrow then :tomorrow
+    else
+      :upcoming
+    end
+  end
 end

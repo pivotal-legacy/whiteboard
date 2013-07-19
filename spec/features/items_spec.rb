@@ -37,6 +37,18 @@ describe "items", type: :request, js: true do
     select 'San Francisco', from: 'item[standup_id]'
     click_button 'Create Item'
 
+    find('a[data-kind="Event"] i').click
+    fill_in 'item_title', :with => "Happy Hour"
+    fill_in 'item_date', :with => Time.now.to_date.strftime("%Y-%m-%d")
+    select 'San Francisco', from: 'item[standup_id]'
+    click_button 'Create Item'
+
+    find('a[data-kind="Event"] i').click
+    fill_in 'item_title', :with => "Baseball"
+    fill_in 'item_date', :with => 1.day.from_now.to_date.strftime("%Y-%m-%d")
+    select 'San Francisco', from: 'item[standup_id]'
+    click_button 'Create Item'
+
     find('a[data-kind="Interesting"] i').click
     fill_in 'item_title', :with => "Linux 3.2 out"
     fill_in 'item_author', :with => "Linus Torvalds"
@@ -45,6 +57,15 @@ describe "items", type: :request, js: true do
   end
 
   it 'deck.js for standup' do
+    visit '/'
+    click_link(standup.title)
+    page.should have_css('.subheader.today', text: 'Today')
+    page.should have_css('.today + .item', text: 'Happy Hour')
+    page.should have_css('.subheader.tomorrow', text: 'Tomorrow')
+    page.should have_css('.tomorrow + .item', text: 'Baseball')
+    page.should have_css('.subheader.upcoming', text: 'Upcoming')
+    page.should have_css('.upcoming + .item', text: 'Party')
+
     visit presentation_standup_items_path(standup)
     find('section.deck-current').should have_content "Standup"
     page.execute_script("$.deck('next')")
@@ -65,7 +86,12 @@ describe "items", type: :request, js: true do
     page.execute_script("$.deck('next')")
 
     find('section.deck-current').should have_content "Events"
-    find('section.deck-current').should have_content "Party"
+    page.should have_css('section.deck-current', text: 'Today')
+    page.should have_css('.today + ul li', text: 'Happy Hour')
+    page.should have_css('section.deck-current', text: 'Tomorrow')
+    page.should have_css('.tomorrow + ul li', text: 'Baseball')
+    page.should have_css('section.deck-current', text: 'Upcoming')
+    page.should have_css('.upcoming + ul li', text: 'Party')
     find('section.deck-current').should_not have_content "Meetup"
     page.execute_script("$.deck('next')")
 
