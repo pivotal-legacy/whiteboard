@@ -51,10 +51,10 @@
       </div>
     </div>
 
-    <div class='image_folder control-group'>
-      <%= form.label :image_folder, 'Image Folder (ex. sf)', class: 'control-label' %>
+    <div class='image_urls control-group'>
+      <%= form.label :image_urls, 'Image URLs (newline separated)', class: 'control-label' %>
       <div class="controls">
-        <%= form.text_field :image_folder, :class => "wide" %>
+        <%= form.text_area :image_urls, :class => "input-xxlarge", :rows => 8 %>
       </div>
     </div>
 

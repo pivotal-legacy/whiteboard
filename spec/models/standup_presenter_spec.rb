@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'fileutils'
 
 describe StandupPresenter do
-  let(:standup) { double(foo: 'bar', closing_message: '') }
+  let(:standup) { double(foo: 'bar', closing_message: '', image_urls: '') }
   subject { StandupPresenter.new(standup) }
 
   it 'delegates methods to standup' do
@@ -12,14 +12,7 @@ describe StandupPresenter do
   context 'when standup object does not have a closing message' do
     it 'picks a closing message' do
       Date.stub_chain(:today, :wday).and_return(4)
-      subject.stub(:rand) { 0 }
-      subject.closing_message.should == 'STRETCH!'
-    end
-
-    it 'picks a closing message (2)' do
-      Date.stub_chain(:today, :wday).and_return(2)
-      subject.stub(:rand) { 2 }
-      subject.closing_message.should == 'STRETCH!!!!!'
+      StandupPresenter::STANDUP_CLOSINGS.should include(subject.closing_message)
     end
 
     it 'should remind us when its Floor Friday' do
@@ -28,7 +21,7 @@ describe StandupPresenter do
     end
   end
 
-  context 'when standup object does have a closing message and image folder is blank' do
+  context 'when standup object does have a closing message and image urls are blank' do
     let(:standup) { double(closing_message: 'Yay!') }
 
     it 'returns the standup closing message' do
@@ -37,29 +30,23 @@ describe StandupPresenter do
   end
 
   describe '#closing_image' do
-    let!(:standup) { FactoryGirl.create(:standup, image_folder: 'sf', image_days: ['Mon', 'Tue']) }
+    let(:image_urls) {
+      ['http://example.com/bar.png', 'http://example.com/baz.png']
+    }
+    let!(:standup) { FactoryGirl.create(:standup, image_urls: image_urls.join("\n"), image_days: ['Mon', 'Tue']) }
 
     context 'when the day is selected' do
       before do
         Timecop.travel(Time.local(2013, 9, 2, 12, 0, 0)) #monday
-        FakeFS.activate!
       end
 
       after do
-        FakeFS::FileSystem.clear
-        FakeFS.deactivate!
         Timecop.return
       end
 
       context 'when the directory contains files' do
-        before do
-          FileUtils.mkdir_p('app/assets/images/sf')
-          FileUtils.touch('app/assets/images/sf/foo.jpg')
-          FileUtils.touch('app/assets/images/sf/bar.jpg')
-        end
-
-        it 'returns an image url from the image folder' do
-          ['sf/foo.jpg', 'sf/bar.jpg'].should include subject.closing_image
+        it 'returns an image url from the list of image urls' do
+          image_urls.should include subject.closing_image
         end
 
         it 'does not return the same image 100 times in a row' do
@@ -69,22 +56,6 @@ describe StandupPresenter do
           end
 
           images.uniq.length.should == 2
-        end
-      end
-
-      context 'when there are no files' do
-        before do
-          FileUtils.mkdir_p('app/assets/images/sf')
-        end
-
-        it 'raises an exception' do
-          expect{ subject.closing_image}.to raise_error
-        end
-      end
-
-      context 'when the directory does not exist' do
-        it 'raises an exception' do
-          expect{ subject.closing_image}.to raise_error
         end
       end
     end
@@ -103,6 +74,4 @@ describe StandupPresenter do
       end
     end
   end
-
-
 end

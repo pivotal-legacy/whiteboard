@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131002174738) do
+ActiveRecord::Schema.define(version: 20131017003125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20131002174738) do
     t.integer  "post_id"
     t.boolean  "public",      default: false
     t.boolean  "bumped",      default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "standup_id"
     t.date     "date"
     t.string   "author"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20131002174738) do
   create_table "posts", force: true do |t|
     t.text     "title"
     t.boolean  "sent"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "sent_at"
     t.string   "from",         default: "Standup Blogger"
     t.datetime "blogged_at"
@@ -47,13 +47,13 @@ ActiveRecord::Schema.define(version: 20131002174738) do
     t.string   "title"
     t.string   "subject_prefix"
     t.string   "to_address"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "closing_message"
     t.string   "time_zone_name",      default: "Eastern Time (US & Canada)", null: false
     t.text     "ip_addresses_string"
     t.string   "start_time_string",   default: "9:06am"
-    t.string   "image_folder"
+    t.text     "image_urls"
     t.string   "image_days"
   end
 

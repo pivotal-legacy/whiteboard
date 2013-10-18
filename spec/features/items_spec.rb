@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "items", type: :request, js: true do
-  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]", closing_message: 'Woohoo', image_folder: 'sf', image_days: ['Mon']) }
+  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]", closing_message: 'Woohoo', image_urls: 'http://example.com/bar.png', image_days: ['Mon']) }
   let!(:other_standup) { FactoryGirl.create(:standup, title: 'New York') }
   let(:timezone) { ActiveSupport::TimeZone.new(standup.time_zone_name) }
 
@@ -138,7 +138,7 @@ describe "items", type: :request, js: true do
     within 'section.deck-current' do
       page.should_not have_content "Events"
       page.should have_content "Woohoo"
-      page.should have_css('img[alt="Pivotal logo"]')
+      page.should have_css('img[src="http://example.com/bar.png"]')
     end
 
     all('.exit-presentation').first.click

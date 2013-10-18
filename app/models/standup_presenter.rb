@@ -13,14 +13,13 @@ class StandupPresenter < SimpleDelegator
   def closing_message
     return @standup.closing_message if @standup.closing_message.present?
     return "STRETCH! It's Floor Friday!" if Date.today.wday == 5
+    return nil if @standup.image_urls.present?
 
-    index = rand(STANDUP_CLOSINGS.length)
-    STANDUP_CLOSINGS[index]
+    STANDUP_CLOSINGS.sample
   end
 
   def closing_image
     return nil unless @standup.image_days.include? @standup.date_today.strftime("%a")
-    dir = @standup.image_folder
-    "#{dir}/" + Dir.entries("app/assets/images/#{dir}").select { |f| f =~ /\.(png|gif|jpg|jpeg)$/i }.sample
+    @standup.image_urls.split("\n").reject(&:blank?).sample
   end
 end

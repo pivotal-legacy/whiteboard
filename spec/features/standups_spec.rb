@@ -18,7 +18,7 @@ describe "standups", type: :request do
     fill_in 'standup_closing_message', with: "Woohoo"
     fill_in 'standup_ip_addresses_string', with: "192.168.0.0/24\n\r192.168.1.5\n\r127.0.0.1"
     fill_in 'standup_start_time_string', with: '10:00am'
-    fill_in 'standup_image_folder', with: 'sf'
+    fill_in 'standup_image_urls', with: 'http://example.com/bar.png'
     click_button 'Create Standup'
 
     visit '/'
@@ -42,7 +42,7 @@ describe "standups", type: :request do
     page.should have_css('option[value="Mountain Time (US & Canada)"][selected]')
     page.should have_css('input[value="10:00am"]')
 
-    within 'textarea' do
+    within '.ip_addresses textarea' do
       page.should have_content('192.168.0.0/24')
       page.should have_content('192.168.1.5')
       page.should have_content('127.0.0.1')
@@ -61,7 +61,7 @@ describe "standups", type: :request do
     fill_in 'standup_closing_message', with: "Woohoo"
     fill_in 'standup_ip_addresses_string', with: "192.168.0.0/24\n\r192.168.1.5"
     fill_in 'standup_start_time_string', with: '10:00am'
-    fill_in 'standup_image_folder', with: 'sf'
+    fill_in 'standup_image_urls', with: 'http://example.com/bar.png'
 
     expect(page).to have_content "Please remember to add your own IP (127.0.0.1) to the whitelist if you'd like to access this standup from your current location."
 

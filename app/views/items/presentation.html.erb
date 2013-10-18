@@ -47,7 +47,7 @@
 
 <section class="slide">
   <h1><%= @standup.closing_message %>
-  <% if @standup.image_folder %>
+  <% if @standup.image_urls %>
     <%= image_tag(@standup.closing_image) %>
   <% end %>
   </h1>
