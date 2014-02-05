@@ -21,10 +21,10 @@
 <% Item.kinds.each do |kind| %>
     <section class="slide">
       <div class="titles">
-        <h2><%= kind.name.pluralize %></h2>
+        <h2><%= kind.name.pluralize.titleize %></h2>
       </div>
       <% if @items[kind.name] %>
-          <% if kind.name == 'Event' || kind.name == 'New face'%>
+          <% if kind.name == 'Event' || kind.name == 'NewFace'%>
               <% @items[kind.name].group_by(&:relative_date).each do |group_name, events| %>
                   <h3 class="<%= group_name %>"><%= group_name.capitalize %></h3>
                   <ul>

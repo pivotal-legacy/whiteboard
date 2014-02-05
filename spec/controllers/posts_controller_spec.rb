@@ -15,7 +15,7 @@ describe PostsController do
     end
 
     it "adopts all items" do
-      item = create(:item, standup: standup)
+      item = create(:help, standup: standup)
       post :create, post: { title: "Standup 12/12/12"}, standup_id: standup.id
       assigns[:post].items.should == [ item ]
     end

@@ -1,12 +1,13 @@
 class ItemsController < ApplicationController
-  before_filter :load_standup, except: [:create]
+  before_filter :load_standup, except: [:create, :edit, :update]
 
   def create
     @item = Item.new(params[:item])
     if @item.save
       redirect_to @item.post ? edit_post_path(@item.post) : standup_path(@item.standup)
     else
-      render 'items/new'
+      load_standup
+      render_custom_item_template @item
     end
   end
 
@@ -38,7 +39,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.update_attributes(params[:item])
     if @item.save
-      redirect_to params[:redirect_to] || @standup
+      redirect_to params[:redirect_to] || @item.standup
     else
       render_custom_item_template @item
     end
@@ -53,8 +54,8 @@ class ItemsController < ApplicationController
   private
 
   def render_custom_item_template(item)
-    if item.possible_template_name && template_exists?(item.possible_template_name)
-      render item.possible_template_name
+    if item.is_a? NewFace
+      render "new_faces/new"
     else
       render "items/new"
     end

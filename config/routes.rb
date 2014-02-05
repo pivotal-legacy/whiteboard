@@ -10,6 +10,14 @@ Whiteboard::Application.routes.draw do
       end
     end
 
+    [:events, :helps, :interestings, :new_faces].each do |item|
+      resources item, controller: :items do
+        collection do
+          get 'presentation'
+        end
+      end
+    end
+
     resources :posts do
       member do
         put 'send_email'

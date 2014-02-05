@@ -22,7 +22,7 @@ describe ItemsController do
     end
 
     it "should render new on failure" do
-      post :create, item: {}
+      post :create, item: {}, standup_id: standup.to_param
       response.should render_template 'items/new'
     end
 
@@ -46,8 +46,8 @@ describe ItemsController do
     end
 
     it "should render the custom template for the kind if there is one" do
-      get :new, params.merge(item: { kind: 'New face' })
-      response.should render_template('items/new_new_face')
+      get :new, params.merge(item: { kind: 'NewFace' })
+      response.should render_template('new_faces/new')
     end
 
     it "uses the params to create the new item so you can set defaults in the link" do
@@ -65,20 +65,20 @@ describe ItemsController do
 
   describe "#index" do
     it "generates a hash of items by type" do
-      help = create(:item, kind: "Help", standup: standup)
+      help = create(:help, standup: standup)
       new_face = create(:new_face, standup: standup)
-      interesting = create(:item, kind: "Interesting", standup: standup)
+      interesting = create(:interesting, standup: standup)
 
       get :index, params
-      assigns[:items]['New face'].should    == [ new_face ]
+      assigns[:items]['NewFace'].should     == [ new_face ]
       assigns[:items]['Help'].should        == [ help ]
       assigns[:items]['Interesting'].should == [ interesting ]
       response.should be_ok
     end
 
     it "sorts the hash by date asc" do
-      new_help = create(:item, date: 1.days.ago, standup: standup)
-      old_help = create(:item, date: 4.days.ago, standup: standup)
+      new_help = create(:help, date: 1.days.ago, standup: standup)
+      old_help = create(:help, date: 4.days.ago, standup: standup)
 
       get :index, params
       assigns[:items]['Help'].should == [ old_help, new_help ]
@@ -86,13 +86,13 @@ describe ItemsController do
 
     it "does not include items which are associated with a post" do
       post = create(:post, standup: standup)
-      help = create(:item, kind: "Help", standup: standup)
+      help = create(:help, standup: standup)
       new_face = create(:new_face, standup: standup)
-      interesting = create(:item, kind: "Interesting", standup: standup)
-      posted_item = create(:item, post: post, standup: standup)
+      interesting = create(:interesting, standup: standup)
+      posted_item = create(:help, post: post, standup: standup)
 
       get :index, params
-      assigns[:items]['New face'].should    == [ new_face ]
+      assigns[:items]['NewFace'].should    == [ new_face ]
       assigns[:items]['Help'].should        == [ help ]
       assigns[:items]['Interesting'].should == [ interesting ]
       response.should be_ok
@@ -100,8 +100,8 @@ describe ItemsController do
 
     it "does not include items associated with other standups" do
       other_standup = create(:standup)
-      standup_event = create(:item, kind: "Event", standup: standup, date: Date.tomorrow)
-      other_standup_event = create(:item, kind: "Event", standup: other_standup, date: Date.tomorrow)
+      standup_event = create(:event, standup: standup, date: Date.tomorrow)
+      other_standup_event = create(:event, standup: other_standup, date: Date.tomorrow)
 
       get :index, params
 
@@ -123,8 +123,8 @@ describe ItemsController do
 
     it "only loads items from the current standup" do
       other_standup = create(:standup)
-      other_standup_event = create(:item, standup: other_standup, date: Date.tomorrow, kind: "Event")
-      standup_event = create(:item, standup: standup, date: Date.tomorrow, kind: "Event")
+      other_standup_event = create(:event, standup: other_standup, date: Date.tomorrow)
+      standup_event = create(:event, standup: standup, date: Date.tomorrow)
 
       get :presentation, params
 
@@ -147,7 +147,7 @@ describe ItemsController do
 
   describe "#edit" do
     it "should edit the item" do
-      item = create(:item)
+      item = create(:help)
       get :edit, id: item.id
       assigns[:item].should == item
       response.should render_template 'items/new'
@@ -156,7 +156,7 @@ describe ItemsController do
     it "should render the custom template for the kind if there is one" do
       item = create(:new_face)
       get :edit, id: item.id
-      response.should render_template('items/new_new_face')
+      response.should render_template('new_faces/new')
     end
   end
 
@@ -195,7 +195,7 @@ describe ItemsController do
       it "should render a custom template if there is one" do
         item = create(:new_face)
         put :update, id: item.id, post_id: item.post, item: { title: "" }
-        response.should render_template('items/new_new_face')
+        response.should render_template('new_faces/new')
       end
     end
   end

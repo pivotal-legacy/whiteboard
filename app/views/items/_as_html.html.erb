@@ -1,22 +1,22 @@
 <% Item.kinds.each_slice(2) do |pair_of_kinds| %>
     <div class="two-wide">
       <% pair_of_kinds.each do |kind| %>
-          <div class="kind <%= kind.name.downcase.tr(' ', '_') %>">
+          <div class="kind <%= kind.name.underscore.downcase %>">
             <div class="block header">
-              <h2 class="title"><%= kind.name.pluralize %></h2>
+              <h2 class="title"><%= kind.name.pluralize.titleize %></h2>
               <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind.name), 'data-kind' => kind.name do %>
                   <i class="icon-plus-sign"></i>
 
               <% end %>
             </div>
             <% if items[kind.name].present? %>
-                <% if kind.name == 'Event' || kind.name == 'New face' %>
+                <% if kind.name == 'Event' || kind.name == 'NewFace' %>
                     <% items[kind.name].group_by(&:relative_date).each do |group_name, events| %>
                       <h4 class="subheader <%= group_name %>"><%= group_name.capitalize %></h4>
-                      <%= render events %>
+                      <%= render partial: "items/item", collection: events %>
                     <% end %>
                 <% else %>
-                    <%= render items[kind.name] %>
+                    <%= render partial: "items/item", collection: items[kind.name] %>
                 <% end %>
             <% end %>
           </div>

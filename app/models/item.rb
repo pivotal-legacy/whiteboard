@@ -1,9 +1,11 @@
 class Item < ActiveRecord::Base
-  KINDS = [{name: 'New face', subtitle: ''},
+  KINDS = [{name: 'NewFace', subtitle: ''},
            {name: 'Help', subtitle: ''},
            {name: 'Interesting', subtitle: 'News, Articles, Tools, Best Practices, Project Milestones, etc'},
            {name: 'Event', subtitle: ''}]
   default_scope { order('date ASC') }
+
+  self.inheritance_column = :kind
 
   belongs_to :post
   belongs_to :standup
@@ -11,7 +13,6 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :kind, in: KINDS.map { |k| k[:name] }
   validates :standup, presence: true
   validates :title, presence: true
-  validate :face_is_in_the_future
 
   attr_accessible :title, :description, :kind, :public, :post_id, :date, :standup_id, :author
 
@@ -39,10 +40,6 @@ class Item < ActiveRecord::Base
         where("date IS NULL OR date <= ?", Date.today)
   end
 
-  def possible_template_name
-    kind && "items/new_#{kind.downcase.gsub(" ", '_')}"
-  end
-
   def relative_date
     case date
       when standup.date_today then
@@ -56,12 +53,5 @@ class Item < ActiveRecord::Base
 
   def self.kinds
     KINDS.map { |kind| Kind.new(kind[:name], kind[:subtitle]) }
-  end
-
-  private
-  def face_is_in_the_future
-    if kind == 'New face' && (date || Time.at(0)).to_time < Time.now.beginning_of_day
-      errors.add(:base, "Please choose a date in present or future")
-    end
   end
 end
