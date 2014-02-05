@@ -44,6 +44,8 @@ describe Item do
     it "does not allow a past date for a New face" do
       face = Item.new(date: 2.days.ago, kind: "New face")
 
+      face.valid?
+
       expect(face.errors[:date]).to include "cannot be in the past"
     end
   end
