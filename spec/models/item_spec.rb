@@ -40,6 +40,16 @@ describe Item do
     end
   end
 
+  describe "date" do
+    it "does not allow a past date for a New face" do
+      face = Item.new(date: 2.days.ago, kind: "New face")
+
+      face.valid?
+
+      expect(face.errors[:date]).to include "cannot be in the past"
+    end
+  end
+
   describe "defaults" do
     it "defaults public to false" do
       Item.new.public.should == false
@@ -174,13 +184,6 @@ describe Item do
       interesting = FactoryGirl.create(:item, kind: 'Interesting')
 
       Item.orphans.should == {'Help' => [old_help], 'Interesting' => [interesting]}
-    end
-
-    it 'returns new faces that are not in the past' do
-      face = FactoryGirl.create(:item, kind: 'New face')
-      FactoryGirl.create(:item, kind: 'New face', date: 2.days.ago)
-
-      Item.orphans['New face'].should == [face]
     end
 
     it 'returns items in date asc order' do
