@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :kind, in: KINDS.map { |k| k[:name] }
   validates :standup, presence: true
   validates :title, presence: true
+  validate :new_face_date_not_in_past, if: -> { kind == "New face" && date.present? }
 
   attr_accessible :title, :description, :kind, :public, :post_id, :date, :standup_id, :author
 
@@ -55,5 +56,12 @@ class Item < ActiveRecord::Base
 
   def self.kinds
     KINDS.map { |kind| Kind.new(kind[:name], kind[:subtitle]) }
+  end
+
+  protected
+  def new_face_date_not_in_past
+    if date < Date.today
+      errors.add(:date, "cannot be in the past")
+    end
   end
 end
