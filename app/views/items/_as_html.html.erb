@@ -6,19 +6,9 @@
               <h2 class="title"><%= kind.name.pluralize.titleize %></h2>
               <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind.name), 'data-kind' => kind.name do %>
                   <i class="icon-plus-sign"></i>
-
               <% end %>
             </div>
-            <% if items[kind.name].present? %>
-                <% if kind.name == 'Event' || kind.name == 'NewFace' %>
-                    <% items[kind.name].group_by(&:relative_date).each do |group_name, events| %>
-                      <h4 class="subheader <%= group_name %>"><%= group_name.capitalize %></h4>
-                      <%= render partial: "items/item", collection: events %>
-                    <% end %>
-                <% else %>
-                    <%= render partial: "items/item", collection: items[kind.name] %>
-                <% end %>
-            <% end %>
+            <%= render partial: "items/#{kind.name.underscore.downcase.pluralize}", locals: {items: Array(items[kind.name])} %>
           </div>
       <% end %>
     </div>
