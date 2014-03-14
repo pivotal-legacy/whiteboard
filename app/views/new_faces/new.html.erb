@@ -1,4 +1,4 @@
-<%= form_for(@item, html: { class: 'form-horizontal new-face-form' }) do |f| %>
+<%= form_for([@standup, @item], as: :item, html: { class: 'form-horizontal new-face-form' }) do |f| %>
   <%= render partial: 'shared/errors',  locals: {model: @item} %>
 
   <div class="block header">
@@ -26,7 +26,7 @@
 
   <%= f.hidden_field :post_id %>
   <%= f.hidden_field :public, value: false %>
-  <%=  f.hidden_field :kind, value: 'New face' %>
+  <%=  f.hidden_field :kind, value: 'NewFace' %>
 
   <div class="block">
     <%= f.submit "#{@item.persisted? ? "Update" : "Create"} New Face", class: "btn btn-primary btn-block" %>

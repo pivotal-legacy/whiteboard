@@ -1,0 +1,4 @@
+<% items.group_by(&:relative_date).each do |group_name, events| %>
+    <h4 class="subheader <%= group_name %>"><%= group_name.capitalize %></h4>
+    <%= render partial: "items/item", collection: events %>
+<% end %>

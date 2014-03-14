@@ -18,8 +18,8 @@ describe Post do
 
     it "adopts all items not associated with a post" do
       old_post = create(:post)
-      claimed_item = create(:item, post: old_post)
-      unclaimed_item = create(:item, standup: standup)
+      claimed_item = create(:help, post: old_post)
+      unclaimed_item = create(:help, standup: standup)
 
       post = create(:post, standup: standup)
       post.adopt_all_the_items
@@ -29,9 +29,9 @@ describe Post do
 
     it "does not adopt bumped items" do
       old_post = create(:post)
-      claimed_item = create(:item, post: old_post)
-      unclaimed_item = create(:item, standup: standup)
-      bumped_item = create(:item, bumped: true, standup: standup)
+      claimed_item = create(:help, post: old_post)
+      unclaimed_item = create(:help, standup: standup)
+      bumped_item = create(:help, bumped: true, standup: standup)
 
       post = create(:post, standup: standup)
       post.adopt_all_the_items
@@ -40,8 +40,8 @@ describe Post do
     end
 
     it "does not adopt items with a date after today" do
-      item_for_today = create(:item, date: Date.today, standup: standup)
-      item_for_tomorrow = create(:item, date: Date.tomorrow, standup: standup)
+      item_for_today = create(:help, date: Date.today, standup: standup)
+      item_for_tomorrow = create(:help, date: Date.tomorrow, standup: standup)
 
       post = create(:post, standup: standup)
       post.adopt_all_the_items
@@ -52,8 +52,8 @@ describe Post do
     it "adopts items only for same standup" do
       other_standup = create(:standup)
 
-      item_for_other_standup = create(:item, standup: other_standup)
-      unclaimed_item = create(:item, standup: standup)
+      item_for_other_standup = create(:help, standup: other_standup)
+      unclaimed_item = create(:help, standup: standup)
 
       post = create(:post, standup: standup)
       post.adopt_all_the_items
@@ -107,7 +107,7 @@ describe Post do
   describe '#items_by_type' do
     it "orders by created_at asc" do
       post = create(:post)
-      items = [create(:item, created_at: Time.now), create(:item, created_at: 2.days.ago)]
+      items = [create(:help, created_at: Time.now), create(:help, created_at: 2.days.ago)]
       post.items = items
       post.items_by_type['Help'].should == items.reverse
     end

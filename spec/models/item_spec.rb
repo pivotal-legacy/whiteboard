@@ -4,10 +4,10 @@ describe Item do
   let(:item) { build_stubbed(:item) }
 
   describe "default_scope" do
-    let!(:furthest_item) { create(:item, date: 5.days.from_now) }
-    let!(:closest_item) { create(:item, date: 1.days.from_now) }
-    let!(:middlest_item) { create(:item, date: 3.days.from_now) }
-    let!(:no_date_item) { create(:item, date: nil) }
+    let!(:furthest_item) { create(:help, date: 5.days.from_now) }
+    let!(:closest_item) { create(:help, date: 1.days.from_now) }
+    let!(:middlest_item) { create(:help, date: 3.days.from_now) }
+    let!(:no_date_item) { create(:help, date: nil) }
 
     it "should bring them back in date asc order" do
       expect(Item.all).to match_array([no_date_item, closest_item, middlest_item, furthest_item])
@@ -26,19 +26,11 @@ describe Item do
 
   describe "kind" do
     describe "should allow valid kinds - " do
-      ['Help', 'Interesting', 'Event'].each do |kind|
+      ['NewFace', 'Help', 'Interesting', 'Event'].each do |kind|
         it kind do
           item.kind = kind
           item.should be_valid
         end
-      end
-    end
-
-    describe "New face" do
-      it "is valid with a date in the future" do
-        item.kind = 'New face'
-        item.date = Date.tomorrow
-        item.should be_valid
       end
     end
 
@@ -59,12 +51,12 @@ describe Item do
 
     let(:standup) { create(:standup) }
     let(:date) { Date.parse('1/1/1970') }
-    let!(:event_before_date) { create(:item, date: (date - 1.day), kind: 'Event', standup: standup) }
-    let!(:event_after_date) { create(:item, date: (date + 1.day), kind: 'Event', standup: standup) }
-    let!(:event_on_date) { create(:item, date: (date), kind: 'Event', standup: standup) }
+    let!(:event_before_date) { create(:event, date: (date - 1.day), standup: standup) }
+    let!(:event_after_date) { create(:event, date: (date + 1.day), standup: standup) }
+    let!(:event_on_date) { create(:event, date: (date), standup: standup) }
 
     let(:post) { create(:post) }
-    let(:event_with_post) { create(:item, date: (date), kind: 'Event', standup: standup) }
+    let(:event_with_post) { create(:event, date: (date), standup: standup) }
 
     before do
       post.items << event_with_post
@@ -89,20 +81,20 @@ describe Item do
     let!(:other_standup) { FactoryGirl.create(:standup, title: 'New York') }
 
     let!(:post) { create(:post, standup: standup) }
-    let!(:item_with_no_post_id) { create(:item, post_id: nil, kind: "Help", standup: standup) }
-    let!(:item_with_post_id) { create(:item, post_id: post.id, kind: "Help", standup: standup) }
+    let!(:item_with_no_post_id) { create(:help, post_id: nil, standup: standup) }
+    let!(:item_with_post_id) { create(:help, post_id: post.id, standup: standup) }
 
-    let!(:item_not_bumped) { create(:item, bumped: false, kind: "Help", standup: standup) }
-    let!(:bumped_item) { create(:item, bumped: true, kind: "Help", standup: standup) }
+    let!(:item_not_bumped) { create(:help, bumped: false, standup: standup) }
+    let!(:bumped_item) { create(:help, bumped: true, standup: standup) }
 
-    let!(:item_for_today) { create(:item, date: Date.today, kind: "Help", standup: standup) }
-    let!(:item_with_no_date) { create(:item, date: nil, kind: "Help", standup: standup) }
-    let!(:item_for_tomorrow) { create(:item, date: Date.tomorrow, kind: "Help", standup: standup) }
+    let!(:item_for_today) { create(:help, date: Date.today, standup: standup) }
+    let!(:item_with_no_date) { create(:help, date: nil, standup: standup) }
+    let!(:item_for_tomorrow) { create(:help, date: Date.tomorrow, standup: standup) }
 
-    let!(:item_for_different_standup) { create(:item, date: nil, kind: "Help", standup: other_standup) }
+    let!(:item_for_different_standup) { create(:help, date: nil, standup: other_standup) }
 
-    let!(:event_today) { create(:item, date: Date.today, kind: 'Event', standup: standup) }
-    let!(:event_tomorrow) { create(:item, date: Date.tomorrow, kind: 'Event', standup: standup) }
+    let!(:event_today) { create(:event, date: Date.today, standup: standup) }
+    let!(:event_tomorrow) { create(:event, date: Date.tomorrow, standup: standup) }
 
     it "includes item with no post id" do
       should include item_with_no_post_id
@@ -178,15 +170,15 @@ describe Item do
 
   describe '.orphans' do
     it 'returns all unposted interestings and helps' do
-      old_help = FactoryGirl.create(:item, kind: 'Help', date: 2.days.ago)
-      interesting = FactoryGirl.create(:item, kind: 'Interesting')
+      old_help = FactoryGirl.create(:help, date: 2.days.ago)
+      interesting = FactoryGirl.create(:interesting)
 
       Item.orphans.should == {'Help' => [old_help], 'Interesting' => [interesting]}
     end
 
     it 'returns items in date asc order' do
-      interesting = FactoryGirl.create(:item, kind: 'Interesting')
-      old_interesting = FactoryGirl.create(:item, kind: 'Interesting', date: 2.days.ago)
+      interesting = FactoryGirl.create(:interesting)
+      old_interesting = FactoryGirl.create(:interesting, date: 2.days.ago)
 
       Item.orphans.should == {'Interesting' => [old_interesting, interesting]}
     end

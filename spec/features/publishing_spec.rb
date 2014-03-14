@@ -32,9 +32,7 @@ describe "publishing", type: :request, js: true do
       page.should have_content("There is no content to publish")
     end
 
-    within "div.block.header", text: "NEW FACES" do
-      find("i").click
-    end
+    find('a[data-kind="NewFace"] i').click
 
     fill_in "item_title", with: "John Doe"
 
@@ -54,7 +52,7 @@ describe "publishing", type: :request, js: true do
     fill_in 'item_date', :with => Date.today
     select 'Camelot', from: 'item[standup_id]'
     click_on 'Post to Blog'
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     fill_in "Blogger Name(s)", with: "Me"
     fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
@@ -85,7 +83,7 @@ describe "publishing", type: :request, js: true do
     fill_in 'item_date', :with => Date.today
     select 'Camelot', from: 'item[standup_id]'
     click_on 'Post to Blog'
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     fill_in "Blogger Name(s)", with: "Me"
     fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"

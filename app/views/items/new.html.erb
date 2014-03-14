@@ -1,11 +1,11 @@
-<%= form_for(@item, html: {class: 'form-horizontal item-form'}) do |f| %>
+<%= form_for([@standup, @item], as: :item, html: {class: 'form-horizontal item-form'}) do |f| %>
   <%= render partial: 'shared/errors', locals: {model: @item} %>
 
   <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.referer %>
 
   <div class="block">
     <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
-      <% (Item.kinds.map(&:name) - ['New face']).each do |kind| %>
+      <% (Item.kinds.map(&:name) - ['NewFace']).each do |kind| %>
         <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button">
           <div class="spacer"></div>
           <%= kind %>

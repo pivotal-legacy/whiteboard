@@ -1,0 +1,3 @@
+class Help < Item
+
+end

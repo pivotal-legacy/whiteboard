@@ -21,18 +21,18 @@ describe "items", type: :request, js: true do
     visit '/'
     click_link(standup.title)
 
-    find('a[data-kind="New face"] i').click
+    find('a[data-kind="NewFace"] i').click
     fill_in 'item_title', :with => "Fred Flintstone"
     select 'New York', :from => 'item[standup_id]'
     click_button 'Create New Face'
 
-    find('a[data-kind="New face"] i').click
+    find('a[data-kind="NewFace"] i').click
     fill_in 'item_title', :with => "Johnathon McKenzie"
     fill_in 'item_date', :with => date_today
     select 'San Francisco', from: 'item[standup_id]'
     click_button 'Create New Face'
 
-    find('a[data-kind="New face"] i').click
+    find('a[data-kind="NewFace"] i').click
     fill_in 'item_title', :with => "Jane Doe"
     fill_in 'item_date', :with => date_five_days
     select 'San Francisco', from: 'item[standup_id]'
@@ -42,38 +42,38 @@ describe "items", type: :request, js: true do
     fill_in 'item_title', :with => "Meetup"
     fill_in 'item_date', :with => date_five_days
     select 'New York', from: 'item[standup_id]'
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Party"
     fill_in 'item_date', :with => date_five_days
     select 'San Francisco', from: 'item[standup_id]'
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Happy Hour"
     fill_in 'item_date', :with => date_today
     select 'San Francisco', from: 'item[standup_id]'
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Baseball"
     fill_in 'item_date', :with => date_tomorrow
     select 'San Francisco', from: 'item[standup_id]'
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     find('a[data-kind="Interesting"] i').click
     fill_in 'item_title', :with => "Linux 3.2 out"
     fill_in 'item_author', :with => "Linus Torvalds"
     fill_in 'item_description', with: "Check it out: `inline code!` and www.links.com"
-    click_button 'Create Item'
+    click_button 'Create Interesting'
 
     find('a[data-kind="Event"] i').click
     click_button('Interesting')
     fill_in 'item_title', :with => "Rails 62 is out"
     fill_in 'item_author', :with => "DHH"
     fill_in 'item_description', with: "Now with more f-bombs"
-    click_button 'Create Item'
+    click_button 'Create Event'
 
     visit '/'
     click_link(standup.title)
@@ -111,7 +111,7 @@ describe "items", type: :request, js: true do
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      page.should have_content "New faces"
+      page.should have_content "New Faces"
       page.should have_content "Today"
       page.should have_content "Upcoming"
       page.should have_content "Johnathon McKenzie"
