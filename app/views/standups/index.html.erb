@@ -7,6 +7,9 @@
       <h1><%= link_to standup.title, standup %></h1>
     </div>
   <% end %>
+   <div class="block">
+      <h1><%= link_to "Show All Standups", standups_path %></h1>
+    </div>
   <div class="block buttons">
     <%= link_to('New Standup'.html_safe, new_standup_path, class: 'btn btn-primary btn-large btn-block') %>
   </div>
