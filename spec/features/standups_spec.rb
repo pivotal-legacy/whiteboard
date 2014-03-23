@@ -22,7 +22,7 @@ describe "standups", type: :request do
     click_button 'Create Standup'
 
     visit '/'
-    page.should have_content 'LONDON'
+    expect(page).to have_link "Show All Standups"
     click_link('London')
 
     current_page = current_url
