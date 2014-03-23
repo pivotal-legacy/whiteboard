@@ -39,7 +39,7 @@ group :development do
   gem 'debugger'
 end
 
-gem 'sass-rails'
+gem 'sass-rails', '~> 4.0.2'
 gem 'compass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
