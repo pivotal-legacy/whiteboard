@@ -10,20 +10,26 @@ describe "Adding new faces", js: true do
     visit '/'
 
     click_on standup.title
-    find(:css, '[data-kind="New face"]').click
+    page.execute_script("$('a[data-kind=\"New face\"]')[0].click()")
+
     fill_in "item[title]", with: "Jane"
 
     fill_in "item[date]", with: "2010-01-01"
 
     find(:css, '[name="item[date]"]').click
     find(:css, 'td.day', text: '11').click
-
     find_field("item[date]").value.should == "2010-01-01"
+
+    hide_date_picker
 
     click_on "Create New Face"
 
     page.should have_content "Please choose a date in present or future"
     #page.should have_content "Create New Face" #TODO: as of 2014-02-05, this captures a bug.
+  end
+
+  def hide_date_picker
+    find('body').click
   end
 
   it "allows yesterday's new faces to post today" do

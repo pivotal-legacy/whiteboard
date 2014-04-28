@@ -6,8 +6,15 @@ require 'rspec/autorun'
 
 require 'capybara/rails'
 require 'capybara/rspec'
-Capybara.javascript_driver = :selenium
-Capybara.default_driver = :webkit
+
+Capybara.configure do |config|
+  config.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+
+  config.javascript_driver = :selenium
+  config.default_driver = :webkit
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
