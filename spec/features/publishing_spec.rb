@@ -72,7 +72,6 @@ describe "publishing", js: true do
     page.should have_css('a', text: 'Post Blog Entry')
   end
 
-
   it "shows the URL the post was published to" , js: true do
     WordpressService.any_instance.should_receive(:send!).and_return("best-post-eva")
     click_link(standup.title)

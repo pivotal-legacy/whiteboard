@@ -1,7 +1,7 @@
 <div class="content-wrapper">
   <%= render partial: 'as_html', locals: {items: @items} %>
 
-  <div class='bottom navbar-fixed-bottom box-shadow-top'>
+  <div class='bottom box-shadow-top'>
     <div class='navbar-inner'>
       <%= link_to 'Presentation', presentation_standup_items_path(@standup), class: 'btn btn-success navbar-btn' %>
       <%= form_tag "/standups/#{@standup.id}/posts", method: 'post', class: 'navbar-form pull-right' do %>
