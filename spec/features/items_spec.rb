@@ -9,7 +9,7 @@ describe "items", js: true do
   let(:date_five_days) { (timezone.now + 5.days).strftime("%Y-%m-%d") }
 
   before do
-    Timecop.travel(Time.local(2013, 9, 2, 12, 0, 0)) #monday
+    Timecop.travel(Time.zone.local(2013, 9, 2, 12, 0, 0)) #monday
     ENV["ENABLE_WINS"] = 'true'
   end
 
