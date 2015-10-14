@@ -9,7 +9,7 @@ describe "items", js: true do
   let(:date_five_days) { (timezone.now + 5.days).strftime("%Y-%m-%d") }
 
   before do
-    Timecop.travel(Time.local(2013, 9, 2, 12, 0, 0)) #monday
+    Timecop.travel(Time.zone.local(2013, 9, 2, 12, 0, 0)) #monday
     ENV["ENABLE_WINS"] = 'true'
   end
 
@@ -214,32 +214,32 @@ describe "items", js: true do
   describe "the bottom navbar" do
     context "when the screen width starts at or above 737px" do
       it "locks to the bottom of the screen but unlocks whenever the width goes below 737px" do
-        page.driver.resize_window 737, 2000
+        page.current_window.resize_to 737, 2000
 
         login
         visit '/'
         click_link(standup.title)
 
         page.find('div.content-wrapper').should have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 736, 2000
+        page.current_window.resize_to 736, 2000
         page.find('div.content-wrapper').should_not have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 737, 2000
+        page.current_window.resize_to 737, 2000
         page.find('div.content-wrapper').should have_css('.navbar-fixed-bottom')
       end
     end
 
     context "when the screen width starts below 737px" do
       it "is unlocked from the bottom of the screen but locks whenever the width goes above 737px" do
-        page.driver.resize_window 736, 2000
+        page.current_window.resize_to 736, 2000
 
         login
         visit '/'
         click_link(standup.title)
 
         page.find('div.content-wrapper').should_not have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 737, 2000
+        page.current_window.resize_to 737, 2000
         page.find('div.content-wrapper').should have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 736, 2000
+        page.current_window.resize_to 736, 2000
         page.find('div.content-wrapper').should_not have_css('.navbar-fixed-bottom')
       end
     end

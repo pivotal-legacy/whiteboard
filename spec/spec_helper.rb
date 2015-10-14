@@ -9,8 +9,8 @@ RSpec.configure do |config|
   end
 
   config.before(:all, type: :feature) do
-    current_session = Capybara.current_session
-    current_session.driver.resize_window(2000, 2000)
+    current_window = Capybara.current_window
+    current_window.resize_to(2000, 2000)
   end
 
   config.after(:each) do
