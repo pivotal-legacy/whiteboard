@@ -2,35 +2,35 @@ require 'rails_helper'
 
 describe Standup do
   describe 'associations' do
-    it { should have_many(:items).dependent(:destroy) }
-    it { should have_many(:posts).dependent(:destroy) }
+    it { is_expected.to have_many(:items).dependent(:destroy) }
+    it { is_expected.to have_many(:posts).dependent(:destroy) }
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:to_address) }
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:to_address) }
 
     it "should validate the format of the standup time" do
       standup = FactoryGirl.build(:standup)
-      standup.should be_valid
+      expect(standup).to be_valid
 
       standup.start_time_string = "9:00 am"
-      standup.should be_valid
+      expect(standup).to be_valid
 
       standup.start_time_string = "09:10 AM"
-      standup.should be_valid
+      expect(standup).to be_valid
 
       standup.start_time_string = "10:00"
-      standup.should_not be_valid
+      expect(standup).to_not be_valid
 
       standup.start_time_string = "23:00"
-      standup.should_not be_valid
+      expect(standup).to_not be_valid
     end
   end
 
   it 'has a closing message' do
     standup = FactoryGirl.create(:standup, closing_message: 'Yay')
-    standup.closing_message.should == 'Yay'
+    expect(standup.closing_message).to eq 'Yay'
   end
 
   describe "dates" do
@@ -49,13 +49,13 @@ describe Standup do
 
     describe "#date_today" do
       it "returns the date based on the time zone" do
-        @standup.date_today.should == @utc_yesterday
+        expect(@standup.date_today).to eq @utc_yesterday
       end
     end
 
     describe "#date_tomorrow" do
       it "returns the date based on the time zone" do
-        @standup.date_tomorrow.should == @utc_today
+        expect(@standup.date_tomorrow).to eq @utc_today
       end
     end
 
@@ -65,7 +65,7 @@ describe Standup do
           standup_beginning_of_day = @standup.time_zone.now.beginning_of_day
 
           @standup.start_time_string = "5:00pm"
-          @standup.next_standup_date.should == standup_beginning_of_day + 17.hours
+          expect(@standup.next_standup_date).to eq standup_beginning_of_day + 17.hours
         end
       end
 
@@ -74,7 +74,7 @@ describe Standup do
           standup_beginning_of_day = @standup.time_zone.now.beginning_of_day
 
           @standup.start_time_string = "8:00am"
-          @standup.next_standup_date.should == standup_beginning_of_day + 1.day + 8.hour
+          expect(@standup.next_standup_date).to eq standup_beginning_of_day + 1.day + 8.hour
         end
       end
     end
@@ -97,6 +97,6 @@ describe Standup do
 
   it 'serializes the image_days array for storage in the db' do
     standup = create(:standup, image_days: ['mon', 'tue'])
-    standup.image_days.should == ['mon', 'tue']
+    expect(standup.image_days).to eq ['mon', 'tue']
   end
 end

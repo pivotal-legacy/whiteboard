@@ -5,10 +5,10 @@ describe Kind do
     @kind = Kind.new "Bummers", "Things we found that were upsetting"
   end
   it "has a name" do
-    @kind.name.should == "Bummers"
+    expect(@kind.name).to eq "Bummers"
   end
 
   it "has a subtitle" do
-    @kind.subtitle.should == "Things we found that were upsetting"
+    expect(@kind.subtitle).to eq "Things we found that were upsetting"
   end
 end

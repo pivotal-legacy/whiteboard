@@ -18,11 +18,11 @@ describe "posts" do
       end
 
       it "displays the name of the post" do
-        page.should have_content "Archived Post"
+        expect(page).to have_content "Archived Post"
       end
 
       it "displays items in a post" do
-        page.should have_content "I am helping people"
+        expect(page).to have_content "I am helping people"
       end
     end
   end

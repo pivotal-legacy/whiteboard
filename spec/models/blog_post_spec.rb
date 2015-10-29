@@ -10,34 +10,34 @@ describe BlogPost do
     end
 
     it 'returns a properly formed hash' do
-      subject.post_hash.should == {
+      expect(subject.post_hash).to eq ({
         'title' => 'title',
         'description' => 'description',
         'mt_keywords' => 'keywords',
         'categories' => 'categories'
-      }
+      })
     end
   end
 
   describe '#keywords' do
     it 'returns keywords if set' do
       subject.keywords = 'keywords'
-      subject.keywords.should == 'keywords'
+      expect(subject.keywords).to eq 'keywords'
     end
 
     it 'returns [] if no keywords were set' do
-      subject.keywords.should == []
+      expect(subject.keywords).to eq []
     end
   end
 
   describe '#categories' do
     it 'returns categories if set' do
       subject.categories = 'categories'
-      subject.categories.should == 'categories'
+      expect(subject.categories).to eq 'categories'
     end
-    
+
     it 'returns ["standup"] if no categories were set' do
-      subject.categories.should == ['standup']
+      expect(subject.categories).to eq ['standup']
     end
   end
 end

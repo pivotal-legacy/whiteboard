@@ -9,9 +9,9 @@ describe WordpressService do
 
     it "calls the connection with the attributes for the post" do
       connection = double("mock_connection")
-      subject.should_receive(:connection).and_return(connection)
+      expect(subject).to receive(:connection).and_return(connection)
 
-      connection.should_receive(:call).with(
+      expect(connection).to receive(:call).with(
         'metaWeblog.newPost',
         1,
         "user",
@@ -21,7 +21,7 @@ describe WordpressService do
 
       blog_post = double("blog post", post_hash: {post: :hash})
 
-      subject.send!(blog_post).should == "mocked call"
+      expect(subject.send!(blog_post)).to eq "mocked call"
     end
   end
 
@@ -34,27 +34,27 @@ describe WordpressService do
     end
 
     it "returns true when all the minimally necessary config is set" do
-      subject.minimally_configured?.should == true
+      expect(subject.minimally_configured?).to eq true
     end
 
     it "returns false when the host is missing" do
       subject.host = nil
-      subject.minimally_configured?.should == false
+      expect(subject.minimally_configured?).to eq false
     end
 
     it "returns false when the endpoint path is missing" do
       subject.endpoint_path = nil
-      subject.minimally_configured?.should == false
+      expect(subject.minimally_configured?).to eq false
     end
 
     it "returns false when the wordpress username is missing" do
       subject.wordpress_username = nil
-      subject.minimally_configured?.should == false
+      expect(subject.minimally_configured?).to eq false
     end
 
     it "returns false when the wordpress password is missing" do
       subject.wordpress_password = nil
-      subject.minimally_configured?.should == false
+      expect(subject.minimally_configured?).to eq false
     end
   end
 end
