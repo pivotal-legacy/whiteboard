@@ -37,7 +37,7 @@ describe StandupPresenter do
 
     context 'when the day is selected' do
       before do
-        Timecop.travel(Time.local(2013, 9, 2, 12, 0, 0)) #monday
+        Timecop.travel(Time.zone.local(2013, 9, 2, 12, 0, 0)) #monday
       end
 
       after do
@@ -62,7 +62,7 @@ describe StandupPresenter do
 
     context 'when the day is not selected' do
       before do
-        Timecop.travel(Time.local(2013, 9, 4, 12, 0, 0)) #wednesday
+        Timecop.travel(Time.zone.local(2013, 9, 4, 12, 0, 0)) #wednesday
       end
 
       after do
