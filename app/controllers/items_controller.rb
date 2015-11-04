@@ -66,6 +66,7 @@ class ItemsController < ApplicationController
     elsif params.fetch(:item, {})[:standup_id].present?
       standup = Standup.find_by(id: params[:item][:standup_id])
     else
+
       standup = Item.find_by(id: params[:id]).standup
     end
 
