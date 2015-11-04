@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_filter :load_post, except: [:create, :index, :archived]
   before_filter :load_standup
+  around_filter :standup_timezone
+
 
   def create
     @standup = Standup.find_by_id(params[:standup_id])
@@ -84,7 +86,7 @@ class PostsController < ApplicationController
 
   def load_standup
     if params[:standup_id].present?
-      @standup = Standup.find(params[:standup_id])
+      @standup = Standup.find_by(id: params[:standup_id])
     else
       @standup = Post.find(params[:id]).standup
     end
@@ -96,5 +98,11 @@ class PostsController < ApplicationController
                        formats: [:text],
                        layout: false,
                        locals: {items: items, include_authors: false}))
+  end
+
+
+  def standup_timezone(&block)
+    return yield unless @standup
+    Time.use_zone(@standup.time_zone_name, &block)
   end
 end
