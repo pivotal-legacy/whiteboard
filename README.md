@@ -28,6 +28,8 @@ Development
 ===========
 Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
 
+Whiteboard feature tests are incompatible with Qt 5.5, ensure you have a lower version installed before running `bundle`
+
 Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
 
 The following environment variables are necessary for posting to a Wordpress blog.

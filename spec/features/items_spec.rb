@@ -9,7 +9,7 @@ describe "items", js: true do
   let(:date_five_days) { (timezone.now + 5.days).strftime("%Y-%m-%d") }
 
   before do
-    Timecop.travel(Time.local(2013, 9, 2, 12, 0, 0)) #monday
+    Timecop.travel(Time.zone.local(2013, 9, 2, 12, 0, 0)) #monday
     ENV["ENABLE_WINS"] = 'true'
   end
 
@@ -88,92 +88,92 @@ describe "items", js: true do
     click_link(standup.title)
 
     within '.event' do
-      page.should have_css('.subheader.today', text: 'Today')
-      page.should have_css('.today + .item', text: 'Happy Hour')
-      page.should have_css('.subheader.tomorrow', text: 'Tomorrow')
-      page.should have_css('.tomorrow + .item', text: 'Baseball')
-      page.should have_css('.subheader.upcoming', text: 'Upcoming')
-      page.should have_css('.upcoming + .item', text: 'Party')
+      expect(page).to have_css('.subheader.today', text: 'Today')
+      expect(page).to have_css('.today + .item', text: 'Happy Hour')
+      expect(page).to have_css('.subheader.tomorrow', text: 'Tomorrow')
+      expect(page).to have_css('.tomorrow + .item', text: 'Baseball')
+      expect(page).to have_css('.subheader.upcoming', text: 'Upcoming')
+      expect(page).to have_css('.upcoming + .item', text: 'Party')
     end
 
     within '.new_face' do
-      page.should have_css('.subheader.today', text: 'Today')
-      page.should have_css('.today + .item', text: 'Johnathon McKenzie')
-      page.should have_css('.subheader.upcoming', text: 'Upcoming')
-      page.should have_css('.upcoming + .item', text: 'Jane Doe')
+      expect(page).to have_css('.subheader.today', text: 'Today')
+      expect(page).to have_css('.today + .item', text: 'Johnathon McKenzie')
+      expect(page).to have_css('.subheader.upcoming', text: 'Upcoming')
+      expect(page).to have_css('.upcoming + .item', text: 'Jane Doe')
     end
 
     within '.interesting' do
-      page.should have_css('.item', text: 'Linus Torvalds')
+      expect(page).to have_css('.item', text: 'Linus Torvalds')
       first('a[data-toggle]').click
-      page.should have_selector('.in')
-      page.should have_selector('code', text: 'inline code!')
-      page.should have_link('www.links.com')
+      expect(page).to have_selector('.in')
+      expect(page).to have_selector('code', text: 'inline code!')
+      expect(page).to have_link('www.links.com')
     end
 
     within '.win' do
-      page.should have_css('.item', text: 'Tracker iOS 7 app')
+      expect(page).to have_css('.item', text: 'Tracker iOS 7 app')
     end
 
     visit presentation_standup_items_path(standup)
 
     within 'section.deck-current' do
-      page.should have_content "Standup"
-      page.should have_css('.countdown')
+      expect(page).to have_content "Standup"
+      expect(page).to have_css('.countdown')
     end
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      page.should have_content "New faces"
-      page.should have_content "Today"
-      page.should have_content "Upcoming"
-      page.should have_content "Johnathon McKenzie"
+      expect(page).to have_content "New faces"
+      expect(page).to have_content "Today"
+      expect(page).to have_content "Upcoming"
+      expect(page).to have_content "Johnathon McKenzie"
     end
     page.execute_script("$.deck('next')")
 
-    find('section.deck-current').should have_content "Helps"
+    expect(find('section.deck-current')).to have_content "Helps"
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      page.should have_content "Interestings"
-      page.should have_content("Linux 3.2 out")
-      page.should have_content("Linus Torvalds")
-      page.should have_content("Rails 62 is out")
-      page.should_not have_selector('.in')
+      expect(page).to have_content "Interestings"
+      expect(page).to have_content("Linux 3.2 out")
+      expect(page).to have_content("Linus Torvalds")
+      expect(page).to have_content("Rails 62 is out")
+      expect(page).to_not have_selector('.in')
       first('a[data-toggle]').click
-      page.should have_selector('.in')
-      page.should have_content("Check it out:")
-      page.should have_link("www.links.com")
-      page.should have_selector("code", text: "inline code!")
+      expect(page).to have_selector('.in')
+      expect(page).to have_content("Check it out:")
+      expect(page).to have_link("www.links.com")
+      expect(page).to have_selector("code", text: "inline code!")
     end
     page.execute_script("$.deck('next')")
 
-    find('section.deck-current').should have_content "Events"
-    page.should have_css('section.deck-current', text: 'Today')
-    page.should have_css('.today + ul li', text: 'Happy Hour')
-    page.should have_css('section.deck-current', text: 'Tomorrow')
-    page.should have_css('.tomorrow + ul li', text: 'Baseball')
-    page.should have_css('section.deck-current', text: 'Upcoming')
-    page.should have_css('.upcoming + ul li', text: 'Party')
-    find('section.deck-current').should_not have_content "Meetup"
-    find('section.deck-current').should_not have_content("Rails 62 is out")
+    expect(find('section.deck-current')).to have_content "Events"
+    expect(page).to have_css('section.deck-current', text: 'Today')
+    expect(page).to have_css('.today + ul li', text: 'Happy Hour')
+    expect(page).to have_css('section.deck-current', text: 'Tomorrow')
+    expect(page).to have_css('.tomorrow + ul li', text: 'Baseball')
+    expect(page).to have_css('section.deck-current', text: 'Upcoming')
+    expect(page).to have_css('.upcoming + ul li', text: 'Party')
+    expect(find('section.deck-current')).to_not have_content "Meetup"
+    expect(find('section.deck-current')).to_not have_content("Rails 62 is out")
     page.execute_script("$.deck('next')")
 
-    find('section.deck-current').should have_content "Wins"
-    page.should have_css('section.deck-current', text: 'Tracker iOS 7 app')
-    find('section.deck-current').should_not have_content 'Happy Hour'
-    find('section.deck-current').should_not have_content 'Baseball'
+    expect(find('section.deck-current')).to have_content "Wins"
+    expect(page).to have_css('section.deck-current', text: 'Tracker iOS 7 app')
+    expect(find('section.deck-current')).to_not have_content 'Happy Hour'
+    expect(find('section.deck-current')).to_not have_content 'Baseball'
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      page.should_not have_content "Wins"
-      page.should have_content "Woohoo"
-      page.should have_css('img[src="http://example.com/bar.png"]')
+      expect(page).to_not have_content "Wins"
+      expect(page).to have_content "Woohoo"
+      expect(page).to have_css('img[src="http://example.com/bar.png"]')
     end
 
     all('.exit-presentation').first.click
 
-    current_path.should == standup_items_path(standup)
+    expect(current_path).to eq standup_items_path(standup)
   end
 
   it 'does not let you create wins if the feature flag is off' do
@@ -183,7 +183,7 @@ describe "items", js: true do
     visit '/'
     click_link(standup.title)
 
-    page.should_not have_css('a[data-kind="Win"] i')
+    expect(page).to_not have_css('a[data-kind="Win"] i')
   end
 
   it 'hides wins if there are none' do
@@ -191,56 +191,56 @@ describe "items", js: true do
     visit presentation_standup_items_path(standup)
 
     within 'section.deck-current' do
-      page.should have_content "Standup"
-      page.should have_css('.countdown')
+      expect(page).to have_content "Standup"
+      expect(page).to have_css('.countdown')
     end
     page.execute_script("$.deck('next')")
 
-    find('section.deck-current').should have_content "New faces"
+    expect(find('section.deck-current')).to have_content "New faces"
     page.execute_script("$.deck('next')")
-    find('section.deck-current').should have_content "Helps"
+    expect(find('section.deck-current')).to have_content "Helps"
     page.execute_script("$.deck('next')")
-    find('section.deck-current').should have_content "Interestings"
+    expect(find('section.deck-current')).to have_content "Interestings"
     page.execute_script("$.deck('next')")
-    find('section.deck-current').should have_content "Events"
+    expect(find('section.deck-current')).to have_content "Events"
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      page.should_not have_content "Wins"
-      page.should have_content "Woohoo"
+      expect(page).to_not have_content "Wins"
+      expect(page).to have_content "Woohoo"
     end
   end
 
   describe "the bottom navbar" do
     context "when the screen width starts at or above 737px" do
       it "locks to the bottom of the screen but unlocks whenever the width goes below 737px" do
-        page.driver.resize_window 737, 2000
+        page.current_window.resize_to 737, 2000
 
         login
         visit '/'
         click_link(standup.title)
 
-        page.find('div.content-wrapper').should have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 736, 2000
-        page.find('div.content-wrapper').should_not have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 737, 2000
-        page.find('div.content-wrapper').should have_css('.navbar-fixed-bottom')
+        expect(page.find('div.content-wrapper')).to have_css('.navbar-fixed-bottom')
+        page.current_window.resize_to 736, 2000
+        expect(page.find('div.content-wrapper')).to_not have_css('.navbar-fixed-bottom')
+        page.current_window.resize_to 737, 2000
+        expect(page.find('div.content-wrapper')).to have_css('.navbar-fixed-bottom')
       end
     end
 
     context "when the screen width starts below 737px" do
       it "is unlocked from the bottom of the screen but locks whenever the width goes above 737px" do
-        page.driver.resize_window 736, 2000
+        page.current_window.resize_to 736, 2000
 
         login
         visit '/'
         click_link(standup.title)
 
-        page.find('div.content-wrapper').should_not have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 737, 2000
-        page.find('div.content-wrapper').should have_css('.navbar-fixed-bottom')
-        page.driver.resize_window 736, 2000
-        page.find('div.content-wrapper').should_not have_css('.navbar-fixed-bottom')
+        expect(page.find('div.content-wrapper')).to_not have_css('.navbar-fixed-bottom')
+        page.current_window.resize_to 737, 2000
+        expect(page.find('div.content-wrapper')).to have_css('.navbar-fixed-bottom')
+        page.current_window.resize_to 736, 2000
+        expect(page.find('div.content-wrapper')).to_not have_css('.navbar-fixed-bottom')
       end
     end
   end

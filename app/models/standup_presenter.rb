@@ -12,7 +12,7 @@ class StandupPresenter < SimpleDelegator
 
   def closing_message
     return @standup.closing_message if @standup.closing_message.present?
-    return "STRETCH! It's Floor Friday!" if Date.today.wday == 5
+    return "STRETCH! It's Floor Friday!" if Time.zone.today.wday == 5
     return nil if @standup.image_urls.present?
 
     STANDUP_CLOSINGS.sample

@@ -36,11 +36,11 @@ class Post < ActiveRecord::Base
   end
 
   def events
-    Item.events_on_or_after(Date.today, standup)
+    Item.events_on_or_after(Time.zone.today, standup)
   end
 
   def public_events
-    Item.public.events_on_or_after(Date.today, standup)
+    Item.public.events_on_or_after(Time.zone.today, standup)
   end
 
   def items_by_type

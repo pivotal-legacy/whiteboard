@@ -7,11 +7,11 @@ describe "publishing", js: true do
     login
     visit '/'
 
-    WordpressService.any_instance.stub(:minimally_configured?).and_return(true)
+    allow_any_instance_of(WordpressService).to receive(:minimally_configured?).and_return(true)
   end
 
   it "does not allow publishing to blog and email when no public content" do
-    WordpressService.any_instance.should_not_receive(:send!)
+    expect_any_instance_of(WordpressService).to_not receive(:send!)
     click_link(standup.title)
 
     fill_in "Blogger Name(s)", with: "Me"
@@ -20,16 +20,16 @@ describe "publishing", js: true do
     page.evaluate_script('window.confirm = function() { return true; }')
     click_on "Create Post"
 
-    page.should have_content("Please update these items with any new information from standup:")
+    expect(page).to have_content("Please update these items with any new information from standup:")
 
-    page.should have_css('p[disabled="disabled"]', text: 'Send Email')
+    expect(page).to have_css('p[disabled="disabled"]', text: 'Send Email')
     within('#publish', text: 'Please double check this email for accuracy.') do
-      page.should have_content("There is no content to publish")
+      expect(page).to have_content("There is no content to publish")
     end
 
-    page.should have_css('p[disabled="disabled"]', text: 'Post Blog Entry')
+    expect(page).to have_css('p[disabled="disabled"]', text: 'Post Blog Entry')
     within('#publish', text: 'Please double check the blog post.') do
-      page.should have_content("There is no content to publish")
+      expect(page).to have_content("There is no content to publish")
     end
 
     within "div.block.header", text: "NEW FACES" do
@@ -40,18 +40,18 @@ describe "publishing", js: true do
 
     click_on "Create New Face"
 
-    find_link("Send Email").should be
-    page.should have_css('p[disabled="disabled"]', text: 'Post Blog Entry')
+    expect(find_link("Send Email")).to be
+    expect(page).to have_css('p[disabled="disabled"]', text: 'Post Blog Entry')
   end
 
   it "allows reposting if error returned from wordpress" , js: true do
-    WordpressService.any_instance.should_receive(:send!).and_raise(XMLRPC::FaultException.new(123, "Wrong size. Was 180, should be 131"))
+    expect_any_instance_of(WordpressService).to receive(:send!).and_raise(XMLRPC::FaultException.new(123, "Wrong size. Was 180, should be 131"))
     click_link(standup.title)
 
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Happy Hour"
-    fill_in 'item_date', :with => Date.today
+    fill_in 'item_date', :with => Time.zone.today
     select 'Camelot', from: 'item[standup_id]'
     click_on 'Post to Blog'
     click_button 'Create Item'
@@ -65,21 +65,21 @@ describe "publishing", js: true do
     click_on 'Post Blog Entry'
 
     within '.alert.alert-danger' do
-      page.should have_content('Wrong size. Was 180, should be 131')
+      expect(page).to have_content('Wrong size. Was 180, should be 131')
     end
 
-    page.should_not have_content("This entry was posted at")
-    page.should have_css('a', text: 'Post Blog Entry')
+    expect(page).to_not have_content("This entry was posted at")
+    expect(page).to have_css('a', text: 'Post Blog Entry')
   end
 
   it "shows the URL the post was published to" , js: true do
-    WordpressService.any_instance.should_receive(:send!).and_return("best-post-eva")
+    expect_any_instance_of(WordpressService).to receive(:send!).and_return("best-post-eva")
     click_link(standup.title)
 
 
     find('a[data-kind="Event"] i').click
     fill_in 'item_title', :with => "Happy Hour"
-    fill_in 'item_date', :with => Date.today
+    fill_in 'item_date', :with => Time.zone.today
     select 'Camelot', from: 'item[standup_id]'
     click_on 'Post to Blog'
     click_button 'Create Item'
@@ -92,7 +92,7 @@ describe "publishing", js: true do
 
     click_on 'Post Blog Entry'
 
-    page.should have_content("This entry was posted at")
-    page.should have_css('a', text: 'best-post-eva')
+    expect(page).to have_content("This entry was posted at")
+    expect(page).to have_css('a', text: 'best-post-eva')
   end
 end

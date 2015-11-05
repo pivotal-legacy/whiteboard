@@ -8,23 +8,23 @@ describe ApplicationHelper do
     before { create(:post, standup: standup) }
 
     it "can count" do
-      helper.pending_post_count(standup).should == 1
+      expect(helper.pending_post_count(standup)).to eq 1
     end
 
     it "doesn't count unassociated standups" do
-      helper.pending_post_count(other_standup).should == 0
+      expect(helper.pending_post_count(other_standup)).to eq 0
     end
   end
 
   describe "#show_or_edit_post_path" do
     it "links to edit if not archived" do
       post = create(:post)
-      helper.show_or_edit_post_path(post).should == edit_post_path(post)
+      expect(helper.show_or_edit_post_path(post)).to eq edit_post_path(post)
     end
 
     it "links to show if archived" do
       post = create(:post, archived: true)
-      helper.show_or_edit_post_path(post).should == post_path(post)
+      expect(helper.show_or_edit_post_path(post)).to eq post_path(post)
     end
   end
 
@@ -32,19 +32,19 @@ describe ApplicationHelper do
     subject { helper.format_title(item) }
 
     context "the item is an event" do
-      let(:item) { Item.new(kind: "Interesting", title: "Not Interesting", date: Date.tomorrow) }
-      it { should == "#{item.date.strftime("%A(%m/%d)")}: #{item.title}" }
+      let(:item) { Item.new(kind: "Interesting", title: "Not Interesting", date: Time.zone.tomorrow) }
+      it { is_expected.to eq "#{item.date.strftime("%A(%m/%d)")}: #{item.title}" }
     end
 
     context "the item is not an event" do
       context "the item does not have a date" do
         let(:item) { Item.new(kind: "Interesting", title: "Not Interesting") }
-        it { should == item.title }
+        it { is_expected.to eq item.title }
       end
 
       context "the item does have a date" do
-        let(:item) { Item.new(kind: "Interesting", title: "Not Interesting", date: Date.tomorrow) }
-        it { should == "#{item.date.strftime("%A(%m/%d)")}: #{item.title}" }
+        let(:item) { Item.new(kind: "Interesting", title: "Not Interesting", date: Time.zone.tomorrow) }
+        it { is_expected.to eq "#{item.date.strftime("%A(%m/%d)")}: #{item.title}" }
       end
     end
   end
@@ -55,7 +55,7 @@ describe ApplicationHelper do
 
       it "returns nothing" do
         label = helper.date_label(item)
-        label.should be_blank
+        expect(label).to be_blank
       end
     end
 
@@ -64,7 +64,7 @@ describe ApplicationHelper do
         it "displays day of week" do
           event = create(:item, kind: "Event", date: Date.new(2012, 11, 05))
           label = helper.date_label(event)
-          label.should == "Monday: "
+          expect(label).to eq "Monday: "
         end
       end
 
@@ -78,31 +78,36 @@ describe ApplicationHelper do
 
           it "returns nothing" do
             label = helper.date_label(item)
-            label.should be_blank
+            expect(label).to be_blank
           end
         end
 
         describe "when the date is in the future" do
+
           before do
-            Date.stub(today: Date.new(2012, 11, 05))
+            Timecop.freeze(Time.zone.local(2012,11,05, 20,00))
             item.date = Date.new(2012, 11, 07)
           end
 
+          after { Timecop.return }
+
           it "returns the day of the week" do
             label = helper.date_label(item)
-            label.should == "Wednesday: "
+            expect(label).to eq "Wednesday: "
           end
         end
 
         describe "when the date is more than a week away" do
           before do
-            Date.stub(today: Date.new(2012, 11, 04))
+            Timecop.freeze(Time.zone.local(2012,11,04, 20,00))
             item.date = Date.new(2012, 11, 22)
           end
 
+          after { Timecop.return }
+
           it "displays the date rather than the day name" do
             label = helper.date_label(item)
-            label.should == "11/22: "
+            expect(label).to eq "11/22: "
           end
         end
       end
@@ -111,13 +116,13 @@ describe ApplicationHelper do
 
   describe "#wordpress_enabled?" do
     it "returns true if the app's blogging service is minimally configured" do
-      Rails.application.config.blogging_service.stub(:minimally_configured?).and_return(true)
-      helper.wordpress_enabled?.should == true
+      allow(Rails.application.config.blogging_service).to receive(:minimally_configured?).and_return(true)
+      expect(helper.wordpress_enabled?).to eq true
     end
 
     it "returns false otherwise" do
-      Rails.application.config.blogging_service.stub(:minimally_configured?).and_return(false)
-      helper.wordpress_enabled?.should == false
+      allow(Rails.application.config.blogging_service).to receive(:minimally_configured?).and_return(false)
+      expect(helper.wordpress_enabled?).to eq false
     end
   end
 end

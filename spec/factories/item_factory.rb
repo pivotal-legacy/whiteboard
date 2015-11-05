@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :item do
     title "Focused specs are broken"
     kind "Help"
-    date Date.today
+    date  { Time.zone.today }
 
     association :standup
   end
@@ -14,7 +14,7 @@ FactoryGirl.define do
   factory :new_face, class: Item do
     title "John"
     kind "New face"
-    date Date.today
+    date { Time.zone.today }
 
     association :standup
   end

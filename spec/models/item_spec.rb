@@ -15,31 +15,31 @@ describe Item do
   end
 
   describe "associations" do
-    it { should belong_to(:post) }
-    it { should belong_to(:standup) }
+    it { is_expected.to belong_to(:post) }
+    it { is_expected.to belong_to(:standup) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:standup) }
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:standup) }
 
     context 'New Faces' do
       let(:item) { build(:new_face) }
 
       context 'when new' do
-        let(:yesterday) { Date.today - 1.day }
+        let(:yesterday)  { (Time.zone.today - 1.day).to_time }
 
         it 'should disallow a past creation date' do
-          Timecop.freeze do
+          Timecop.freeze('2001-01-01 09:00') do
             item = build(:new_face, date: yesterday)
-            item.should_not be_valid
+            expect(item).to_not be_valid
           end
         end
       end
 
       context 'when updating' do
         before do
-          Timecop.freeze('2014-04-14 12:22:33') do
+          Timecop.freeze('2014-04-14 08:22:33') do
             item.save!
           end
         end
@@ -47,7 +47,7 @@ describe Item do
         it 'should allow a past creation date' do
           Timecop.freeze('2014-04-28 14:42:11') do
             item.post_id = 1
-            item.should be_valid
+            expect(item).to be_valid
           end
         end
       end
@@ -59,7 +59,7 @@ describe Item do
       ['Help', 'Interesting', 'Event', 'Win'].each do |kind|
         it kind do
           item.kind = kind
-          item.should be_valid
+          expect(item).to be_valid
         end
       end
     end
@@ -67,20 +67,20 @@ describe Item do
     describe "New face" do
       it "is valid with a date in the future" do
         item.kind = 'New face'
-        item.date = Date.tomorrow
-        item.should be_valid
+        item.date = Time.zone.tomorrow
+        expect(item).to be_valid
       end
     end
 
     it "should not allow other kinds" do
       item.kind = "foobar"
-      item.should_not be_valid
+      expect(item).to_not be_valid
     end
   end
 
   describe "defaults" do
     it "defaults public to false" do
-      Item.new.public.should == false
+      expect(Item.new.public).to eq false
     end
   end
 
@@ -100,16 +100,16 @@ describe Item do
       post.items << event_with_post
     end
 
-    it { should_not include event_before_date }
-    it { should include event_on_date }
-    it { should include event_after_date }
+    it { is_expected.to_not include event_before_date }
+    it { is_expected.to include event_on_date }
+    it { is_expected.to include event_after_date }
 
     it "orders the events by date" do
-      subject.should == [event_on_date, event_after_date]
+      expect(subject).to eq [event_on_date, event_after_date]
     end
 
     it "does not include events that have a post_id set" do
-      subject.should_not include event_with_post
+      expect(subject).to_not include event_with_post
     end
   end
 
@@ -125,45 +125,45 @@ describe Item do
     let!(:item_not_bumped) { create(:item, bumped: false, kind: "Help", standup: standup) }
     let!(:bumped_item) { create(:item, bumped: true, kind: "Help", standup: standup) }
 
-    let!(:item_for_today) { create(:item, date: Date.today, kind: "Help", standup: standup) }
+    let!(:item_for_today) { create(:item, date: Time.zone.today, kind: "Help", standup: standup) }
     let!(:item_with_no_date) { create(:item, date: nil, kind: "Help", standup: standup) }
-    let!(:item_for_tomorrow) { create(:item, date: Date.tomorrow, kind: "Help", standup: standup) }
+    let!(:item_for_tomorrow) { create(:item, date: Time.zone.tomorrow, kind: "Help", standup: standup) }
 
     let!(:item_for_different_standup) { create(:item, date: nil, kind: "Help", standup: other_standup) }
 
-    let!(:event_today) { create(:item, date: Date.today, kind: 'Event', standup: standup) }
-    let!(:event_tomorrow) { create(:item, date: Date.tomorrow, kind: 'Event', standup: standup) }
+    let!(:event_today) { create(:item, date: Time.zone.today, kind: 'Event', standup: standup) }
+    let!(:event_tomorrow) { create(:item, date: Time.zone.tomorrow, kind: 'Event', standup: standup) }
 
     it "includes item with no post id" do
-      should include item_with_no_post_id
-      should_not include item_with_post_id
+      expect(subject).to include item_with_no_post_id
+      expect(subject).to_not include item_with_post_id
     end
 
     it "includes non-bumped items" do
-      should include item_not_bumped
-      should_not include bumped_item
+      expect(subject).to include item_not_bumped
+      expect(subject).to_not include bumped_item
     end
 
     it "includes items with dates, but only for today" do
-      should include item_for_today
-      should_not include item_for_tomorrow
-      should include item_with_no_date
+      expect(subject).to include item_for_today
+      expect(subject).to_not include item_for_tomorrow
+      expect(subject).to include item_with_no_date
     end
 
     it "does not include events in the future" do
-      should_not include event_tomorrow
+      expect(subject).to_not include event_tomorrow
     end
 
     it "includes events from today" do
-      should include event_today
+      expect(subject).to include event_today
     end
 
     it "combines all of the above" do
-      should =~ [item_with_no_post_id, item_not_bumped, item_for_today, item_with_no_date, event_today]
+      expect(subject).to match_array [item_with_no_post_id, item_not_bumped, item_for_today, item_with_no_date, event_today]
     end
 
     it "does not include items for other standups" do
-      should_not include item_for_different_standup
+      expect(subject).to_not include item_for_different_standup
     end
   end
 
@@ -173,8 +173,8 @@ describe Item do
 
     let(:standup) do
       standup = Standup.new
-      standup.stub(:date_today).and_return(today)
-      standup.stub(:date_tomorrow).and_return(tomorrow)
+      allow(standup).to receive(:date_today).and_return(today)
+      allow(standup).to receive(:date_tomorrow).and_return(tomorrow)
       standup
     end
 
@@ -184,7 +184,7 @@ describe Item do
         item.standup = standup
       end
 
-      item.relative_date.should == :today
+      expect(item.relative_date).to eq :today
     end
 
     it 'returns :tomorrow for an event taking place tomorrow' do
@@ -193,7 +193,7 @@ describe Item do
         item.standup = standup
       end
 
-      item.relative_date.should == :tomorrow
+      expect(item.relative_date).to eq :tomorrow
     end
 
     it 'returns :upcoming for an event taking place after tomorrow' do
@@ -202,7 +202,7 @@ describe Item do
         item.standup = standup
       end
 
-      item.relative_date.should == :upcoming
+      expect(item.relative_date).to eq :upcoming
     end
   end
 
@@ -211,14 +211,14 @@ describe Item do
       old_help = FactoryGirl.create(:item, kind: 'Help', date: 2.days.ago)
       interesting = FactoryGirl.create(:item, kind: 'Interesting')
 
-      Item.orphans.should == {'Help' => [old_help], 'Interesting' => [interesting]}
+      expect(Item.orphans).to eq({'Help' => [old_help], 'Interesting' => [interesting]})
     end
 
     it 'returns items in date asc order' do
       interesting = FactoryGirl.create(:item, kind: 'Interesting')
       old_interesting = FactoryGirl.create(:item, kind: 'Interesting', date: 2.days.ago)
 
-      Item.orphans.should == {'Interesting' => [old_interesting, interesting]}
+      expect(Item.orphans).to eq({'Interesting' => [old_interesting, interesting]})
     end
   end
 
@@ -228,7 +228,7 @@ describe Item do
       FactoryGirl.create(:item, kind: 'Event')
       FactoryGirl.create(:item, kind: 'Help', date: Date.yesterday)
 
-      Item.orphans.length.should == 1
+      expect(Item.orphans.length).to eq 1
     end
   end
 end

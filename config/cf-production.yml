@@ -1,5 +1,5 @@
 ---
 applications:
-- name: whiteboard-production
+- name: whiteboard-sydney
   command: bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../

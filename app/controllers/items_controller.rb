@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-  before_filter :load_standup, except: [:create]
+  before_filter :load_standup
+  around_filter :standup_timezone
 
   def create
     @item = Item.new(params[:item])
@@ -11,15 +12,14 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @standup = Standup.find_by_id(params[:standup_id])
     options = (params[:item] || {}).merge({post_id: params[:post_id], author: session[:username]})
+    options.reverse_merge!(date: Time.zone.today)
     @item = @standup.items.build(options)
     render_custom_item_template @item
   end
 
   def index
-    @standup = Standup.find_by_id(params[:standup_id])
-    events = Item.events_on_or_after(Date.today, @standup)
+    events = Item.events_on_or_after(Time.zone.today, @standup)
     @items = @standup.items.orphans.merge(events)
   end
 
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def presentation
-    events = Item.events_on_or_after(Date.today, @standup)
+    events = Item.events_on_or_after(Time.zone.today, @standup)
     @items = @standup.items.orphans.merge(events)
     render layout: 'deck'
   end
@@ -62,11 +62,19 @@ class ItemsController < ApplicationController
 
   def load_standup
     if params[:standup_id].present?
-      standup = Standup.find(params[:standup_id])
+      standup = Standup.find_by(id: params[:standup_id])
+    elsif params.fetch(:item, {})[:standup_id].present?
+      standup = Standup.find_by(id: params[:item][:standup_id])
     else
-      standup = Item.find(params[:id]).standup
+
+      standup = Item.find_by(id: params[:id]).standup
     end
 
     @standup = StandupPresenter.new(standup)
+  end
+
+  def standup_timezone(&block)
+    return yield unless @standup
+    Time.use_zone(@standup.time_zone_name, &block)
   end
 end

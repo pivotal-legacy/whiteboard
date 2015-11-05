@@ -6,18 +6,18 @@ describe StandupPresenter do
   subject { StandupPresenter.new(standup) }
 
   it 'delegates methods to standup' do
-    subject.foo.should == 'bar'
+    expect(subject.foo).to eq 'bar'
   end
 
   context 'when standup object does not have a closing message' do
     it 'picks a closing message' do
-      Date.stub_chain(:today, :wday).and_return(4)
-      StandupPresenter::STANDUP_CLOSINGS.should include(subject.closing_message)
+      allow(Time).to receive_message_chain(:zone, :today, :wday).and_return(4)
+      expect(StandupPresenter::STANDUP_CLOSINGS).to include(subject.closing_message)
     end
 
     it 'should remind us when its Floor Friday' do
-      Date.stub_chain(:today, :wday).and_return(5)
-      subject.closing_message.should == "STRETCH! It's Floor Friday!"
+      allow(Time).to receive_message_chain(:zone, :today, :wday).and_return(5)
+      expect(subject.closing_message).to eq "STRETCH! It's Floor Friday!"
     end
   end
 
@@ -25,7 +25,7 @@ describe StandupPresenter do
     let(:standup) { double(closing_message: 'Yay!') }
 
     it 'returns the standup closing message' do
-      subject.closing_message.should == 'Yay!'
+      expect(subject.closing_message).to eq 'Yay!'
     end
   end
 
@@ -37,7 +37,7 @@ describe StandupPresenter do
 
     context 'when the day is selected' do
       before do
-        Timecop.travel(Time.local(2013, 9, 2, 12, 0, 0)) #monday
+        Timecop.travel(Time.zone.local(2013, 9, 2, 12, 0, 0)) #monday
       end
 
       after do
@@ -46,7 +46,7 @@ describe StandupPresenter do
 
       context 'when the directory contains files' do
         it 'returns an image url from the list of image urls' do
-          image_urls.should include subject.closing_image
+          expect(image_urls).to include subject.closing_image
         end
 
         it 'does not return the same image 100 times in a row' do
@@ -55,14 +55,14 @@ describe StandupPresenter do
             images << subject.closing_image
           end
 
-          images.uniq.length.should == 2
+          expect(images.uniq.length).to eq 2
         end
       end
     end
 
     context 'when the day is not selected' do
       before do
-        Timecop.travel(Time.local(2013, 9, 4, 12, 0, 0)) #wednesday
+        Timecop.travel(Time.zone.local(2013, 9, 4, 12, 0, 0)) #wednesday
       end
 
       after do
@@ -70,7 +70,7 @@ describe StandupPresenter do
       end
 
       it 'returns nil' do
-        subject.closing_image.should be_nil
+        expect(subject.closing_image).to be_nil
       end
     end
   end

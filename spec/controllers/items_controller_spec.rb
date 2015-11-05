@@ -5,10 +5,15 @@ describe ItemsController do
   let(:params) { {standup_id: standup.id} }
   before do
     request.session[:logged_in] = true
+    Timecop.freeze(Time.zone.local(2001,1,1, 20,00))
+  end
+
+  after do
+    Timecop.return
   end
 
   describe "#create" do
-    let(:valid_params) { {item: attributes_for(:item).merge(standup_id: standup.to_param)} }
+    let(:valid_params) { {item: attributes_for(:item).merge(standup_id: standup.to_param), standup_id: standup.to_param} }
 
     it "should allow you to create an item" do
       expect {
@@ -18,12 +23,12 @@ describe ItemsController do
 
     it "should redirect to root on success" do
       post :create, valid_params
-      response.location.should == "http://test.host/standups/#{standup.id}"
+      expect(response.location).to eq "http://test.host/standups/#{standup.id}"
     end
 
     it "should render new on failure" do
-      post :create, item: {}
-      response.should render_template 'items/new'
+      post :create, item: {}, standup_id: standup.to_param
+      expect(response).to render_template 'items/new'
     end
 
     it "sets the post_id if one is provided" do
@@ -33,33 +38,44 @@ describe ItemsController do
           params[:item][:post_id] =  standup_post.to_param
         end)
       }.to change { standup_post.items.count }.by(1)
-      response.should redirect_to(edit_post_path(standup_post))
+      expect(response).to redirect_to(edit_post_path(standup_post))
+    end
+
+    it_behaves_like "an action occurring within the standup's timezone" do
+      after { post :create, valid_params }
     end
   end
 
   describe '#new' do
+
     it "should create a new Item object" do
       get :new, params
-      assigns[:item].should be_new_record
-      response.should render_template('items/new')
-      response.should be_ok
+      expect(assigns[:item]).to be_new_record
+      expect(response).to render_template('items/new')
+      expect(response).to be_ok
     end
 
     it "should render the custom template for the kind if there is one" do
       get :new, params.merge(item: { kind: 'New face' })
-      response.should render_template('items/new_new_face')
+      expect(response).to render_template('items/new_new_face')
     end
 
     it "uses the params to create the new item so you can set defaults in the link" do
       get :new, params.merge(item: { kind: 'Interesting' })
-      assigns[:item].kind.should == 'Interesting'
+      expect(assigns[:item].kind).to eq 'Interesting'
     end
 
     it "should set the author on the new Item" do
       session[:username] = "Barney Rubble"
       get :new, params
       item = assigns[:item]
-      item.author.should == "Barney Rubble"
+      expect(item.author).to eq "Barney Rubble"
+    end
+
+    it "should set the date of the item with respect to the local time zone" do
+      get :new, params
+      item = assigns[:item]
+      expect(item.date).to eq Date.new(2001, 1, 1)
     end
   end
 
@@ -70,10 +86,10 @@ describe ItemsController do
       interesting = create(:item, kind: "Interesting", standup: standup)
 
       get :index, params
-      assigns[:items]['New face'].should    == [ new_face ]
-      assigns[:items]['Help'].should        == [ help ]
-      assigns[:items]['Interesting'].should == [ interesting ]
-      response.should be_ok
+      expect(assigns[:items]['New face']).to eq [ new_face ]
+      expect(assigns[:items]['Help']).to eq [ help ]
+      expect(assigns[:items]['Interesting']).to eq [ interesting ]
+      expect(response).to be_ok
     end
 
     it "sorts the hash by date asc" do
@@ -81,7 +97,7 @@ describe ItemsController do
       old_help = create(:item, date: 4.days.ago, standup: standup)
 
       get :index, params
-      assigns[:items]['Help'].should == [ old_help, new_help ]
+      expect(assigns[:items]['Help']).to eq [ old_help, new_help ]
     end
 
     it "does not include items which are associated with a post" do
@@ -92,44 +108,44 @@ describe ItemsController do
       posted_item = create(:item, post: post, standup: standup)
 
       get :index, params
-      assigns[:items]['New face'].should    == [ new_face ]
-      assigns[:items]['Help'].should        == [ help ]
-      assigns[:items]['Interesting'].should == [ interesting ]
-      response.should be_ok
+      expect(assigns[:items]['New face']).to eq [ new_face ]
+      expect(assigns[:items]['Help']).to eq [ help ]
+      expect(assigns[:items]['Interesting']).to eq [ interesting ]
+      expect(response).to be_ok
     end
 
     it "does not include items associated with other standups" do
       other_standup = create(:standup)
-      standup_event = create(:item, kind: "Event", standup: standup, date: Date.tomorrow)
-      other_standup_event = create(:item, kind: "Event", standup: other_standup, date: Date.tomorrow)
+      standup_event = create(:item, kind: "Event", standup: standup, date: Time.zone.tomorrow)
+      other_standup_event = create(:item, kind: "Event", standup: other_standup, date: Time.zone.tomorrow)
 
       get :index, params
 
-      assigns[:items]['Event'].should include standup_event
-      assigns[:items]['Event'].should_not include other_standup_event
+      expect(assigns[:items]['Event']).to include standup_event
+      expect(assigns[:items]['Event']).to_not include other_standup_event
     end
   end
 
   describe "#presentation" do
     it "renders the deck template" do
       get :presentation, params
-      response.should render_template('deck')
+      expect(response).to render_template('deck')
     end
 
     it "loads the posts" do
       get :presentation, params
-      assigns[:items].should be
+      expect(assigns[:items]).to be
     end
 
     it "only loads items from the current standup" do
       other_standup = create(:standup)
-      other_standup_event = create(:item, standup: other_standup, date: Date.tomorrow, kind: "Event")
-      standup_event = create(:item, standup: standup, date: Date.tomorrow, kind: "Event")
+      other_standup_event = create(:item, standup: other_standup, date: Time.zone.tomorrow, kind: "Event")
+      standup_event = create(:item, standup: standup, date: Time.zone.tomorrow, kind: "Event")
 
       get :presentation, params
 
-      assigns[:items]['Event'].should include standup_event
-      assigns[:items]['Event'].should_not include other_standup_event
+      expect(assigns[:items]['Event']).to include standup_event
+      expect(assigns[:items]['Event']).to_not include other_standup_event
     end
   end
 
@@ -139,9 +155,9 @@ describe ItemsController do
 
       item = create(:item)
       delete :destroy, id: item.id
-      Item.find_by_id(item.id).should_not be
+      expect(Item.find_by_id(item.id)).to_not be
 
-      response.should redirect_to "the url we came from"
+      expect(response).to redirect_to "the url we came from"
     end
   end
 
@@ -149,14 +165,14 @@ describe ItemsController do
     it "should edit the item" do
       item = create(:item)
       get :edit, id: item.id
-      assigns[:item].should == item
-      response.should render_template 'items/new'
+      expect(assigns[:item]).to eq item
+      expect(response).to render_template 'items/new'
     end
 
     it "should render the custom template for the kind if there is one" do
       item = create(:new_face)
       get :edit, id: item.id
-      response.should render_template('items/new_new_face')
+      expect(response).to render_template('items/new_new_face')
     end
   end
 
@@ -164,7 +180,7 @@ describe ItemsController do
     it "should update the item" do
       item = create(:item)
       put :update, id: item.id, item: { title: "New Title" }
-      item.reload.title.should == "New Title"
+      expect(item.reload.title).to eq "New Title"
     end
 
     context "with a redirect_to param" do
@@ -172,7 +188,7 @@ describe ItemsController do
 
       it "redirects to the edit post page" do
         put :update, id: item.id, post_id: item.post, item: { title: "New Title" }, redirect_to: '/foo'
-        response.should redirect_to('/foo')
+        expect(response).to redirect_to('/foo')
       end
     end
 
@@ -181,7 +197,7 @@ describe ItemsController do
 
       it "redirects to the standup page" do
         put :update, id: item.id, post_id: item.post, item: { title: "New Title" }
-        response.should redirect_to(item.standup)
+        expect(response).to redirect_to(item.standup)
       end
     end
 
@@ -189,13 +205,13 @@ describe ItemsController do
       it "should render new" do
         item = create(:item)
         put :update, id: item.id, post_id: item.post, item: { title: "" }
-        response.should render_template('items/new')
+        expect(response).to render_template('items/new')
       end
 
       it "should render a custom template if there is one" do
         item = create(:new_face)
         put :update, id: item.id, post_id: item.post, item: { title: "" }
-        response.should render_template('items/new_new_face')
+        expect(response).to render_template('items/new_new_face')
       end
     end
   end

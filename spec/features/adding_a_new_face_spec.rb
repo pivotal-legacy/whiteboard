@@ -19,13 +19,13 @@ describe "Adding new faces", js: true do
     find(:css, '[name="item[date]"]').click
     find(:css, '.next').click
 
-    find_field("item[date]").value.should == new_face_date
+    expect(find_field("item[date]").value).to eq new_face_date
     blur(page)
 
     click_on "Create New Face"
 
-    page.should have_content "Please choose a date in present or future"
-    #page.should have_content "Create New Face" #TODO: as of 2014-02-05, this captures a bug.
+    expect(page).to have_content "Please choose a date in present or future"
+    #expect(page).to have_content "Create New Face" #TODO: as of 2014-02-05, this captures a bug.
   end
 
   it "allows yesterday's new faces to post today" do
@@ -41,11 +41,11 @@ describe "Adding new faces", js: true do
 
       find('#create-post').click
 
-      page.should_not have_content "Unable to create post"
-      current_path.should_not eq(standup_items_path(standup))
+      expect(page).to_not have_content "Unable to create post"
+      expect(current_path).to_not eq(standup_items_path(standup))
 
       post = Post.last
-      post.items.should =~ [new_face]
+      expect(post.items).to match [new_face]
     end
   end
 end

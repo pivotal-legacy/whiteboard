@@ -1,4 +1,7 @@
 class StandupsController < ApplicationController
+  before_filter :load_standup, only: [:edit, :show, :update, :destroy]
+  around_filter :standup_timezone, only: [:edit, :show, :update, :destroy]
+
   def create
     @standup = Standup.create(params[:standup])
 
@@ -18,12 +21,9 @@ class StandupsController < ApplicationController
     @standups = Standup.all.sort{ |a,b| a.title.downcase <=> b.title.downcase }
   end
 
-  def edit
-    @standup = Standup.find(params[:id])
-  end
+  def edit; end
 
   def show
-    @standup = Standup.find_by(id: params[:id])
     if @standup
       session[:last_visited_standup] = params[:id]
       redirect_to standup_items_path(@standup)
@@ -34,8 +34,6 @@ class StandupsController < ApplicationController
   end
 
   def update
-    @standup = Standup.find(params[:id])
-
     if @standup.update(params[:standup])
       redirect_to @standup
     else
@@ -44,7 +42,6 @@ class StandupsController < ApplicationController
   end
 
   def destroy
-    @standup = Standup.find(params[:id])
     @standup.destroy
     redirect_to standups_path
   end
@@ -56,5 +53,16 @@ class StandupsController < ApplicationController
     else
       redirect_to standups_path
     end
+  end
+
+  private
+
+  def load_standup
+    @standup = Standup.find_by(id: params[:id])
+  end
+
+  def standup_timezone(&block)
+    return yield unless @standup
+    Time.use_zone(@standup.time_zone_name, &block)
   end
 end
