@@ -29,6 +29,34 @@ describe StandupPresenter do
     end
   end
 
+  context "when standup does NOT have one click post enabled" do
+    before do
+      allow(standup).to receive(:one_click_post?).and_return(false)
+    end
+
+    it "returns the create post confirmation message for the multi-step post flow" do
+      expect(subject.create_post_confirm_message).to eq "This will clear the board and create a new one for tomorrow, you can always get back to this post under the \"Posts\" menu in the header. Continue?"
+    end
+
+    it "returns the create post button text for the multi-step post flow" do
+      expect(subject.create_post_button_text).to eq "Create Post"
+    end
+  end
+
+  context "when standup has one click post enabled" do
+    before do
+      allow(standup).to receive(:one_click_post?).and_return(true)
+    end
+
+    it "returns the create post confirmation message for the 1-click flow" do
+      expect(subject.create_post_confirm_message).to eq "You are about to send today's stand up email. Continue?"
+    end
+
+    it "returns the create post button text for the 1-click flow" do
+      expect(subject.create_post_button_text).to eq "Send Email"
+    end
+  end
+
   describe '#closing_image' do
     let(:image_urls) {
       ['http://example.com/bar.png', 'http://example.com/baz.png']

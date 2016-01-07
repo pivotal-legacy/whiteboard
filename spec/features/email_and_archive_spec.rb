@@ -23,16 +23,18 @@ describe "creating a standup post from the whiteboard", js: true do
 
       expect(page).to have_content("So so interesting")
 
-      fill_in "Blogger Name(s)", with: "Me"
-      fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
+      fill_in "Standup host(s)", with: "Me"
+      fill_in "Email subject", with: "empty post"
 
-      page.evaluate_script('window.confirm = function() { return true; }')
-      click_on "Create Post"
+      @message = accept_confirm do
+        click_on "Send Email"
+      end
     end
 
     it "emails and archives the e-mail in 1 step when the user creates the post" do
       verify_on_items_page
 
+      expect(@message).to eq("You are about to send today's stand up email. Continue?")
       expect(page).to have_content('Successfully sent Standup email!')
       expect(page).to_not have_content('So so interesting')
     end
@@ -47,23 +49,25 @@ describe "creating a standup post from the whiteboard", js: true do
 
       expect(page).to have_content("So so interesting")
 
-      fill_in "Blogger Name(s)", with: "Me"
-      fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
+      fill_in "Standup host(s)", with: "Me"
+      fill_in "Email subject", with: "empty post"
 
-      page.evaluate_script('window.confirm = function() { return true; }')
-      click_on "Create Post"
+      @message = accept_confirm do
+        click_on "Create Post"
+      end
     end
 
     it "requires the user to individually review, send e-mail and then archive" do
+      expect(@message).to eq('This will clear the board and create a new one for tomorrow, you can always get back to this post under the "Posts" menu in the header. Continue?')
       expect(page).to have_content("So so interesting")
 
-      page.evaluate_script('window.confirm = function() { return true; }')
-      click_on "Send Email"
+      accept_confirm do
+        click_on "Send Email"
+      end
 
       expect(page).to have_content("This email was sent at")
       expect(page).to_not have_css('a.btn', text: 'Send Email')
 
-      page.evaluate_script('window.confirm = function() { return true; }')
       click_on "Archive Post"
 
       verify_on_items_page

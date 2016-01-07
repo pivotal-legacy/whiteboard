@@ -18,6 +18,22 @@ class StandupPresenter < SimpleDelegator
     STANDUP_CLOSINGS.sample
   end
 
+  def create_post_button_text
+    if @standup.one_click_post?
+      "Send Email"
+    else
+      "Create Post"
+    end
+  end
+
+  def create_post_confirm_message
+    if @standup.one_click_post?
+      "You are about to send today's stand up email. Continue?"
+    else
+      "This will clear the board and create a new one for tomorrow, you can always get back to this post under the \"Posts\" menu in the header. Continue?"
+    end
+  end
+
   def closing_image
     return nil unless @standup.image_days.include? @standup.date_today.strftime("%a")
     @standup.image_urls.split("\n").reject(&:blank?).sample
