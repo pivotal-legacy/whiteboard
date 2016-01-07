@@ -17,8 +17,9 @@ describe "publishing", js: true do
     fill_in "Standup host(s)", with: "Me"
     fill_in "Email subject", with: "empty post"
 
-    page.evaluate_script('window.confirm = function() { return true; }')
-    click_on "Create Post"
+    accept_confirm do
+      click_on "Create Post"
+    end
 
     expect(page).to have_content("Please update these items with any new information from standup:")
 
@@ -59,8 +60,9 @@ describe "publishing", js: true do
     fill_in "Standup host(s)", with: "Me"
     fill_in "Email subject", with: "empty post"
 
-    page.evaluate_script('window.confirm = function() { return true; }')
-    click_on "Create Post"
+    accept_confirm do
+      click_on "Create Post"
+    end
 
     click_on 'Post Blog Entry'
 
@@ -87,8 +89,9 @@ describe "publishing", js: true do
     fill_in "Standup host(s)", with: "Me"
     fill_in "Email subject", with: "empty post"
 
-    page.evaluate_script('window.confirm = function() { return true; }')
-    click_on "Create Post"
+    accept_confirm do
+      click_on "Create Post"
+    end
 
     click_on 'Post Blog Entry'
 
