@@ -96,7 +96,8 @@ describe Standup do
           time_zone_name: "Mountain Time (US & Canada)",
           start_time_string: "9:00am",
           image_urls: 'http://example.com/bar.png',
-          image_days: '["M"]'
+          image_days: '["M"]',
+          one_click_post: true
       )
     }.to_not raise_exception
   end
