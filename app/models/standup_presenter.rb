@@ -34,6 +34,22 @@ class StandupPresenter < SimpleDelegator
     end
   end
 
+  def create_post_sender_field_placeholder
+    if @standup.one_click_post?
+      "Standup host(s)"
+    else
+      "Blogger Name(s)"
+    end
+  end
+
+  def create_post_subject_field_placeholder
+    if @standup.one_click_post?
+      "Email subject"
+    else
+      "Post Title (eg: Best Standup Ever)"
+    end
+  end
+
   def closing_image
     return nil unless @standup.image_days.include? @standup.date_today.strftime("%a")
     @standup.image_urls.split("\n").reject(&:blank?).sample

@@ -14,8 +14,8 @@ describe "publishing", js: true do
     expect_any_instance_of(WordpressService).to_not receive(:send!)
     click_link(standup.title)
 
-    fill_in "Standup host(s)", with: "Me"
-    fill_in "Email subject", with: "empty post"
+    fill_in "Blogger Name(s)", with: "Me"
+    fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
 
     accept_confirm do
       click_on "Create Post"
@@ -57,8 +57,8 @@ describe "publishing", js: true do
     click_on 'Post to Blog'
     click_button 'Create Item'
 
-    fill_in "Standup host(s)", with: "Me"
-    fill_in "Email subject", with: "empty post"
+    fill_in "Blogger Name(s)", with: "Me"
+    fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
 
     accept_confirm do
       click_on "Create Post"
@@ -86,8 +86,8 @@ describe "publishing", js: true do
     click_on 'Post to Blog'
     click_button 'Create Item'
 
-    fill_in "Standup host(s)", with: "Me"
-    fill_in "Email subject", with: "empty post"
+    fill_in "Blogger Name(s)", with: "Me"
+    fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
 
     accept_confirm do
       click_on "Create Post"

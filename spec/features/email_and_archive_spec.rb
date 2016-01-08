@@ -49,8 +49,8 @@ describe "creating a standup post from the whiteboard", js: true do
 
       expect(page).to have_content("So so interesting")
 
-      fill_in "Standup host(s)", with: "Me"
-      fill_in "Email subject", with: "empty post"
+      fill_in "Blogger Name(s)", with: "Me"
+      fill_in "Post Title (eg: Best Standup Ever)", with: "empty post"
 
       @message = accept_confirm do
         click_on "Create Post"

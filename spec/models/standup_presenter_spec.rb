@@ -41,6 +41,14 @@ describe StandupPresenter do
     it "returns the create post button text for the multi-step post flow" do
       expect(subject.create_post_button_text).to eq "Create Post"
     end
+
+    it "returns the create post sender placeholder" do
+      expect(subject.create_post_sender_field_placeholder).to eq("Blogger Name(s)")
+    end
+
+    it "returns the crete post subject placeholder" do
+      expect(subject.create_post_subject_field_placeholder).to eq("Post Title (eg: Best Standup Ever)")
+    end
   end
 
   context "when standup has one click post enabled" do
@@ -54,6 +62,14 @@ describe StandupPresenter do
 
     it "returns the create post button text for the 1-click flow" do
       expect(subject.create_post_button_text).to eq "Send Email"
+    end
+
+    it "returns the create post sender placeholder" do
+      expect(subject.create_post_sender_field_placeholder).to eq("Standup host(s)")
+    end
+
+    it "returns the crete post subject placeholder" do
+      expect(subject.create_post_subject_field_placeholder).to eq("Email subject")
     end
   end
 
