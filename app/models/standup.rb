@@ -41,6 +41,10 @@ class Standup < ActiveRecord::Base
     standup_time_today < time_zone.now
   end
 
+  def last_email_time
+    posts.where.not(sent_at: nil).order(:sent_at).reverse_order.limit(1).first.try(:sent_at)
+  end
+
   private
 
   def standup_time_today

@@ -6,6 +6,7 @@
   <div class='bottom border-top'>
     <div class='navbar-inner'>
       <%= link_to 'Presentation', presentation_standup_items_path(@standup), class: 'btn btn-success navbar-btn' %>
+      <span class="badge alert-info"><%= @standup.last_email_time_message %></span>
       <%= form_tag "/standups/#{@standup.id}/posts", method: 'post', class: 'navbar-form pull-right' do %>
           <%= text_field_tag 'post[from]', nil, placeholder: @standup.create_post_sender_field_placeholder %>
           <%= text_field_tag 'post[title]', nil, placeholder: @standup.create_post_subject_field_placeholder, class: 'wide-input' %>

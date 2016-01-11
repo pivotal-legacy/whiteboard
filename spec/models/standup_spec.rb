@@ -106,4 +106,29 @@ describe Standup do
     standup = create(:standup, image_days: ['mon', 'tue'])
     expect(standup.image_days).to eq ['mon', 'tue']
   end
+
+  describe "#last_email_time" do
+    context "when there are no posts" do
+      let (:standup_with_no_posts) { create(:standup) }
+
+      it "is nil" do
+        expect(standup_with_no_posts.last_email_time).to be_nil
+      end
+    end
+
+    context "when there are posts" do
+      let (:last_email_time) { Time.local(2016, 1, 1, 19, 42) }
+      let (:last_emailed_post) { create(:post, sent_at: last_email_time) }
+      let (:standup_with_posts) { create(:standup, posts: [
+        create(:post, sent_at: last_email_time - 1),
+        last_emailed_post,
+        create(:post, sent_at: last_email_time - 1),
+        create(:post, sent_at: nil)
+      ])}
+
+      it "is the time the most recently emailed post was emailed" do
+        expect(standup_with_posts.last_email_time).to eq(last_email_time)
+      end
+    end
+  end
 end

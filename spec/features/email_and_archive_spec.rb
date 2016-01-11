@@ -26,6 +26,7 @@ describe "creating a standup post from the whiteboard", js: true do
       fill_in "Standup host(s)", with: "Me"
       fill_in "Email subject", with: "empty post"
 
+      expect(page).to_not have_content("Last standup email sent: ")
       @message = accept_confirm do
         click_on "Send Email"
       end
@@ -37,6 +38,8 @@ describe "creating a standup post from the whiteboard", js: true do
       expect(@message).to eq("You are about to send today's stand up email. Continue?")
       expect(page).to have_content('Successfully sent Standup email!')
       expect(page).to_not have_content('So so interesting')
+
+      expect(page).to have_content("Last standup email sent: ")
     end
   end
 
@@ -60,6 +63,7 @@ describe "creating a standup post from the whiteboard", js: true do
     it "requires the user to individually review, send e-mail and then archive" do
       expect(@message).to eq('This will clear the board and create a new one for tomorrow, you can always get back to this post under the "Posts" menu in the header. Continue?')
       expect(page).to have_content("So so interesting")
+      expect(page).to_not have_content("Last standup email sent: ")
 
       accept_confirm do
         click_on "Send Email"
@@ -72,6 +76,8 @@ describe "creating a standup post from the whiteboard", js: true do
 
       verify_on_items_page
       expect(page).to_not have_content('So so interesting')
+
+      expect(page).to have_content("Last standup email sent: ")
     end
   end
 

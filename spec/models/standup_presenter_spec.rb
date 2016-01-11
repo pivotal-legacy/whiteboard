@@ -29,6 +29,36 @@ describe StandupPresenter do
     end
   end
 
+  context "when the standup has posts that have been e-mailed" do
+    before do
+      allow(standup).to receive(:last_email_time).and_return(Time.local(2001, 01, 01, 12, 00))
+    end
+
+    it "returns the last email time message" do
+      expect(subject.last_email_time_message).to eq("Last standup email sent: 12:00PM Monday Jan 1, 2001")
+    end
+  end
+
+  context "when the standup DOES NOT have posts that have been e-mailed" do
+    before do
+      allow(standup).to receive(:last_email_time).and_return(nil)
+    end
+
+    it "does not return a last email time message" do
+      expect(subject.last_email_time_message).to be_nil
+    end
+  end
+
+  context "when the standup DOES NOT have posts" do
+    before do
+      allow(standup).to receive(:last_email_time).and_return(nil)
+    end
+
+    it "does not return a last email time message" do
+      expect(subject.last_email_time_message).to be_nil
+    end
+  end
+
   context "when standup does NOT have one click post enabled" do
     before do
       allow(standup).to receive(:one_click_post?).and_return(false)

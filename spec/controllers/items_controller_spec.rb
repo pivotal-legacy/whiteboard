@@ -106,7 +106,7 @@ describe ItemsController do
       help = create(:item, kind: "Help", standup: standup)
       new_face = create(:new_face, standup: standup)
       interesting = create(:item, kind: "Interesting", standup: standup)
-      posted_item = create(:item, post: post, standup: standup)
+      create(:item, post: post, standup: standup)
 
       get :index, params
       expect(assigns[:items]['New face']).to eq [ new_face ]
