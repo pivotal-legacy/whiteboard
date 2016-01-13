@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131017003125) do
+ActiveRecord::Schema.define(version: 20160107161453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,9 +51,11 @@ ActiveRecord::Schema.define(version: 20131017003125) do
     t.datetime "updated_at"
     t.string   "closing_message"
     t.string   "time_zone_name",      default: "Eastern Time (US & Canada)", null: false
+    t.text     "ip_addresses_string"
     t.string   "start_time_string",   default: "9:06am"
     t.text     "image_urls"
     t.string   "image_days"
+    t.boolean  "one_click_post"
   end
 
 end

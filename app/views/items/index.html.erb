@@ -7,10 +7,10 @@
     <div class='navbar-inner'>
       <%= link_to 'Presentation', presentation_standup_items_path(@standup), class: 'btn btn-success navbar-btn' %>
       <%= form_tag "/standups/#{@standup.id}/posts", method: 'post', class: 'navbar-form pull-right' do %>
-          <%= text_field_tag 'post[from]', nil, placeholder: 'Blogger Name(s)' %>
-          <%= text_field_tag 'post[title]', nil, placeholder: 'Post Title (eg: Best Standup Ever)', class: 'wide-input' %>
-          <%= submit_tag 'Create Post',
-                         data: {confirm: 'This will clear the board and create a new one for tomorrow, you can always get back to this post under the "Posts" menu in the header. Continue?'},
+          <%= text_field_tag 'post[from]', nil, placeholder: @standup.create_post_sender_field_placeholder %>
+          <%= text_field_tag 'post[title]', nil, placeholder: @standup.create_post_subject_field_placeholder, class: 'wide-input' %>
+          <%= submit_tag @standup.create_post_button_text,
+                         data: {confirm: @standup.create_post_confirm_message },
                          id: 'create-post',
                          class: 'btn btn-warning'
           %>

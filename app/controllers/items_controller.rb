@@ -23,6 +23,7 @@ class ItemsController < ApplicationController
   def index
     events = Item.events_on_or_after(Time.zone.today, @standup)
     @items = @standup.items.orphans.merge(events)
+
     respond_with(@items)
   end
 

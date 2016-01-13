@@ -9,7 +9,21 @@ class PostsController < ApplicationController
     @post = @standup.posts.build(params[:post])
     if @post.save
       @post.adopt_all_the_items
-      redirect_to edit_post_path(@post)
+
+      if @standup.one_click_post?
+        begin
+          @post.deliver_email
+          @post.archived = true
+          @post.save!
+          flash[:notice] = "Successfully sent Standup email!"
+          redirect_to @standup
+        rescue
+          flash[:error] = "Failed to send email. Please try again."
+          redirect_to edit_post_path(@post)
+        end
+      else
+        redirect_to edit_post_path(@post)
+      end
     else
       flash[:error] = "Unable to create post"
       redirect_to @standup
