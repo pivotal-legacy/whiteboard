@@ -3,7 +3,7 @@ require "ipaddr"
 class Standup < ActiveRecord::Base
   TIME_FORMAT = /(\d{1,2}):(\d{2})\s*(am|pm)/i
 
-  attr_accessible :title, :to_address, :subject_prefix, :closing_message, :time_zone_name, :start_time_string, :image_urls, :image_days
+  attr_accessible :title, :to_address, :subject_prefix, :closing_message, :time_zone_name, :start_time_string, :image_urls, :image_days, :one_click_post
   serialize :image_days
 
   has_many :items, dependent: :destroy
@@ -39,6 +39,10 @@ class Standup < ActiveRecord::Base
 
   def finished_today
     standup_time_today < time_zone.now
+  end
+
+  def last_email_time
+    posts.where.not(sent_at: nil).order(:sent_at).reverse_order.limit(1).first.try(:sent_at)
   end
 
   private

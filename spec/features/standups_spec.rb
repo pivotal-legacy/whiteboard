@@ -16,6 +16,7 @@ describe "standups", :js do
     fill_in 'standup_closing_message', with: "Woohoo"
     fill_in 'standup_start_time_string', with: '10:00am'
     fill_in 'standup_image_urls', with: 'http://example.com/bar.png'
+    check 'standup_one_click_post'
     click_button 'Create Standup'
 
     click_link('All Standups')
@@ -41,6 +42,7 @@ describe "standups", :js do
     expect(page).to have_css('input[value="all@pivotallabs.com"]')
     expect(page).to have_css('input[value="Woohoo"]')
     expect(page).to have_css('option[value="Mountain Time (US & Canada)"][selected]')
+    expect(page).to have_css('input[name="standup[one_click_post]"][checked="checked"]')
     expect(page).to have_css('input[value="10:00am"]')
   end
 

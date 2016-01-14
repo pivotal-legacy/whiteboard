@@ -12,21 +12,89 @@ describe PostsController do
   end
 
   describe "#create" do
-    it "creates a post" do
-      expect do
+
+    context "standup has one click posting enabled" do
+      let(:standup_with_one_click_post) { create(:standup, one_click_post: true) }
+
+      it "creates a post" do
+        expect do
+          post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        end.to change { Post.count }.by(1)
+      end
+
+      it "redirects to the standup" do
+        post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        expect(response).to redirect_to(standup_path(standup_with_one_click_post))
+      end
+
+      it "adopts all items" do
+        item = create(:item, standup: standup_with_one_click_post)
+        post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        expect(standup_with_one_click_post.posts.last.items).to eq [item]
+      end
+
+      it "sends the email" do
+        post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        expect(ActionMailer::Base.deliveries).to_not be_empty
+        expect(ActionMailer::Base.deliveries.last.to).to eq [standup_with_one_click_post.to_address]
+      end
+
+      it "archives the post" do
+        post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        expect(standup_with_one_click_post.posts.last).to be_archived
+      end
+
+      it "sets a flash notifying that the email was sent and the post was archived" do
+        post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        expect(flash[:notice]).to eq("Successfully sent Standup email!")
+      end
+
+      it_behaves_like "an action occurring within the standup's timezone" do
+        after { post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id }
+      end
+
+      context "when sending email fails" do
+        before do
+          allow(PostMailer).to receive(:send_to_all).and_raise("SOME ARBITRARY ERROR")
+          post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+        end
+
+        it "displays an error message that the email could not be sent" do
+          expect(flash[:error]).to eq("Failed to send email. Please try again.")
+        end
+
+        it "raises an error and does not archive the post if sending email fails" do
+          expect(standup_with_one_click_post.posts.last).to_not be_archived
+        end
+
+        it "redirects to the post" do
+          post :create, post: {title: "Standup 12/12/12"}, standup_id: standup_with_one_click_post.id
+          expect(response).to redirect_to(edit_post_path(standup_with_one_click_post.posts.last))
+        end
+      end
+    end
+
+    context "standup does NOT have one click posting enabled" do
+      it "creates a post" do
+        expect do
+          post :create, post: {title: "Standup 12/12/12"}, standup_id: standup.id
+        end.to change { Post.count }.by(1)
+      end
+
+      it "redirects to the post" do
         post :create, post: {title: "Standup 12/12/12"}, standup_id: standup.id
-      end.to change { Post.count }.by(1)
-      expect(response).to be_redirect
-    end
+        expect(response).to redirect_to(edit_post_path(standup.posts.last))
+      end
 
-    it "adopts all items" do
-      item = create(:item, standup: standup)
-      post :create, post: {title: "Standup 12/12/12"}, standup_id: standup.id
-      expect(assigns[:post].items).to eq [item]
-    end
+      it "adopts all items" do
+        item = create(:item, standup: standup)
+        post :create, post: {title: "Standup 12/12/12"}, standup_id: standup.id
+        expect(assigns[:post].items).to eq [item]
+      end
 
-    it_behaves_like "an action occurring within the standup's timezone" do
-      after { post :create, post: {title: "Standup 12/12/12"}, standup_id: standup.id }
+      it_behaves_like "an action occurring within the standup's timezone" do
+        after { post :create, post: {title: "Standup 12/12/12"}, standup_id: standup.id }
+      end
     end
   end
 
@@ -130,7 +198,7 @@ describe PostsController do
     end
   end
 
-  describe "#send" do
+  describe "#send_email" do
     it "sends the email" do
       post = create(:post, items: [create(:item)])
       put :send_email, id: post.id
