@@ -1,6 +1,6 @@
 # URLs
-Staging can be found at [whiteboard-acceptance.cfapps.io](whiteboard-acceptance.cfapps.io)
-Prod is either [whiteboard-production.cfapps.io](whiteboard-production.cfapps.io) or [whiteboard.pivotallabs.com](whiteboard.pivotallabs.com)
+Staging can be found at [whiteboard-acceptance.cfapps.io](https://whiteboard-acceptance.cfapps.io)
+Prod is either [whiteboard-production.cfapps.io](https://whiteboard-production.cfapps.io) or [whiteboard.pivotallabs.com](http://whiteboard.pivotallabs.com)
 For CI, we use [Travis](https://travis-ci.org/pivotal/whiteboard).
 
 # How to Deploy
