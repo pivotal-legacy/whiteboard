@@ -1,37 +1,31 @@
-<div class="content-wrapper">
+<div class="container">
   <%= form_for(@item, html: {class: 'form-horizontal new-face-form'}) do |f| %>
     <%= render partial: 'shared/errors', locals: {model: @item} %>
 
-    <div class="block header">
-      <h2>New Face</h2>
-    </div>
+    <div class="bg-light pvxl phm">
+      <div class="container-form">
+        <h2 class="mbl">New Face</h2>
+        <%= f.collection_select(:standup_id,
+          Standup.all,
+          :id,
+          :title,
+          {},
+          {:class => "wide",
+            "aria-label" => "Standup"}) %>
+        <div class="subtitle">
+          Including why they are in the office makes for a much friendly welcome, e.g. Interviewing, New Pivot or Client
+          Developer.
+        </div>
+        <%= f.text_field :title, placeholder: 'John Smith - Interviewing with Rob', class: "wide" %>
 
-    <div class="block">
-      <%= f.collection_select(:standup_id,
-        Standup.all,
-        :id,
-        :title,
-        {},
-        {:class => "wide",
-          "aria-label" => "Standup"}) %>
-    </div>
+      <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
 
-    <div class="block with-hint">
-      <%= f.text_field :title, placeholder: 'John Smith - Interviewing with Rob', class: "wide" %>
-      <div class="hint always">
-        Including why they are in the office makes for a much friendly welcome, e.g. Interviewing, New Pivot or Client
-        Developer.
+      <%= f.hidden_field :post_id %>
+      <%= f.hidden_field :public, value: false %>
+      <%= f.hidden_field :kind, value: 'New face' %>
+
+        <%= f.submit "#{@item.persisted? ? "Update" : "Create"} New Face", class: "btn btn-success btn-block" %>
       </div>
-    </div>
-
-    <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
-
-    <%= f.hidden_field :post_id %>
-    <%= f.hidden_field :public, value: false %>
-    <%= f.hidden_field :kind, value: 'New face' %>
-
-    <div class="block">
-      <%= f.submit "#{@item.persisted? ? "Update" : "Create"} New Face", class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
 </div>

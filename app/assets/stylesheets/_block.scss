@@ -1,0 +1,125 @@
+.block {
+  @include flexbox;
+  @include flex-direction(row);
+  padding: 0.25rem 0 0.25rem 1.2em;
+
+  &.errors {
+    @include flex-direction(column);
+
+    ul {
+      @include flexbox;
+    }
+  }
+
+  h1 {
+    padding-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  h2{
+    text-transform: uppercase;
+  }
+  a {
+    @include flexbox;
+  }
+
+
+  .field_with_errors {
+    @include flexbox;
+    @include flex(1);
+  }
+}
+// HEADER
+// =========================================
+.block-header {
+  background-color: #333;
+  color: #fff;
+  margin: -1px -1px -1px 0;
+  position: relative;
+  text-transform: uppercase;
+}
+.new_face .block-header { background-color: #5894B9; }
+.help .block-header { background-color: #FFB595; }
+.interesting .block-header { background-color: #FA7D61; }
+.event .block-header { background-color: #BECB7B; }
+
+i.icon-plus-sign {
+  color: #fff;
+  font-size: 4rem;
+  line-height: 1;
+  position: absolute;
+  right: 2rem;
+  top: 0.45rem;
+}
+
+// BODY
+// =========================================
+.block-subheader {
+  @extend %h6;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+// ITEM TEASER
+// =========================================
+.item {
+  @include flexbox;
+  @include flex-direction(column);
+  border-bottom: 1px solid $color-border-soft;
+  position: relative;
+}
+
+.author, .title {
+  @media (min-width: $screen-sm) {
+    margin-right: 10rem; // Make room for item edit, delete icons
+  }
+}
+
+.block-body .item:last-child{
+  border-bottom: 0;
+}
+
+.subtitle {
+  @extend %h6;
+  color: #999;
+}
+
+.description {
+  color: #444;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.with-hint {
+  @include flex-direction(column);
+}
+
+.hint {
+  padding: 8px 8px 0 8px;;
+  color: #777;
+  font-style: italic;
+}
+
+// ITEM ACTIONS
+// =========================================
+.tools {
+    @include flexbox;
+    @include flex-direction(row);
+    @include justify-content(space-between);
+    padding-bottom: 8px;
+    position: absolute;
+    top: 0.25rem;
+    right: 2.1rem;
+  @media (min-width: $screen-sm) {
+    top: 1.5rem;
+  }
+  a {
+      display: inline-block;
+      margin: 0 0 0 1.5rem;
+  }
+  i {
+    font-size: 30px;
+  }
+}

@@ -1,0 +1,49 @@
+// LAYOUT FOR EVEN HEIGHTS
+//=========================================
+.container-table {
+  @media (min-width: $screen-md) {
+    display: table;
+    width: 100%;
+    border-spacing: $cell-spacing;
+  }
+}
+
+.container-table-row {
+  @media (min-width: $screen-md) {
+    display: table-row;
+  }
+}
+
+.container-table-cell {
+  background-color: #fff;
+  border: 1px solid $color-border-soft;
+  margin-bottom: 20px;
+
+  @media (min-width: $screen-md) {
+    display: table-cell;
+    vertical-align: top;
+    width: 50%;
+  }
+}
+
+
+.container-sm {
+  @media (min-width: $screen-md) {
+    max-width: $screen-sm;
+  }
+}
+
+.container-table-match {
+  @media (min-width: $screen-md) {
+    margin: 0 $cell-spacing;
+  }
+}
+
+// LAYOUT FOR FORMS
+//=========================================
+.container-form {
+  @media (min-width: $screen-md) {
+    margin: 0 auto;
+    width: 50rem;
+  }
+}

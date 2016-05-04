@@ -1,5 +1,6 @@
-<div class="content-wrapper">
-  <h2>Pending Posts</h2>
-
-  <%= render partial: 'table', locals: {posts: @posts} %>
+<div class="content-wrapper container">
+  <div class="standup bg-light pal">
+    <h1 class="h2 mbl">Pending Posts</h1>
+    <%= render partial: 'table', locals: {posts: @posts} %>
+  </div>
 </div>

@@ -11,47 +11,25 @@
  *= require_self
  */
 
+// Bootstrap Variable Overrides
+@import "variables";
+
+// Frameworks
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import 'font-awesome';
+@import "font-awesome";
 @import "compass/css3/box";
-@import 'sass-flex-mixin';
+@import "sass-flex-mixin";
 
-$textColor: black;
-
-html{
-  font-size: 16px;
-}
-
-body{
-  color: #5D5C5C;
-  margin-top: 65px;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-.navbar i {
-  font-size: 19px;
-}
-
-* {
-  box-sizing: border-box;
-}
+// Custom
+@import "extends";
+@import "defaults";
+@import "toolbox";
+@import "layout";
+@import "block";
 
 .content-wrapper {
   padding: 0px 15px;
-}
-
-.site-container {
-  display: flex;
-  min-height: calc(100vh - 70px);
-  flex-direction: column;
-}
-
-.site-body {
-  flex: 1;
 }
 
 .standup {
@@ -67,120 +45,6 @@ a:hover {
   @include flex-direction(column);
 }
 
-.subtitle {
-  padding: 3px 8px 4px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 4px;
-  color: #666;
-}
-
-.border-top {
-  border-top: 1px solid #ccc;
-}
-
-.block {
-  @include flexbox;
-  @include flex-direction(row);
-
-  padding: 8px;
-
-  &.header {
-    border-bottom: 1px solid #ccc;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    position: relative;
-  }
-
-  &.errors {
-    @include flex-direction(column);
-
-    ul {
-      @include flexbox;
-    }
-  }
-
-  h1 {
-    padding-bottom: 8px;
-    text-transform: uppercase;
-  }
-
-  h2{
-    text-transform: uppercase;
-  }
-  a {
-    @include flexbox;
-  }
-
-  i.icon-plus-sign {
-    position: absolute;
-    right: 0;
-    line-height: 1.5em;
-    color: #08C;
-    font-size: 2.5rem;
-  }
-
-  .field_with_errors {
-    @include flexbox;
-    @include flex(1);
-  }
-}
-
-.item {
-  @include flexbox;
-  @include flex-direction(column);
-  position: relative;
-  line-height: 1.2rem;
-
-  .author {
-    padding-bottom: 8px;
-    color: #aaa;
-  }
-
-  .title {
-    padding-bottom: 8px;
-    margin-right: 42px;
-  }
-}
-
-.description {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 8px;
-  margin-bottom: 8px;
-
-  color: #444;
-  font-size: .8rem;
-}
-
-.with-hint {
-  @include flex-direction(column);
-}
-
-.hint {
-  padding: 8px 8px 0 8px;;
-  color: #777;
-  font-style: italic;
-}
-
-.tools {
-  @include flexbox;
-  @include flex-direction(row);
-  @include justify-content(space-between);
-
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding-bottom: 8px;
-
-  a {
-    margin: 0 0 0 10px;
-  }
-
-  i {
-    font-size: 20px;
-  }
-}
-
 .preview pre {
   background-color: white;
 }
@@ -194,37 +58,34 @@ a:hover {
   line-height: 28px;
 }
 
-.navbar.bottom {
-  background-color: white;
-  
-  .navbar-form, .btn {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .navbar-form input{
-    width: 100%;
-  }
-}
-.navbar-fixed-bottom .navbar-inner {
-  padding: 5px;
-}
-
+// MESSAGING
+// =========================================
 .notice {
   font-style: italic;
   color: #FF8080;
 }
 
-#error-explanation {
-  border: 2px solid #b94a48;
-  background-color: #fdd;
-  padding: 1em;
-  margin: 1em;
+.errors {
+  border: 1px solid #EABABA;
+  background-color: #FAE2E2;
+  padding: 1rem 2rem;
+  margin: 0 0 2rem 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    margin: 0 0 0 1.3em;
+  }
+}
+.text-error {
+  @extend %h5;
 }
 
 .image_days .controls{
   margin-top: 5px;
-  
+
   label {
     display: inline;
     margin-right: 12px;
@@ -235,14 +96,19 @@ a:hover {
   }
 }
 
+// HELPS
+// =========================================
 .help-block {
-  color: lighten($textColor, 15%); // lighten the text some for contrast
+  color: $gray-light; // lighten the text some for contrast
 }
 
 .help-wide {
   width: 200px;
 }
 
+
+// EVENTS
+// =========================================
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {
   background: none;

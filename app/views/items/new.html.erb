@@ -1,65 +1,54 @@
-<div class="content-wrapper">
+<div class="container">
   <%= form_for(@item, html: {class: 'form-horizontal item-form'}) do |f| %>
     <%= render partial: 'shared/errors', locals: {model: @item} %>
 
     <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.referer %>
 
-    <div class="block">
-      <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
-        <% (Item.kinds.map(&:name) - ['New face']).each do |kind| %>
-          <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button">
-            <%= kind %>
+    <div class="bg-light pvxl phm">
+      <div class="container-form">
+        <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
+          <% (Item.kinds.map(&:name) - ['New face']).each do |kind| %>
+            <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button">
+              <%= kind %>
+            </button>
+          <% end %>
+        </div>
+        <div class="btn-group btn-block" data-toggle-name="item[public]" data-toggle="buttons-radio">
+          <button type="button" value="0" class="btn btn-warning" data-toggle="button">
+            Private
           </button>
-        <% end %>
+          <button type="button" value="1" class="btn btn-warning" data-toggle="button">
+            Post to Blog
+          </button>
+        </div>
+        <div class="subtitle mtm">
+          Private items are not posted to the Blog.
+          All items are visible to anyone on Pivotal's Guest network.
+          Do not post confidential information.
+        </div>
+        <%= f.hidden_field :public, value: @item.public ? '1' : '0' %>
+        <h1 class="h2 mvl">Standup Item</h1>
+
+        <%= f.collection_select(:standup_id,
+          Standup.all,
+          :id,
+          :title,
+          {},
+          {:class => "wide",
+            "aria-label" => "Standup"}) %>
+        <%= f.text_field :title, placeholder: "Item Title", size: nil, class: "wide" %>
+
+        <%= f.text_field :author, placeholder: "Author", size: nil, class: "wide" %>
+
+        <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
+
+          <%= f.text_area :description, placeholder: markdown_placeholder, rows: 5, cols: nil, class: "wide" %>
+
+        <%= f.hidden_field :post_id %>
+        <%= f.hidden_field :kind %>
+
+        <%= f.submit nil, class: 'btn btn-success' %>
       </div>
-    </div>
-
-    <div class="block with-hint">
-      <div class="btn-group btn-block" data-toggle-name="item[public]" data-toggle="buttons-radio">
-        <button type="button" value="0" class="btn btn-warning" data-toggle="button">
-          Private
-        </button>
-        <button type="button" value="1" class="btn btn-warning" data-toggle="button">
-          Post to Blog
-        </button>
-      </div>
-      <div class="hint">
-        <div>Private items are not posted to the Blog.</div>
-        <div>All items are visible to anyone on Pivotal's Guest network.</div>
-        <div>Do not post confidential information.</div>
-      </div>
-      <%= f.hidden_field :public, value: @item.public ? '1' : '0' %>
-    </div>
-
-    <div class="block">
-      <%= f.collection_select(:standup_id,
-        Standup.all,
-        :id,
-        :title,
-        {},
-        {:class => "wide",
-          "aria-label" => "Standup"}) %>
-    </div>
-
-    <div class="block">
-      <%= f.text_field :title, placeholder: "Item Title", size: nil, class: "wide" %>
-    </div>
-
-    <div class="block">
-      <%= f.text_field :author, placeholder: "Author", size: nil, class: "wide" %>
-    </div>
-
-    <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
-
-    <div class="block has-bottom-border">
-      <%= f.text_area :description, placeholder: markdown_placeholder, rows: 5, cols: nil, class: "wide" %>
-    </div>
-
-    <%= f.hidden_field :post_id %>
-    <%= f.hidden_field :kind %>
-
-    <div class="block">
-      <%= f.submit nil, class: 'btn btn-primary btn-block' %>
     </div>
   <% end %>
 </div>

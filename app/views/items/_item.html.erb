@@ -1,7 +1,7 @@
-    <div class="block item">
+    <div class="item pvm prl">
 
       <% if item.author.present? %>
-          <div class="author"><%= "#{item.author}" %></div>
+          <div class="author text-bold"><%= "#{item.author}" %></div>
       <% end %>
 
       <div class="title">
@@ -13,16 +13,16 @@
       </div>
 
       <div class="tools">
+        <% if item.description.present? %>
+            <a data-toggle="collapse" data-target="#item_<%= item.id %>">
+              <i class="icon-angle-down"></i>
+            </a>
+        <% end %>
         <%= link_to edit_item_path(item) do %>
-            <i class="icon-edit"></i>
+            <i class="icon-pencil"></i>
         <% end %>
         <%= link_to item, data: { confirm: 'Are you sure?' }, method: :delete do %>
             <i class='icon-trash'></i>
-        <% end %>
-        <% if item.description.present? %>
-            <a data-toggle="collapse" data-target="#item_<%= item.id %>">
-              <i class="icon-info-sign"></i>
-            </a>
         <% end %>
       </div>
     </div>

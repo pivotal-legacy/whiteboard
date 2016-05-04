@@ -1,19 +1,23 @@
-<h1><%= @post.title %></h1>
+<div class="content-wrapper container">
+  <div class="standup bg-light pal">
+    <h1 class="h2 mbl"><%= @post.title %></h1>
 
-<% items = @post.items_by_type %>
-<% Item.kinds.map(&:name).each do |kindName| %>
-  <% if items[kindName] %>
-    <h2><%= kindName.pluralize %></h2>
-    <ul>
-        <% items[kindName].each do |item| %>
-        <li><%=  item.title %></li>
-        <% if item.description.present? %>
-          <pre><%=  item.description %></pre>
-        <% end %>
-        <% if item.author.present? %>
-          <pre>(<%=  item.author %>)</pre>
-        <% end %>
+    <% items = @post.items_by_type %>
+    <% Item.kinds.map(&:name).each do |kindName| %>
+      <% if items[kindName] %>
+        <h2><%= kindName.pluralize %></h2>
+        <ul>
+            <% items[kindName].each do |item| %>
+            <li><%=  item.title %></li>
+            <% if item.description.present? %>
+              <pre><%=  item.description %></pre>
+            <% end %>
+            <% if item.author.present? %>
+              <pre>(<%=  item.author %>)</pre>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
-<% end %>
+    <% end %>
+  </div>
+</div>

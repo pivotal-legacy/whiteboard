@@ -1,0 +1,184 @@
+// ~CLEARFIX
+//=========================================
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clear {
+  clear: both;
+}
+
+// ~POSITIONING
+//=========================================
+.center {
+  margin: 0 auto;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inline-block {
+  display: inline-block;
+}
+.transparent_20 {
+  opacity: 0.2;
+}
+.display-block {
+  display: block;
+}
+
+// ~TEXT
+//=========================================
+.align-center {
+  text-align: center;
+}
+.align-right {
+  text-align: right;
+}
+.text-upper {
+  @extend %text-upper;
+}
+.text-thin {
+  @extend %text-thin;
+}
+.text-semi-bold {
+  @extend %text-semi-bold;
+}
+.text-bold {
+  @extend %text-bold;
+}
+.text-emph {
+  @extend %text-emph;
+}
+.meta {
+  @extend %text-thin;
+  @extend %text-emph;
+}
+
+// ~BACKGROUNDS
+//=========================================
+.bg-light {
+  background-color: #fff;
+}
+
+// padding and margin
+$orientation_list: (
+  v,
+  h,
+  a
+);
+$direction_list: (
+  (t, top),
+  (r, right),
+  (b, bottom),
+  (l, left)
+);
+$space_sizes:
+  (xl, 3.5rem),
+  (l, 2rem),    //large
+  (m, 1.5rem),  //medium
+  (r, 1rem),  //normal
+  (s, 0.5rem),  //small
+  (xs, 0.25rem) //x-small
+;
+@each $direction_list, $direction in $direction_list {
+  @each $space_sizes, $size in $space_sizes {
+    .p#{$direction_list}#{$space_sizes} {
+      padding-#{$direction}: $size;
+    }
+    .m#{$direction_list}#{$space_sizes} {
+      margin-#{$direction}: $size;
+    }
+  }
+}
+@each $orientation_list, $orientation in $orientation_list {
+  @each $space_sizes, $size in $space_sizes {
+    @if $orientation_list == "v" {
+      .p#{$orientation_list}#{$space_sizes} {
+        padding-bottom: $size;
+        padding-top: $size;
+      }
+      .m#{$orientation_list}#{$space_sizes} {
+        margin-bottom: $size;
+        margin-top: $size;
+      }
+    }
+    @else if $orientation_list == "h" {
+      .p#{$orientation_list}#{$space_sizes} {
+        padding-left: $size;
+        padding-right: $size;
+      }
+      .m#{$orientation_list}#{$space_sizes} {
+        margin-left: $size;
+        margin-right: $size;
+      }
+    }
+    @else {
+      .p#{$orientation_list}#{$space_sizes} {
+        padding: $size;
+      }
+      .m#{$orientation_list}#{$space_sizes} {
+        margin: $size;
+      }
+    }
+  }
+}
+
+// border
+$border_sizes:
+  (l, 5px), //large
+  (m, 2px), //medium
+  (r, 1px)  //normal
+;
+
+@each $direction_list, $direction in $direction_list {
+  @each $border_sizes, $width in $border_sizes {
+    @if $border_sizes != "" {
+      .b#{$direction_list}#{$border_sizes} {
+        border-#{$direction}: $width solid $color-border-soft;
+      }
+    }
+    @else  {
+      .b#{$direction_list} {
+        border-#{$direction}: $width solid $color-border-soft;
+      }
+    }
+  }
+}
+@each $orientation_list, $orientation in $orientation_list {
+  @each $border_sizes, $size in $border_sizes {
+    $hyphen: '';
+    @if $space_sizes != ''{
+      $hyphen: '-';
+    }
+    @if $orientation_list == "v" {
+      .b#{$orientation_list}#{$border_sizes} {
+        border-bottom: $size;
+        border-top: $size;
+      }
+    }
+    @else if $orientation_list == "h" {
+      .b#{$orientation_list}#{$border_sizes} {
+        border-left: $size;
+        border-right: $size;
+      }
+    }
+    @else {
+      .b#{$orientation_list}#{$border_sizes} {
+        border: $size solid $color-border-soft;
+      }
+    }
+  }
+}

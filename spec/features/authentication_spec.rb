@@ -36,7 +36,7 @@ describe 'Authenticating', type: :feature do
         expect(page).to have_content('Log in with Okta')
         click_on 'Log in with Okta'
         expect(page).to have_content('Whiteboard')
-        expect(page).to have_content('Choose a Standup'.upcase)
+        expect(page).to have_content('Choose a Standup')
       end
     end
   end
@@ -51,7 +51,7 @@ describe 'Authenticating', type: :feature do
       it 'should not force user to authenticate' do
         visit '/'
         expect(page).not_to have_content('Log in with Okta')
-        expect(page).to have_content('Choose a Standup'.upcase)
+        expect(page).to have_content('Choose a Standup')
       end
     end
   end
@@ -68,7 +68,7 @@ describe 'Authenticating', type: :feature do
         expect(page).to have_content('Log in with Okta')
         click_on 'Log in with Okta'
         expect(page).to have_content('Whiteboard')
-        expect(page).to have_content('Choose a Standup'.upcase)
+        expect(page).to have_content('Choose a Standup')
       end
     end
   end

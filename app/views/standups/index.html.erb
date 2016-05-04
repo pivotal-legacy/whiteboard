@@ -1,15 +1,13 @@
-<div class="content-wrapper">
-  <div class="standup">
-    <div class="block header">
-      <h2>Choose a Standup</h2>
+<div class="content-wrapper container">
+  <div class="standup bg-light pal">
+    <h2 class="h2 mbl">Choose a Standup</h2>
+    <div class="row mbl">
+      <% @standups.each do |standup| %>
+        <div class="col-sm-3">
+          <%= link_to standup.title, standup, class: 'display-block pvs' %>
+        </div>
+      <% end %>
     </div>
-    <% @standups.each do |standup| %>
-      <div class="block">
-        <h1><%= link_to standup.title, standup %></h1>
-      </div>
-    <% end %>
-    <div class="block buttons">
-      <%= link_to('New Standup'.html_safe, new_standup_path, class: 'btn btn-primary btn-large btn-block') %>
-    </div>
+    <%= link_to('New Standup'.html_safe, new_standup_path, class: 'btn btn-primary btn-large btn-block') %>
   </div>
 </div>

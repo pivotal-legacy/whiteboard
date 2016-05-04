@@ -1,0 +1,48 @@
+%h1 {
+  font-size: $font-size-h4;
+  @media (min-width: $screen-md) {
+    font-size: $font-size-h1;
+  }
+}
+%h2 {
+  font-size: $font-size-h4;
+  @media (min-width: $screen-md) {
+    font-size: $font-size-h2;
+  }
+}
+%h3 {
+  font-size: $font-size-h4;
+  @media (min-width: $screen-md) {
+    font-size: $font-size-h3;
+  }
+}
+%h4 {
+  font-size: $font-size-h4;
+}
+%h5 {
+  font-size: $font-size-h5;
+}
+%h6 {
+  font-size: $font-size-h6;
+}
+%hs {
+  font-size: $font-size-small;
+}
+%hl {
+  font-size: $font-size-large;
+}
+%text-upper {
+  text-transform: uppercase;
+}
+%text-thin {
+  font-weight: 300;
+}
+%text-semi-bold {
+  font-weight: 600;
+}
+%text-bold {
+  font-weight: 700;
+}
+%text-emph {
+  font-style: italic;
+}
