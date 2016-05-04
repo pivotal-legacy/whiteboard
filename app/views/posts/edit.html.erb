@@ -2,9 +2,9 @@
   <h1>Review</h1>
 
   <div class='well'>
-    <h3>Please update these items with any new information from standup:</h3>
+    <h4>Please update these items with any new information from standup:</h4>
 
-    <div>
+    <div class="padded">
       Add any answers/discussions that were brought up. <strong>If you missed anything, ask the owner of the help /
       interesting to fill in details before you submit.</strong>
     </div>
@@ -13,7 +13,7 @@
 
     <hr>
     <div>
-      <h3>Update the author(s) and title if necessary:</h3>
+      <h4 class="padded">Update the author(s) and title if necessary:</h4>
       <%= form_for(@post, html: {class: 'form-inline'}) do |f| %>
           <%= render partial: 'shared/errors',  locals: {model: @post} %>
 
@@ -27,7 +27,7 @@
   <h1>Publish</h1>
 
   <div class='well' id='publish'>
-    <h3>Please double check this email for accuracy. When you are ready, press the 'send email now' button:</h3>
+    <h4 class="padded">Please double check this email for accuracy. When you are ready, press the 'send email now' button:</h4>
 
     <div class='email_post preview'>
       <pre>
@@ -52,9 +52,9 @@ Subject: <%= @post.title_for_email %>
     <br/>
     <br/>
 
-    <h3>Please double check the blog post. Ensure that there are no client names or private info in the post, and that
+    <h4 class="padded">Please double check the blog post. Ensure that there are no client names or private info in the post, and that
       the content is of interest to the general public. Click the "Post Blog Entry" button to post it to
-      <%= link_to Rails.application.config.blogging_service.public_url, Rails.application.config.blogging_service.public_url %>.</h3>
+      <%= link_to Rails.application.config.blogging_service.public_url, Rails.application.config.blogging_service.public_url %>.</h4>
 
     <div class='blog_post preview'>
       (Title: <%= @post.title_for_blog %>)
@@ -82,7 +82,7 @@ Subject: <%= @post.title_for_email %>
   <h1>Archive</h1>
 
   <div class='well'>
-    <h3> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
+    <h4 class="padded"> Thanks for emailing and blogging. Click the button below to archive the post.</h3>
     <%= link_to 'Archive Post', archive_post_path(@post), method: :put, class: 'btn btn-warning' %>
   </div>
 </div>

@@ -1,36 +1,38 @@
-<% Item.kinds.each_with_index do |kind, index| %>
-  <% if index % 2 == 0%>
-    <div class="container-table-row">
-  <% end %>
-  <div class="<%= kind.name.downcase.tr(' ', '_') %> container-table-cell">
-    <div class="block-header">
-      <h2 class="h5 pvm phl"><%= kind.name.pluralize %></h2>
-      <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind.name), 'data-kind' => kind.name do %>
-        <i class="icon-plus-sign"></i>
-      <% end %>
-    </div>
-    <div class="block-body pll pvm">
-      <% if kind.subtitle.present? %>
-        <div class="subtitle"><%= kind.subtitle %></div>
-      <% end %>
-
-      <% if items[kind.name].present? %>
-        <% items[kind.name].group_by(&:relative_date).each do |group_name, events| %>
-          <% if kind.name == 'Event' || kind.name == 'New face' %>
-            <h3 class="block-subheader ptm <%= group_name %>"><%= group_name.capitalize %></h3>
-          <% end %>
-          <% events.each do |event| %>
-            <%= render partial: 'items/item', object: event, as: 'item' %>
-          <% end %>
+<div class="site-body container-table">
+  <% Item.kinds.each_with_index do |kind, index| %>
+    <% if index % 2 == 0 %>
+      <div class="container-table-row">
+    <% end %>
+    <div class="<%= kind.name.downcase.tr(' ', '_') %> container-table-cell">
+      <div class="block-header">
+        <h2 class="h5 pvm phl"><%= kind.name.pluralize %></h2>
+        <%= link_to new_standup_item_path(@standup, post_id: @post.try(:id), 'item[kind]' => kind.name), 'data-kind' => kind.name do %>
+          <i class="icon-plus-sign"></i>
         <% end %>
-      <% else %>
-        <div class="meta pvl">
-          None yet.
-        </div>
-      <% end %>
+      </div>
+      <div class="block-body pll pvm">
+        <% if kind.subtitle.present? %>
+          <div class="subtitle"><%= kind.subtitle %></div>
+        <% end %>
+
+        <% if items[kind.name].present? %>
+          <% items[kind.name].group_by(&:relative_date).each do |group_name, events| %>
+            <% if kind.name == 'Event' || kind.name == 'New face' %>
+              <h3 class="block-subheader ptm <%= group_name %>"><%= group_name.capitalize %></h3>
+            <% end %>
+            <% events.each do |event| %>
+              <%= render partial: 'items/item', object: event, as: 'item' %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="meta pvl">
+            None yet.
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <% if index % 2 == 1 %>
-    </div>
+    <% if index % 2 == 1 %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
