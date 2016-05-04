@@ -2,6 +2,9 @@
 
 set -ev
 
+echo $TRAVIS_BRANCH
+echo $TRAVIS_PULL_REQUEST
+
 if [[ "$TRAVIS_BRANCH" == "master" ]] && "$TRAVIS_PULL_REQUEST" == false; then
   wget -q -O cf-cli.deb https://cli.run.pivotal.io/stable?release=debian64
   sudo dpkg -i cf-cli.deb
