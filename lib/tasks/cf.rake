@@ -22,13 +22,18 @@ task :deploy => 'cf:deploy'
 
 desc 'Deploy both the standard production app and the CSO production app'
 task :deploy_all_production do
+  puts 'Deploying CSO production...'
   Rake::Task['cso-production'].invoke
   Rake::Task['deploy'].invoke
 
+  puts 'Done!'
   Rake::Task['deploy'].reenable
+
+  puts 'Deploying Labs production...'
 
   Rake::Task['production'].invoke
   Rake::Task['deploy'].invoke
+  puts 'Done!'
 end
 
 namespace :cf do
