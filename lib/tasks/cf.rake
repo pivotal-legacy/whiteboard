@@ -12,12 +12,18 @@ task :production do
   ENVIRONMENT = 'production'
 end
 
+desc 'Set deployment configuration for cso-production'
+task :'cso-production' do
+  ENVIRONMENT = 'cso-production'
+end
+
 desc 'Deploy on Cloud Foundry'
 task :deploy => 'cf:deploy'
 
 namespace :cf do
   task :deploy do
     raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless ENVIRONMENT
+
     environment = ENVIRONMENT
     cf_target = 'api.run.pivotal.io'
     deploy_space = 'whiteboard'
