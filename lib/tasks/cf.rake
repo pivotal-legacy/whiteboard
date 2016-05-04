@@ -20,6 +20,17 @@ end
 desc 'Deploy on Cloud Foundry'
 task :deploy => 'cf:deploy'
 
+desc 'Deploy both the standard production app and the CSO production app'
+task :deploy_all_production do
+  Rake::Task['cso-production'].invoke
+  Rake::Task['deploy'].invoke
+
+  Rake::Task['deploy'].reenable
+
+  Rake::Task['production'].invoke
+  Rake::Task['deploy'].invoke
+end
+
 namespace :cf do
   task :deploy do
     raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless ENVIRONMENT
