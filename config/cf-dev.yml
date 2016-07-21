@@ -1,7 +1,0 @@
----
-applications:
-- name: whiteboard-dev
-  command: RAILS_ENV=production bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
-  path: ../
-  services:
-    - whiteboard-dev
