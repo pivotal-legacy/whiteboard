@@ -1,6 +1,6 @@
 ---
 applications:
-- name: whiteboard-acceptance
+- name: whiteboard
   command: bundle exec rake db:create db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   services:
-    - whiteboard-acceptance-db2
+    - whiteboard-staging-db

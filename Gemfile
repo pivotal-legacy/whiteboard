@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'rails', '~> 4.1.9'
 
-gem 'pg'
+gem 'mysql2', '~> 0.3.18'
 gem 'unicorn'
 gem 'jquery-rails'
 gem 'omniauth-saml'

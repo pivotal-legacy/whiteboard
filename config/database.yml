@@ -1,16 +1,16 @@
 development:
-  adapter: postgresql
+  adapter: mysql2
   host: localhost
   database: whiteboard_development
   template: template0
 
 test:
-  adapter: postgresql
+  adapter: mysql2
   host: localhost
   database: whiteboard_test
   template: template0
 
 production:
-  adapter: postgresql
+  adapter: mysql2
   host: localhost
   database: whiteboard_production
