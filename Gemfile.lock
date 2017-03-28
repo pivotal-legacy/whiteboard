@@ -105,8 +105,6 @@ GEM
       dotenv (= 2.0.2)
       railties (~> 4.0)
     erubis (2.7.0)
-    exceptional (2.0.33)
-      rack
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -284,7 +282,6 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails
   evaporator (~> 0.1.0)!
-  exceptional
   factory_girl_rails
   fakefs
   faker
@@ -309,5 +306,8 @@ DEPENDENCIES
   uglifier
   unicorn
 
+RUBY VERSION
+   ruby 2.3.3p222
+
 BUNDLED WITH
-   1.12.5
+   1.14.5
