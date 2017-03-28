@@ -153,6 +153,7 @@ GEM
     net-ssh (2.9.2)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    newrelic_rpm (4.0.0.332)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     omniauth (1.2.2)
@@ -293,6 +294,7 @@ DEPENDENCIES
   letter_opener
   minitest
   mysql2 (~> 0.3.18)
+  newrelic_rpm
   omniauth-saml
   protected_attributes
   pry-rails

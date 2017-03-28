@@ -17,6 +17,7 @@ gem 'uglifier'
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'font-awesome-sass-rails'
 gem 'evaporator', '~> 0.1.0', github: 'pivotal/evaporator'
+gem 'newrelic_rpm'
 
 group :development, :production do
   gem 'rails_12factor'
