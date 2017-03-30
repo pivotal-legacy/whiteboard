@@ -1,20 +1,24 @@
 require 'fileutils'
 
 ENVIRONMENT = nil
+SPACE = nil
 
 desc 'Set deployment configuration for acceptance'
 task :acceptance do
   ENVIRONMENT = 'acceptance'
+  SPACE = 'whiteboard-staging'
 end
 
 desc 'Set deployment configuration for production'
 task :production do
   ENVIRONMENT = 'production'
+  SPACE = 'whiteboard-production'
 end
 
 desc 'Set deployment configuration for cso-production'
 task :'cso-production' do
   ENVIRONMENT = 'cso-production'
+  SPACE = 'whiteboard-cso'
 end
 
 desc 'Deploy on Cloud Foundry'
@@ -37,12 +41,12 @@ end
 
 namespace :cf do
   task :deploy do
-    raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless ENVIRONMENT
+    raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless (ENVIRONMENT && SPACE)
 
     environment = ENVIRONMENT
     cf_target = 'api.run.pivotal.io'
-    deploy_space = 'whiteboard'
-    deploy_org = "pivotallabs"
+    deploy_space = SPACE
+    deploy_org = "IAD"
 
     check_for_cli
     check_for_dirty_git
