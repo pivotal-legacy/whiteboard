@@ -120,7 +120,7 @@ bundle exec rspec
 
 # How to Deploy to Cloud Foundry
 
-##First Time Deployment Setup
+## First Time Deployment Setup
 
     cf target --url https://api.run.pivotal.io
     cf login
@@ -145,7 +145,7 @@ bundle exec rspec
 	cf start
 
 
-##Deployment After ENV Vars Set
+## Deployment After ENV Vars Set
 
 First, log into Cloud Foundry:
 
