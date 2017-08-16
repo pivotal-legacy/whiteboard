@@ -1,5 +1,10 @@
 language: ruby
 bundler_args: "--without development"
+addons:
+  apt:
+    packages:
+      - libqtwebkit-dev
+      - libqtwebkit4
 notifications:
   slack:
     rooms:
