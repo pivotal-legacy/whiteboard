@@ -15,5 +15,3 @@ before_install:
 - gem install bundler -v 1.10.6
 before_script:
 - bundle exec rake db:setup
-after_success:
-- "./script/deploy-staging.sh"
