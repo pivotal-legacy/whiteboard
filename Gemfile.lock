@@ -64,8 +64,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.6.0)
-      capybara (>= 2.3.0, < 2.5.0)
+    capybara-webkit (1.14.0)
+      capybara (>= 2.3.0, < 2.14.0)
       json
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
@@ -276,7 +276,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.5.1)
   byebug
   capybara
-  capybara-webkit
+  capybara-webkit (= 1.14.0)
   codeclimate-test-reporter
   coffee-rails
   compass-rails
@@ -309,7 +309,7 @@ DEPENDENCIES
   unicorn
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.3.4p301
 
 BUNDLED WITH
-   1.14.5
+   1.15.3

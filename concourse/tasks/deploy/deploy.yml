@@ -1,0 +1,13 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: pivotaliad/whiteboard
+    tag: latest
+
+inputs:
+  - name: whiteboard
+
+run:
+  path: ./whiteboard/concourse/tasks/deploy/deploy.sh

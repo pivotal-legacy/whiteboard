@@ -1,0 +1,10 @@
+---
+applications:
+  - name: whiteboard-staging-app
+    host: whiteboard-dev
+    memory: 1GB
+    command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+    path: ../
+    services:
+    - wb-db
+    - wb-sendgrid

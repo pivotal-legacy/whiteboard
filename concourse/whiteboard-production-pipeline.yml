@@ -1,0 +1,29 @@
+resources:
+- name: whiteboard
+  type: git
+  source:
+    uri: https://github.com/pivotal/whiteboard.git
+    branch: master
+
+jobs:
+  - name: build
+    plan:
+      - get: whiteboard
+      - task: build
+        file: whiteboard/concourse/tasks/build/build.yml
+  - name: deploy
+    plan:
+      - get: whiteboard
+        trigger: true
+        passed: [build]
+      - task: deploy
+        file: whiteboard/concourse/tasks/deploy/deploy.yml
+        params:
+          CF_USERNAME: {{cf-username}}
+          CF_PASSWORD: {{cf-password}}
+          CF_ORG: IAD
+          CF_SPACE: whiteboard-production
+          IP_WHITELIST: {{ip-whitelist}}
+          OKTA_CERT_FINGERPRINT: {{okta-cert-fingerprint}}
+          OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
+          ENVIRONMENT: production

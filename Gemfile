@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.3.4'
 
 gem 'rails', '~> 4.1.9'
 
@@ -30,7 +30,7 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '1.14.0'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'letter_opener'
