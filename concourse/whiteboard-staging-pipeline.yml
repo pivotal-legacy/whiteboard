@@ -27,3 +27,4 @@ jobs:
           OKTA_CERT_FINGERPRINT: {{okta-cert-fingerprint}}
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: staging
+          SENTRY_DSN: {{sentry-dsn}}
