@@ -4,9 +4,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'codeclimate-test-reporter'
+require 'simplecov'
 
-CodeClimate::TestReporter.start
+SimpleCov.start
 Capybara.javascript_driver = :webkit
 Capybara.default_driver = :webkit
 
@@ -24,4 +24,14 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.use_transactional_fixtures = false
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+
+    # Choose one or more libraries:
+    with.library :rails
+  end
 end

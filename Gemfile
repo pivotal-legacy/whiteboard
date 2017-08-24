@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.4'
 
-gem 'rails', '~> 4.1.9'
+gem 'rails', '~> 4.2'
 
 gem 'mysql2', '~> 0.3.18'
 gem 'unicorn'
@@ -19,6 +19,7 @@ gem 'font-awesome-sass-rails'
 gem 'evaporator', '~> 0.1.0', github: 'pivotal/evaporator'
 gem 'newrelic_rpm'
 gem 'sentry-raven'
+gem 'responders', '~> 2.0'
 
 group :development, :production do
   gem 'rails_12factor'
@@ -26,8 +27,8 @@ end
 
 group :test, :development do
   gem 'minitest'
-  gem 'rspec-rails', '3.0.0'
-  gem 'shoulda-matchers'
+  gem 'rspec-rails', '~> 3.1'
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'capybara'
