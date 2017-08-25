@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/pivotal/evaporator.git
+  remote: https://github.com/pivotal/evaporator.git
   revision: dd8b25a2e8ad0cd65f9db6e04c5681638c3806b4
   specs:
     evaporator (0.1.0)
