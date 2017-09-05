@@ -1,4 +1,5 @@
 language: ruby
+dist: precise
 bundler_args: "--without development"
 addons:
   apt:
