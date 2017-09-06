@@ -17,8 +17,9 @@ class PostsController < ApplicationController
         @post.save!
         flash[:notice] = "Successfully sent Standup email!"
         redirect_to @standup
-      rescue
+      rescue Exception => e
         flash[:error] = "Failed to send email. Please try again."
+        Rails.logger.error e.inspect
         redirect_to edit_post_path(@post)
       end
     else

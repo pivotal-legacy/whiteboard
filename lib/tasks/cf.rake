@@ -44,17 +44,10 @@ namespace :cf do
     raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless (ENVIRONMENT && SPACE)
 
     environment = ENVIRONMENT
-    cf_target = 'api.run.pivotal.io'
-    deploy_space = SPACE
-    deploy_org = "IAD"
 
     check_for_cli
     check_for_dirty_git
     tag_deploy(environment)
-
-    sh "cf api #{cf_target}"
-    sh "cf target -o #{deploy_org} -s #{deploy_space}"
-    sh "cf push -f config/cf-#{environment}.yml"
   end
 
   def check_for_cli

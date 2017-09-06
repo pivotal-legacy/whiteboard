@@ -8,6 +8,7 @@ image_resource:
 
 inputs:
   - name: whiteboard
+  - name: maintenance-mode
 
 run:
   path: ./whiteboard/concourse/tasks/deploy/deploy.sh

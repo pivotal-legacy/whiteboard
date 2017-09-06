@@ -4,6 +4,12 @@ resources:
   source:
     uri: https://github.com/pivotal/whiteboard.git
     branch: master
+- name: maintenance-mode
+  type: git
+  source:
+    uri: git@github.com:pivotal/maintenance-mode.git
+    private_key: {{maintenance-private-key}}
+    branch: ruby-2.3.4
 
 jobs:
   - name: build
@@ -16,15 +22,18 @@ jobs:
       - get: whiteboard
         trigger: true
         passed: [build]
+      - get: maintenance-mode
       - task: deploy
         file: whiteboard/concourse/tasks/deploy/deploy.yml
         params:
           CF_USERNAME: {{cf-username}}
           CF_PASSWORD: {{cf-password}}
-          CF_ORG: IAD
+          CF_ORG: {{cf-org}}
           CF_SPACE: whiteboard-staging
+          CF_API_ENDPOINT: {{api-endpoint}}
           IP_WHITELIST: {{ip-whitelist}}
           OKTA_CERT_FINGERPRINT: {{okta-cert-fingerprint}}
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: staging
           SENTRY_DSN: {{sentry-dsn}}
+          CF_DOMAIN: {{cf-domain}}
