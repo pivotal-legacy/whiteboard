@@ -27,7 +27,6 @@ if ENV['SMTP_RELAY'].present?
 elsif ENV['VCAP_SERVICES'].present?
 
   vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
-  Rails.logger.info vcap_services.inspect
 
   if vcap_services.include? "sendgrid"
     # After starting your cloud foundry app run:

@@ -10,4 +10,4 @@ inputs:
   - name: whiteboard
 
 run:
-  path: ./whiteboard/concourse/tasks/deploy/deploy.sh
+  path: ./whiteboard/concourse/tasks/map-routes/map-routes.sh
