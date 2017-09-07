@@ -10,6 +10,12 @@ resources:
     uri: git@github.com:pivotal/maintenance-mode.git
     private_key: {{maintenance-private-key}}
     branch: ruby-2.3.4
+- name: acceptance-tests
+  type: git
+  source:
+    uri: git@github.com:pivotal/whiteboard-acceptance-tests.git
+    private_key: {{maintenance-private-key}}
+    branch: master
 
 jobs:
   - name: build
@@ -17,13 +23,29 @@ jobs:
       - get: whiteboard
       - task: build
         file: whiteboard/concourse/tasks/build/build.yml
-  - name: deploy
+  - name: deploy-maintenance
     plan:
       - get: whiteboard
         trigger: true
         passed: [build]
       - get: maintenance-mode
-      - task: deploy
+      - task: deploy-maintenance
+        file: whiteboard/concourse/tasks/deploy-maintenance/deploy-maintenance.yml
+        params:
+          CF_USERNAME: {{cf-username}}
+          CF_PASSWORD: {{cf-password}}
+          CF_ORG: {{cf-org}}
+          CF_SPACE: whiteboard-staging
+          CF_API_ENDPOINT: {{api-endpoint}}
+          ENVIRONMENT: staging
+          CF_DOMAIN: {{cf-domain}}
+          WHITEBOARD_HOSTNAME: whiteboard-staging
+  - name: deploy-whiteboard
+    plan:
+      - get: whiteboard
+        trigger: true
+        passed: [deploy-maintenance]
+      - task: deploy-whiteboard
         file: whiteboard/concourse/tasks/deploy/deploy.yml
         params:
           CF_USERNAME: {{cf-username}}
@@ -37,3 +59,30 @@ jobs:
           ENVIRONMENT: staging
           SENTRY_DSN: {{sentry-dsn}}
           CF_DOMAIN: {{cf-domain}}
+  - name: acceptance-tests
+    plan:
+      - get: whiteboard
+        passed: [deploy-whiteboard]
+        trigger: true
+      - get: acceptance-tests
+      - task: acceptance-tests
+        file: whiteboard/concourse/tasks/acceptance/acceptance.yml
+        params:
+          CF_DOMAIN: {{cf-domain}}
+          TEMP_WHITEBOARD_HOSTNAME: whiteboard-staging-temp
+  - name: map-routes
+    plan:
+      - get: whiteboard
+        passed: [acceptance-tests]
+        trigger: true
+      - task: map-routes
+        file: whiteboard/concourse/tasks/map-routes/map-routes.yml
+        params:
+          CF_USERNAME: {{cf-username}}
+          CF_PASSWORD: {{cf-password}}
+          CF_ORG: {{cf-org}}
+          CF_SPACE: whiteboard-staging
+          CF_API_ENDPOINT: {{api-endpoint}}
+          CF_DOMAIN: {{cf-domain}}
+          WHITEBOARD_HOSTNAME: whiteboard-staging
+          TEMP_WHITEBOARD_HOSTNAME: whiteboard-staging-temp

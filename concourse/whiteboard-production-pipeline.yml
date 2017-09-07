@@ -10,6 +10,12 @@ resources:
     uri: git@github.com:pivotal/maintenance-mode.git
     private_key: {{maintenance-private-key}}
     branch: ruby-2.3.4
+- name: acceptance-tests
+  type: git
+  source:
+    uri: git@github.com:pivotal/whiteboard-acceptance-tests.git
+    private_key: {{maintenance-private-key}}
+    branch: master
 
 jobs:
   - name: build
@@ -17,13 +23,29 @@ jobs:
       - get: whiteboard
       - task: build
         file: whiteboard/concourse/tasks/build/build.yml
-  - name: deploy
+  - name: deploy-maintenance
     plan:
       - get: whiteboard
         trigger: true
         passed: [build]
       - get: maintenance-mode
-      - task: deploy
+      - task: deploy-maintenance
+        file: whiteboard/concourse/tasks/deploy-maintenance/deploy-maintenance.yml
+        params:
+          CF_USERNAME: {{cf-username}}
+          CF_PASSWORD: {{cf-password}}
+          CF_ORG: {{cf-org}}
+          CF_SPACE: whiteboard-production
+          CF_API_ENDPOINT: {{api-endpoint}}
+          ENVIRONMENT: production
+          CF_DOMAIN: {{cf-domain}}
+          WHITEBOARD_HOSTNAME: whiteboard
+  - name: deploy-whiteboard
+    plan:
+      - get: whiteboard
+        trigger: true
+        passed: [deploy-maintenance]
+      - task: deploy-whiteboard
         file: whiteboard/concourse/tasks/deploy/deploy.yml
         params:
           CF_USERNAME: {{cf-username}}
@@ -36,13 +58,30 @@ jobs:
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: production
           SENTRY_DSN: {{sentry-dsn}}
+  - name: acceptance-tests
+    plan:
+      - get: whiteboard
+        passed: [deploy-whiteboard]
+        trigger: true
+      - get: acceptance-tests
+      - task: acceptance-tests
+        file: whiteboard/concourse/tasks/acceptance/acceptance.yml
+        params:
           CF_DOMAIN: {{cf-domain}}
-          EXCEPTIONAL_API_KEY: {{exceptional-api-key}}
-          GOOGLE_CLIENT_ID: {{google-client-id}}
-          GOOGLE_CLIENT_SECRET: {{google-client-secret}}
-          NEWRELIC_APP_NAME: {{newrelic-app-name}}
-          NEWRELIC_LICENSE: {{newrelic-license}}
-          WORDPRESS_BLOG_HOST: {{wordpress-blog-host}}
-          WORDPRESS_PASSWORD: {{wordpress-password}}
-          WORDPRESS_USER: {{wordpress-user}}
-          WORDPRESS_XMLRPC_ENDPOINT_PATH: {{wordpress-xmlrpc-endpoint-path}}
+          TEMP_WHITEBOARD_HOSTNAME: whiteboard-production-temp
+  - name: map-routes
+    plan:
+      - get: whiteboard
+        passed: [acceptance-tests]
+        trigger: true
+      - task: map-routes
+        file: whiteboard/concourse/tasks/map-routes/map-routes.yml
+        params:
+          CF_USERNAME: {{cf-username}}
+          CF_PASSWORD: {{cf-password}}
+          CF_ORG: {{cf-org}}
+          CF_SPACE: whiteboard-production
+          CF_API_ENDPOINT: {{api-endpoint}}
+          CF_DOMAIN: {{cf-domain}}
+          WHITEBOARD_HOSTNAME: whiteboard
+          TEMP_WHITEBOARD_HOSTNAME: whiteboard-production-temp
