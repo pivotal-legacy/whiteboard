@@ -110,9 +110,20 @@ export IP_WHITELIST=<ip_string>
 Whiteboard is setup by default to whitelist 127.0.0.1 (localhost) by default to allow the tests to pass. This is located
 in the .env.test file.
 
+If you are using Sentry for error logging be sure to set the ```SENTRY_DSN``` to your Sentry DSN
+
+### Running Locally
+
+Whiteboard uses unicorn as the server in staging and production. To run the application locally:
+
+    bundle exec unicorn
+
+
 Testing
 =======
-Before running tests, make sure to add your local IP to the IP_WHITELIST environment variable string. Then run
+Before running tests, make sure to add your local ```IP``` to the ```IP_WHITELIST``` environment variable string. Also make sure that a username and password are configured in ```database.yml``` if your ```root``` user password is not the default. 
+
+Then run
 
 ```
 bundle exec rspec
