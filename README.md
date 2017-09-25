@@ -110,7 +110,7 @@ export IP_WHITELIST=<ip_string>
 Whiteboard is setup by default to whitelist 127.0.0.1 (localhost) by default to allow the tests to pass. This is located
 in the .env.test file.
 
-If you are using Sentry for error logging be sure to set the ```SENTRY_DSN``` to your Sentry DSN
+If you are using Sentry for error logging be sure to set the ```SENTRY_DSN``` environment variable to your Sentry DSN
 
 ### Running Locally
 
