@@ -68,7 +68,7 @@ jobs:
       - task: acceptance-tests
         file: whiteboard/concourse/tasks/acceptance/acceptance.yml
         params:
-          CF_DOMAIN: {{cf-domain}}
+          CF_TEMP_DOMAIN: {{temp-cf-domain}}
           TEMP_WHITEBOARD_HOSTNAME: whiteboard-staging-temp
   - name: map-routes
     plan:
@@ -84,5 +84,6 @@ jobs:
           CF_SPACE: whiteboard-staging
           CF_API_ENDPOINT: {{api-endpoint}}
           CF_DOMAIN: {{cf-domain}}
+          CF_TEMP_DOMAIN: {{temp-cf-domain}}
           WHITEBOARD_HOSTNAME: whiteboard-staging
           TEMP_WHITEBOARD_HOSTNAME: whiteboard-staging-temp
