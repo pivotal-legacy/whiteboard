@@ -1,5 +1,7 @@
-[![Build Status](https://travis-ci.org/pivotal/whiteboard.png?branch=master)](https://travis-ci.org/pivotal/whiteboard)
-[![Code Climate](https://codeclimate.com/github/pivotal/whiteboard.png)](https://codeclimate.com/github/pivotal/whiteboard)
+Staging
+[![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/teams/main/pipelines/whiteboard-staging/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-staging)
+Production
+[![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/teams/main/pipelines/whiteboard-production/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-production)
 
 Goals
 =====
