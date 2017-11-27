@@ -1,8 +1,6 @@
-Staging
 [![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/teams/main/pipelines/whiteboard-staging/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-staging)
-Production
 [![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/teams/main/pipelines/whiteboard-production/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-production)
-
+[![ci.nono.io](https://ci.nono.io/api/v1/pipelines/sslip.io/jobs/check-dns/badge)](https://ci.nono.io/?groups=sslip.io)
 Goals
 =====
 Whiteboard is an app which aims to increase the effectiveness of office-wide standups, and increase communication with the technical community by sharing what we learn with the outside world.  It does this by making two things easy - emailing a summary of the standup to everyone in the company and by creating a blog post of the items which are deemed of public interest.
