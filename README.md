@@ -1,13 +1,10 @@
 [![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/pipelines/whiteboard-staging/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-staging)
 [![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/pipelines/whiteboard-production/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-production)
-1. 
-[![ci.nono.io](https://ci.nono.io/api/v1/pipelines/sslip.io/jobs/check-dns/badge)](https://ci.nono.io/?groups=sslip.io)
-2.
-[![jetway.pivotal.io](https://ci.nono.io/api/v1/pipelines/sslip.io/jobs/check-dns/badge)](https://ci.nono.io/?groups=sslip.io)
-3.
-[![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/pipelines/whiteboard-staging/jobs/map-routes/badge)](https://ci.nono.io/?groups=sslip.io)
-4.
-[![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/pipelines/whiteboard-staging/jobs/map-routes/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-production)
+
+1. [![ci.nono.io](https://ci.nono.io/api/v1/pipelines/sslip.io/jobs/check-dns/badge)](https://ci.nono.io/?groups=sslip.io)
+2. [![jetway.pivotal.io](https://ci.nono.io/api/v1/pipelines/sslip.io/jobs/check-dns/badge)](https://ci.nono.io/?groups=sslip.io)
+3. [![jetway.pivotal.io](https://jetway.pivotal.io/api/v1/pipelines/whiteboard-staging/jobs/map-routes/badge)](https://ci.nono.io/?groups=sslip.io)
+4. [![jetway.pivotal.io](https://ci.nono.io/api/v1/pipelines/sslip.io/jobs/check-dns/badge)](https://jetway.pivotal.io/teams/main/pipelines/whiteboard-production)
 
 Goals
 =====
