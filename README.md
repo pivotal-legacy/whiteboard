@@ -28,7 +28,15 @@ Development
 ===========
 Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
 
-Whiteboard feature tests are incompatible with Qt 5.5, ensure you have a lower version installed before running `bundle`
+Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`:
+
+#### MacOS:
+1. Add tap: https://github.com/cartr/homebrew-qt4
+2. brew install qt@4
+3. brew install qt-webkit@2.3
+
+#### Linux:
+1. apt-get -yq --no-install-suggests --no-install-recommends --force-yes install libqtwebkit-dev libqtwebkit4
 
 Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
 
