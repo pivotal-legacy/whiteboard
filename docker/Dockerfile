@@ -17,7 +17,7 @@ RUN apt-get update
 RUN apt-get -y install wget
 
 # Install Ruby 2.3.*
-RUN apt-get -y install ruby2.3 ruby2.3-dev
+RUN echo "20171211" && apt-get -y install ruby2.3 ruby2.3-dev
 
 # Install misc dependencies
 RUN apt-get -y install build-essential patch zlib1g-dev liblzma-dev libxml2-dev libxslt1-dev libfontconfig1 libfreetype6 git curl unzip
