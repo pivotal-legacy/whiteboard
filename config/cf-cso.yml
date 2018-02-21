@@ -3,4 +3,4 @@ applications:
 - name: whiteboard
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../
-  host: whiteboard-cso-temp
+  host: account-standups-temp
