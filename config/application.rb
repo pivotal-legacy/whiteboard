@@ -66,5 +66,6 @@ module Whiteboard
     config.assets.initialize_on_precompile = false
     config.assets.paths << Rails.root.join("lib", "assets", "deck-js")
     config.assets.precompile += %w(deck.js deck.css)
+    config.force_ssl = true
   end
 end
