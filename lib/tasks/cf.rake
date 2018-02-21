@@ -58,7 +58,7 @@ namespace :cf do
 
     desc 'Pushes an app to production on Cloud Foundry'
     task :'cso-production' do
-      Evaporator::Deployer.new('config/cf-cso-production.yml').deploy
+      Evaporator::Deployer.new('config/cf-cso.yml').deploy
     end
   end
 end
