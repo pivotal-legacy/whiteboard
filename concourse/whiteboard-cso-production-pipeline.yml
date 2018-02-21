@@ -35,11 +35,11 @@ jobs:
           CF_USERNAME: {{cf-username}}
           CF_PASSWORD: {{cf-password}}
           CF_ORG: {{cf-org}}
-          CF_SPACE: whiteboard-cso-staging
+          CF_SPACE: whiteboard-cso
           CF_API_ENDPOINT: {{api-endpoint}}
-          ENVIRONMENT: cso-staging
+          ENVIRONMENT: cso-production
           CF_DOMAIN: {{cf-domain}}
-          WHITEBOARD_HOSTNAME: cso-whiteboard-staging
+          WHITEBOARD_HOSTNAME: account-standups
   - name: deploy-whiteboard
     plan:
       - get: whiteboard
@@ -51,14 +51,16 @@ jobs:
           CF_USERNAME: {{cf-username}}
           CF_PASSWORD: {{cf-password}}
           CF_ORG: {{cf-org}}
-          CF_SPACE: whiteboard-cso-staging
+          CF_SPACE: whiteboard-cso
           CF_API_ENDPOINT: {{api-endpoint}}
-          IP_WHITELIST: {{ip-whitelist}}
           OKTA_CERT_FINGERPRINT: {{okta-cert-fingerprint}}
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
-          ENVIRONMENT: cso-staging
-          SENTRY_DSN: {{sentry-dsn}}
-          CF_DOMAIN: {{cf-domain}}
+          ENVIRONMENT: cso-production
+          EXCEPTIONAL_API_KEY: {{exceptional-api-key}}
+          WORDPRESS_BLOG_HOST: {{wordpress-blog-host}}
+          WORDPRESS_PASSWORD: {{wordpress-password}}
+          WORDPRESS_USER: {{wordpress-user}}
+          WORDPRESS_XMLRPC_ENDPOINT_PATH: {{wordpress-xmlrpc-endpoint-path}}
   - name: acceptance-tests
     plan:
       - get: whiteboard
@@ -69,7 +71,7 @@ jobs:
         file: whiteboard/concourse/tasks/acceptance/acceptance.yml
         params:
           CF_TEMP_DOMAIN: {{temp-cf-domain}}
-          TEMP_WHITEBOARD_HOSTNAME: whiteboard-cso-staging-temp
+          TEMP_WHITEBOARD_HOSTNAME: account-standups-temp
   - name: map-routes
     plan:
       - get: whiteboard
@@ -81,9 +83,9 @@ jobs:
           CF_USERNAME: {{cf-username}}
           CF_PASSWORD: {{cf-password}}
           CF_ORG: {{cf-org}}
-          CF_SPACE: whiteboard-cso-staging
+          CF_SPACE: whiteboard-cso
           CF_API_ENDPOINT: {{api-endpoint}}
           CF_DOMAIN: {{cf-domain}}
           CF_TEMP_DOMAIN: {{temp-cf-domain}}
-          WHITEBOARD_HOSTNAME: cso-whiteboard-staging
-          TEMP_WHITEBOARD_HOSTNAME: whiteboard-cso-staging-temp
+          WHITEBOARD_HOSTNAME: account-standups
+          TEMP_WHITEBOARD_HOSTNAME: account-standups-temp
