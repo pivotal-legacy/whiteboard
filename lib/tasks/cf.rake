@@ -40,32 +40,56 @@ task :deploy_all_production do
 end
 
 namespace :cf do
-  task :deploy do
-    raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless (ENVIRONMENT && SPACE)
+  namespace :deploy do
+    desc 'Pushes an app to staging on Cloud Foundry'
+    task :staging do
+      Evaporator::Deployer.new('config/cf-staging.yml').deploy
+    end
 
-    environment = ENVIRONMENT
+    desc 'Pushes an app to production on Cloud Foundry'
+    task :production do
+      Evaporator::Deployer.new('config/cf-production.yml').deploy
+    end
 
-    check_for_cli
-    check_for_dirty_git
-    tag_deploy(environment)
-  end
+    desc 'Pushes an app to staging on Cloud Foundry'
+    task :'cso-staging' do
+      Evaporator::Deployer.new('config/cf-cso-staging.yml').deploy
+    end
 
-  def check_for_cli
-    unless is_go_cli?
-      raise "The CloudFoundry CLI is required. Run: 'brew tap pivotal/tap && brew install cloudfoundry-cli'"
+    desc 'Pushes an app to production on Cloud Foundry'
+    task :'cso-production' do
+      Evaporator::Deployer.new('config/cf-cso-production.yml').deploy
     end
   end
-
-  def check_for_dirty_git
-    raise "Unstaged or uncommitted changes cannot be deployed! Aborting!" if `git status --porcelain`.present?
-  end
-
-  def tag_deploy env
-    sh "autotag create #{env}"
-  end
-
-  def is_go_cli?
-    `cf -v`.match(/version (\d\.\d)/)
-    $1.to_f >= 6
-  end
 end
+
+# namespace :cf do
+#   task :deploy do
+#     raise 'Specify `rake acceptance deploy`, or `rake production deploy`' unless (ENVIRONMENT && SPACE)
+#
+#     environment = ENVIRONMENT
+#
+#     check_for_cli
+#     check_for_dirty_git
+#     tag_deploy(environment)
+#   end
+#
+#   def check_for_cli
+#     unless is_go_cli?
+#       raise "The CloudFoundry CLI is required. Run: 'brew tap pivotal/tap && brew install cloudfoundry-cli'"
+#     end
+#   end
+#
+#   def check_for_dirty_git
+#     raise "Unstaged or uncommitted changes cannot be deployed! Aborting!" if `git status --porcelain`.present?
+#   end
+#
+#   def tag_deploy env
+#     sh "autotag create #{env}"
+#   end
+#
+#   def is_go_cli?
+#     `cf -v`.match(/version (\d\.\d)/)
+#     $1.to_f >= 6
+#   end
+# end
