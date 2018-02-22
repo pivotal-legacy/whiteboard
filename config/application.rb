@@ -59,7 +59,7 @@ module Whiteboard
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.action_mailer.default_url_options = {:host => "whiteboard.pivotal.io"}
+    config.action_mailer.default_url_options = {:host => ENV["WHITEBOARD_MAILER_URL"]}
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

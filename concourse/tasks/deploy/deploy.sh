@@ -10,6 +10,7 @@ cf set-env whiteboard OKTA_SSO_TARGET_URL $OKTA_SSO_TARGET_URL
 cf set-env whiteboard OKTA_CERT_FINGERPRINT $OKTA_CERT_FINGERPRINT
 cf set-env whiteboard IP_WHITELIST $IP_WHITELIST
 cf set-env whiteboard SENTRY_DSN $SENTRY_DSN
+cf set-env whiteboard WHITEBOARD_MAILER_URL $WHITEBOARD_MAILER_URL
 
 if [ "$ENVIRONMENT" == "production" ] ; then
     cf set-env whiteboard EXCEPTIONAL_API_KEY $EXCEPTIONAL_API_KEY
