@@ -59,6 +59,7 @@ jobs:
           ENVIRONMENT: cso-staging
           SENTRY_DSN: {{sentry-dsn}}
           CF_DOMAIN: {{cf-domain}}
+          WHITEBOARD_MAILER_URL: cso-whiteboard-staging.cfapps.io
   - name: acceptance-tests
     plan:
       - get: whiteboard

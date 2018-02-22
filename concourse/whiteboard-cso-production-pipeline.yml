@@ -61,6 +61,7 @@ jobs:
           WORDPRESS_PASSWORD: {{wordpress-password}}
           WORDPRESS_USER: {{wordpress-user}}
           WORDPRESS_XMLRPC_ENDPOINT_PATH: {{wordpress-xmlrpc-endpoint-path}}
+          WHITEBOARD_MAILER_URL: account-standups.cfapps.io
   - name: acceptance-tests
     plan:
       - get: whiteboard
