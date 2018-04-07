@@ -39,7 +39,9 @@ describe "Adding new faces", js: true do
       fill_in 'post[from]', with: 'Capybara'
       fill_in 'post[title]', with: 'Test Cases Rule'
 
-      find('#create-post').click
+      accept_alert do
+        find('#create-post').click
+      end
 
       expect(page).to_not have_content "Unable to create post"
       expect(current_path).to eq(standup_items_path(standup))

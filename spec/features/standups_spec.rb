@@ -46,7 +46,9 @@ describe "standups", :js do
 
   it "allows you to delete existing standups", js: true do
     click_on_preferences(page)
-    click_on 'Delete Standup'
+    accept_alert do
+      click_on 'Delete Standup'
+    end
 
     expect(current_url).to match(/http:\/\/127\.0\.0\.1:\d*\/standups$/)
     expect(page).to_not have_content 'London Whiteboard'

@@ -32,7 +32,9 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'capybara'
-  gem 'capybara-webkit', '1.14.0'
+  gem 'puma'
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'letter_opener'
@@ -46,7 +48,6 @@ end
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
-  gem 'selenium-webdriver'
 end
 
 group :development do

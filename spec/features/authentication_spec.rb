@@ -41,21 +41,6 @@ describe 'Authenticating', type: :feature do
     end
   end
 
-  context 'from a whitelisted ip' do
-    describe 'logging in' do
-      before do
-        page.driver.header('X-Forwarded-For', '50.194.143.46')
-        ENV['IP_WHITELIST'] = '50.194.143.46'
-      end
-
-      it 'should not force user to authenticate' do
-        visit '/'
-        expect(page).not_to have_content('Log in with Okta')
-        expect(page).to have_content('Choose a Standup')
-      end
-    end
-  end
-
   context 'with no ips in the whitelist' do
     describe 'logging in' do
       before do
