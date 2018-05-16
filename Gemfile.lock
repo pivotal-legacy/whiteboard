@@ -106,6 +106,7 @@ GEM
       sass-rails (< 5.1)
       sprockets (< 4.0)
     concurrent-ruby (1.0.5)
+    crass (1.0.4)
     database_cleaner (1.6.1)
     debug_inspector (0.0.3)
     diff-lcs (1.3)
@@ -149,7 +150,8 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    loofah (2.0.3)
+    loofah (2.2.2)
+      crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
@@ -157,7 +159,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.2.0)
+    mini_portile2 (2.3.0)
     minitest (5.10.3)
     multi_json (1.12.1)
     multipart-post (2.0.0)
@@ -170,8 +172,8 @@ GEM
     net-ssh-gateway (2.0.0)
       net-ssh (>= 4.0.0)
     newrelic_rpm (4.3.0.335)
-    nokogiri (1.8.0)
-      mini_portile2 (~> 2.2.0)
+    nokogiri (1.8.2)
+      mini_portile2 (~> 2.3.0)
     omniauth (1.6.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -207,8 +209,8 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -314,13 +316,16 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  loofah (= 2.2.2)
   minitest
   mysql2 (~> 0.3.18)
   newrelic_rpm
+  nokogiri (= 1.8.2)
   omniauth-saml
   protected_attributes
   pry-rails
   rails (~> 4.2)
+  rails-html-sanitizer (= 1.0.4)
   rails_12factor
   responders (~> 2.0)
   rspec-rails (~> 3.1)
@@ -336,4 +341,4 @@ RUBY VERSION
    ruby 2.3.5p376
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
