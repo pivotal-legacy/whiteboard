@@ -184,6 +184,7 @@ The rake task copies the code to be deployed into a `/tmp` directory, so you can
 Author
 ======
 Whiteboard was written by [Matthew Kocher](https://github.com/mkocher).
+And maintained by IPS
 
 License
 =======
