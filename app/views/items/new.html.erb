@@ -13,20 +13,10 @@
             </button>
           <% end %>
         </div>
-        <div class="btn-group btn-block" data-toggle-name="item[public]" data-toggle="buttons-radio">
-          <button type="button" value="0" class="btn btn-warning" data-toggle="button">
-            Private
-          </button>
-          <button type="button" value="1" class="btn btn-warning" data-toggle="button">
-            Post to Blog
-          </button>
-        </div>
         <div class="subtitle mtm">
-          Private items are not posted to the Blog.
           All items are visible to anyone on Pivotal's Guest network.
           Do not post confidential information.
         </div>
-        <%= f.hidden_field :public, value: @item.public ? '1' : '0' %>
         <h1 class="h2 mvl">Standup Item</h1>
 
         <%= f.collection_select(:standup_id,

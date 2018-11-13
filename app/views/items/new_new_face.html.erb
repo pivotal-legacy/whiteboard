@@ -21,7 +21,6 @@
       <%= render partial: 'date_picker', locals: {f: f, item: @item} %>
 
       <%= f.hidden_field :post_id %>
-      <%= f.hidden_field :public, value: false %>
       <%= f.hidden_field :kind, value: 'New face' %>
 
         <%= f.submit "#{@item.persisted? ? "Update" : "Create"} New Face", class: "btn btn-success btn-block" %>

@@ -19,7 +19,7 @@ class Item < ActiveRecord::Base
   attr_accessible :title, :description, :kind, :public, :post_id, :date, :standup_id, :author
 
   def self.public
-    where(public: true)
+    where(public: true) #This is for historical data splitting
   end
 
   def self.orphans

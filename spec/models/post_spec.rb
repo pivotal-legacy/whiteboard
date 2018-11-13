@@ -151,25 +151,14 @@ describe Post do
       expect(post.emailable_content?).to eq false
     end
 
-    it "returns true with a private content item" do
-      post = create(:post, items: [create(:item, created_at: Time.now, public: false)])
+    it "returns true when there are content items" do
+      post = create(:post, items: [create(:item, created_at: Time.now)])
       expect(post.emailable_content?).to eq true
     end
 
-    it "returns true with a private event" do
+    it "returns true when there are events" do
       post = create(:post, items: [])
-      create(:event, date: 1.day.from_now.to_date, public: false, standup: post.standup)
-      expect(post.emailable_content?).to eq true
-    end
-
-    it "returns true when there are public content items" do
-      post = create(:post, items: [create(:item, created_at: Time.now, public: true)])
-      expect(post.emailable_content?).to eq true
-    end
-
-    it "returns true when there are public events" do
-      post = create(:post, items: [])
-      create(:event, date: 1.day.from_now.to_date, public: true, standup: post.standup)
+      create(:event, date: 1.day.from_now.to_date, standup: post.standup)
       expect(post.emailable_content?).to eq true
     end
   end
