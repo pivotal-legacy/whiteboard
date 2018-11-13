@@ -5,11 +5,13 @@ Goals
 =====
 Whiteboard is an app which aims to increase the effectiveness of office-wide standups, and increase communication with the technical community by sharing what we learn with the outside world.  It does this by making two things easy - emailing a summary of the standup to everyone in the company and by creating a blog post of the items which are deemed of public interest.
 
+
 Background
 ==========
 At Pivotal Labs we have an office-wide standup every morning at 9:06 (right after breakfast). The current format is new faces (who's new in the office), helps (things people are stuck on) and interestings (things that might be of interest to the office).
 
 Before Whiteboard, one person madly scribbled notes, and one person ran standup using a physical whiteboard as a guide to things people wanted to remember to talk about.  Whiteboard provides an easy interface for people to add items they want to talk about, and then a way to take those items and assemble them into a blog post and an email with as little effort as possible.  The idea is to shift the writing to the person who knows about the item, and reduce the role of the person running standup to an editor.
+
 
 Features
 ========
@@ -24,22 +26,55 @@ Usage
 =====
 Deploy to Cloud Foundry.  Tell people in the office to use it.  At standup, go over the board, then add a title and click 'create post'.  The board is then cleared for the next day, and you can edit the post at your leisure and deliver it when ready.
 
+Tracker
+=======
+Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
+
+
 Development
 ===========
 Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
 
 Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`:
 
+
 #### MacOS:
-1. Add tap: https://github.com/cartr/homebrew-qt4
-2. brew install qt@4
-3. brew install qt-webkit@2.3
+
+We use an old version of QT because the version of capybara-webkit that is used in test requires < version 5. To install:
+1. Add tap from: https://github.com/cartr/homebrew-qt4
+   ```
+   brew tap cartr/qt4
+   brew tap-pin cartr/qt4
+   brew install qt@4
+   ```
+1. `brew install qt@4`
+1. `brew install qt-webkit@2.3`
+
+MySql version `5.7.x` is used for the database. Ensure you do not have a later version of mysql installed (data files seem to be incompatible)
+
+The project also needs the mysql2 gem to be `0.3.21`, patchlevel may be different but `0.4+` seems to not be picked up by the ActiveRecord database adapter code.
+This gem can be annoying to install, you may need to install before the bundle by running the following in your gemset:
+
+```
+gem install mysql2 -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-ldflags=\"-L/usr/local/opt/openssl/lib\"
+```
 
 #### Linux:
 1. apt-get -yq --no-install-suggests --no-install-recommends --force-yes install libqtwebkit-dev libqtwebkit4
 
-Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
+### Application Setup:
+1. Install gems: `bundle install`
+1. Setup dev/test databases: `bundle exec rake db:create db:migrate db:test:prepare`
+1. Run the specs: `bundle exec rake`
 
+
+### Running Locally:
+
+Whiteboard uses unicorn as the server in staging and production. To run the application locally:
+
+    bundle exec unicorn
+
+### Wordpress environment variables
 The following environment variables are necessary for posting to a Wordpress blog.
 ```
 export WORDPRESS_BLOG_HOST=<blog server>
@@ -49,11 +84,15 @@ export WORDPRESS_XMLRPC_ENDPOINT_PATH=/wordpress/xmlrpc.php
 export WORDPRESS_USER=<username>
 export WORDPRESS_PASSWORD=<password>
 ```
+
+### Sendgrid environment variables
 The following environment variables are necessary for posting to email via SendGrid.
 ```
 export SENDGRID_USERNAME=<username>
 export SENDGRID_PASSWORD=<password>
 ```
+
+### Okta configuration
 Okta needs to be configured for SAML 2.0 before you can set up Okta single sign-on. Check out [Okta's](http://developer.okta.com/docs/guides/setting_up_a_saml_application_in_okta.html) documentation
 for more information.
 
@@ -119,12 +158,6 @@ Whiteboard is setup by default to whitelist 127.0.0.1 (localhost) by default to 
 in the .env.test file.
 
 If you are using Sentry for error logging be sure to set the ```SENTRY_DSN``` environment variable to your Sentry DSN
-
-### Running Locally
-
-Whiteboard uses unicorn as the server in staging and production. To run the application locally:
-
-    bundle exec unicorn
 
 
 Testing
