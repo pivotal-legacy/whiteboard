@@ -2,20 +2,20 @@ resources:
 - name: whiteboard
   type: git
   source:
-    uri: https://github.com/pivotal/whiteboard.git
+    uri: https://github.com/pivotal-legacy/whiteboard.git
     branch: master
 - name: maintenance-mode
   type: git
   source:
-    uri: git@github.com:pivotal/maintenance-mode.git
+    uri: git@github.com:pivotal-legacy/maintenance-mode.git
     private_key: {{maintenance-private-key}}
     branch: ruby-2.3.5
 - name: acceptance-tests
   type: git
   source:
     uri: git@github.com:pivotal/whiteboard-acceptance-tests.git
-    private_key: {{maintenance-private-key}}
     branch: master
+    private_key: {{iad-dev-whiteboard-deploy-key}}
 
 jobs:
   - name: build
