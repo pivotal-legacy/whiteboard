@@ -4,7 +4,7 @@ image_resource:
   type: docker-image
   source:
     repository: openjdk
-    tag: 10.0.2-jdk
+    tag: jdk
 
 inputs:
   - name: whiteboard

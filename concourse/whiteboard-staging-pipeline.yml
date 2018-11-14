@@ -14,8 +14,8 @@ resources:
   type: git
   source:
     uri: git@github.com:pivotal/whiteboard-acceptance-tests.git
-    branch: master
     private_key: {{iad-dev-whiteboard-deploy-key}}
+    branch: master
 
 jobs:
   - name: build

@@ -214,6 +214,24 @@ or
 
 The rake task copies the code to be deployed into a `/tmp` directory, so you can continue working while deploying.
 
+Deploying via Concourse
+=======================
+
+Whiteboard has pipelines set up on the Jetway Concourse instance: https://jetway.pivotal.io/
+There are two pairs of staging/production pipelines, one for general Pivotal use, and one for CSO specifically.
+Using the pipelines you can deploy the latest on whiteboard master directly from the UI.
+There is a secondary repository for the acceptance tests (https://github.com/pivotal/whiteboard-acceptance-tests) that run against a newly deployed whiteboard.
+
+Any changes you make in the pipeline.yml files need to be pushed to concourse using the set-pipeline command:
+```
+fly -t jetway set-pipeline -p <PIPELINE-NAME> -c concourse/<PIPELINE-FILE>.yml --load-vars-from <LOCAL-COPY-OF-CREDENTIALS>
+```
+
+Credentials for the pipelines live in Shared-IAD Dev Accounts/Whiteboard on Lastpass.
+
+Any changes to helper files will need to be pushed to GitHub for the pipelines to access them.
+
+
 Author
 ======
 Whiteboard was written by [Matthew Kocher](https://github.com/mkocher).
