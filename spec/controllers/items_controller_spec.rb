@@ -28,7 +28,7 @@ describe ItemsController do
     end
 
     it "should render new on failure" do
-      post :create, item: {}, standup_id: standup.to_param
+      post :create, item: {kind: 'Garbage'}, standup_id: standup.to_param
       expect(response).to render_template 'items/new'
     end
 
@@ -56,7 +56,7 @@ describe ItemsController do
       expect(response).to be_ok
     end
 
-    it "should render the custom template for the kind if there is one" do
+    it "should render the new face template when kind is new face" do
       get :new, params.merge(item: { kind: 'New face' })
       expect(response).to render_template('items/new_new_face')
     end

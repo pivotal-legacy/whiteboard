@@ -4,14 +4,10 @@
 
     <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.referer %>
 
-    <div class="bg-light pvxl phm">
+    <div class="bg-light pvxl phm <%= @item.kind.downcase.tr(' ', '_') %>">
       <div class="container-form">
-        <div class="btn-group btn-block" data-toggle-name="item[kind]" data-toggle="buttons-radio">
-          <% (Item.kinds.map(&:name) - ['New face']).each do |kind| %>
-            <button type='button' value='<%= kind %>' class='btn btn-info' data-toggle="button">
-              <%= kind %>
-            </button>
-          <% end %>
+        <div class="block-header">
+          <h2 class="pvm phl"><%= @item.kind %></h2>
         </div>
         <div class="subtitle mtm">
           All items are visible to anyone on Pivotal's Guest network.

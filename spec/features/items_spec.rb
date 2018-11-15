@@ -69,15 +69,7 @@ describe "items", js: true do
     fill_in 'item_description', with: "Check it out: `inline code!` and www.links.com"
     click_button 'Create Item'
 
-    find('a[data-kind="Event"] i').click
-    click_button('Interesting')
-    fill_in 'item_title', :with => "Rails 62 is out"
-    fill_in 'item_author', :with => "DHH"
-    fill_in 'item_description', with: "Now with more f-bombs"
-    click_button 'Create Item'
-
     find('a[data-kind="Win"] i').click
-    click_button('Win')
     fill_in 'item_title', :with => "Tracker iOS 7 app"
     fill_in 'item_author', :with => "Tracker team"
     fill_in 'item_description', with: "In the app store now! New and shiny!"
@@ -138,7 +130,6 @@ describe "items", js: true do
       expect(page).to have_content "Interestings"
       expect(page).to have_content("Linux 3.2 out")
       expect(page).to have_content("Linus Torvalds")
-      expect(page).to have_content("Rails 62 is out")
       expect(page).to_not have_selector('.in')
       first('a[data-toggle]').click
       expect(page).to have_selector('.in')
@@ -156,7 +147,6 @@ describe "items", js: true do
     expect(page).to have_css('section.deck-current', text: 'Upcoming')
     expect(page).to have_css('.upcoming + ul li', text: 'Party')
     expect(find('section.deck-current')).to_not have_content "Meetup"
-    expect(find('section.deck-current')).to_not have_content("Rails 62 is out")
     page.execute_script("$.deck('next')")
 
     expect(find('section.deck-current')).to have_content "Wins"

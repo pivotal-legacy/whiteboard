@@ -42,10 +42,6 @@ class Item < ActiveRecord::Base
       where("date IS NULL OR date <= ?", Time.zone.today)
   end
 
-  def possible_template_name
-    kind && "items/new_#{kind.downcase.gsub(" ", '_')}"
-  end
-
   def relative_date
     case date
     when standup.date_today then

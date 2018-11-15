@@ -2,9 +2,11 @@
   <%= form_for(@item, html: {class: 'form-horizontal new-face-form'}) do |f| %>
     <%= render partial: 'shared/errors', locals: {model: @item} %>
 
-    <div class="bg-light pvxl phm">
+    <div class="bg-light pvxl phm new_face">
       <div class="container-form">
-        <h2 class="mbl">New Face</h2>
+        <div class="block-header">
+          <h2 class="pvm phl">New Face</h2>
+        </div>
         <%= f.collection_select(:standup_id,
           Standup.all,
           :id,

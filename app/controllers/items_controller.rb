@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
     options = (params[:item] || {}).merge({post_id: params[:post_id], author: session[:username]})
     options.reverse_merge!(date: Time.zone.today)
     @item = @standup.items.build(options)
+    @item.kind ||= "Help"
     render_custom_item_template @item
   end
 
@@ -57,8 +58,8 @@ class ItemsController < ApplicationController
   private
 
   def render_custom_item_template(item)
-    if item.possible_template_name && template_exists?(item.possible_template_name)
-      render item.possible_template_name
+    if @item.kind == 'New face'
+      render "items/new_new_face"
     else
       render "items/new"
     end
