@@ -57,10 +57,6 @@ jobs:
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: cso-production
           EXCEPTIONAL_API_KEY: {{exceptional-api-key}}
-          WORDPRESS_BLOG_HOST: {{wordpress-blog-host}}
-          WORDPRESS_PASSWORD: {{wordpress-password}}
-          WORDPRESS_USER: {{wordpress-user}}
-          WORDPRESS_XMLRPC_ENDPOINT_PATH: {{wordpress-xmlrpc-endpoint-path}}
           WHITEBOARD_MAILER_URL: account-standups.cfapps.io
   - name: acceptance-tests
     plan:

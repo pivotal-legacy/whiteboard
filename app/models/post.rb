@@ -24,15 +24,13 @@ class Post < ActiveRecord::Base
   end
 
   def title_for_email
-    if standup_subject_prefix.present?
-      "#{standup_subject_prefix} " + title_for_blog
-    else
-      "[Standup] " + title_for_blog
-    end
-  end
+    suffix = created_at.strftime("%m/%d/%y") + ': ' + title
 
-  def title_for_blog
-    created_at.strftime("%m/%d/%y") + ': '+ title
+    if standup_subject_prefix.present?
+      standup_subject_prefix + " " + suffix
+    else
+      "[Standup] " + suffix
+    end
   end
 
   def events
@@ -67,14 +65,6 @@ class Post < ActiveRecord::Base
 
   def emailable_content?
     items.present? || events.present?
-  end
-
-  def public_url
-    if Rails.application.config.blogging_service.minimally_configured? and blog_post_id.present?
-      Rails.application.config.blogging_service.public_url + "/#{blog_post_id}"
-    else
-      ''
-    end
   end
 
   private

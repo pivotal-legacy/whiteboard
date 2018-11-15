@@ -82,13 +82,6 @@ describe Post do
     end
   end
 
-  describe '#title_for_blog' do
-    it 'prepends the data' do
-      post = create(:post, title: "With Feeling", created_at: Time.parse("2012-06-02 12:00:00 -0700"))
-      expect(post.title_for_blog).to eq "06/02/12: With Feeling"
-    end
-  end
-
   describe '#deliver_email' do
     it "sends an email" do
       post = create(:post, items: [create(:item)])
@@ -160,34 +153,6 @@ describe Post do
       post = create(:post, items: [])
       create(:event, date: 1.day.from_now.to_date, standup: post.standup)
       expect(post.emailable_content?).to eq true
-    end
-  end
-
-  describe "#public_url" do
-    it 'exists when blog service is defined and has a blog_post_id' do
-      @fakeWordpress = double("wordpress service", :"minimally_configured?" => true, :"public_url" => 'http://example.com')
-      allow(Rails.application.config).to receive(:blogging_service) { @fakeWordpress }
-
-      post = Post.new
-      post.blog_post_id = 'some-thing'
-      expect(post.public_url).to eq('http://example.com/some-thing')
-    end
-
-    it 'returns an empty string when blog service is not defined' do
-      @fakeWordpress = double("wordpress service", :"minimally_configured?" => false)
-      allow(Rails.application.config).to receive(:blogging_service) { @fakeWordpress }
-
-      post = Post.new
-      post.blog_post_id = 'some-thing'
-      expect(post.public_url).to eq('')
-    end
-
-    it 'returns an empty string when blog_post_id is not defined ' do
-      @fakeWordpress = double("wordpress service", :"minimally_configured?" => true, :"public_url" => 'http://example.com')
-      allow(Rails.application.config).to receive(:blogging_service) { @fakeWordpress }
-
-      post = Post.new
-      expect(post.public_url).to eq('')
     end
   end
 end

@@ -1,8 +1,4 @@
 module ApplicationHelper
-  def wordpress_enabled?
-    Rails.application.config.blogging_service.minimally_configured?
-  end
-
   def dynamic_new_item_path(opts={})
     @post ? new_standup_post_item_path(@post, opts) : new_standup_item_path(@standup, opts)
   end
@@ -36,12 +32,6 @@ module ApplicationHelper
       return l(item.date, format: :short) + ": " if is_item_after_this_week(item)
       Date::DAYNAMES[item.date.wday].to_s + ": "
     end
-  end
-
-  def published_post_info(post)
-    output = "This entry was posted at #{post.blogged_at}"
-    output += " to #{link_to post.public_url, post.public_url, target: '_blank'}" if post.public_url.present?
-    output.html_safe
   end
 
   private

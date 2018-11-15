@@ -113,16 +113,4 @@ describe ApplicationHelper do
       end
     end
   end
-
-  describe "#wordpress_enabled?" do
-    it "returns true if the app's blogging service is minimally configured" do
-      allow(Rails.application.config.blogging_service).to receive(:minimally_configured?).and_return(true)
-      expect(helper.wordpress_enabled?).to eq true
-    end
-
-    it "returns false otherwise" do
-      allow(Rails.application.config.blogging_service).to receive(:minimally_configured?).and_return(false)
-      expect(helper.wordpress_enabled?).to eq false
-    end
-  end
 end

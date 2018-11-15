@@ -57,31 +57,6 @@ class PostsController < ApplicationController
     redirect_to edit_post_path(@post)
   end
 
-  def post_to_blog
-    if @post.blogged_at
-      flash[:error] = "The post has already been blogged"
-    elsif !view_context.wordpress_enabled?
-      flash[:error] = "Wordpress blogging disabled. Please set wordpress environment variables."
-    else
-      blog_post = BlogPost.new.tap do |blog_post|
-        blog_post.title = @post.title
-        blog_post.body = prepare_post_body(@post.public_items_by_type)
-      end
-
-      begin
-        @post.blog_post_id = Rails.configuration.blogging_service.send!(blog_post)
-        @post.blogged_at = Time.now
-        @post.save!
-      rescue XMLRPC::FaultException => e
-        message = "While posting to the blog, the service reported the following error: '" + e.message + "', please repost."
-        flash[:error] = message
-      end
-
-    end
-
-    redirect_to edit_post_path(@post)
-  end
-
   def archive
     @post.archived = true
     @post.save!
@@ -103,15 +78,6 @@ class PostsController < ApplicationController
       @standup = Post.find(params[:id]).standup
     end
   end
-
-  def prepare_post_body(items)
-    GitHub::Markdown.render(
-      render_to_string(partial: 'items/as_markdown',
-                       formats: [:text],
-                       layout: false,
-                       locals: {items: items, include_authors: false}))
-  end
-
 
   def standup_timezone(&block)
     return yield unless @standup

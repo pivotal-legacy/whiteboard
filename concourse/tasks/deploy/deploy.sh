@@ -18,17 +18,9 @@ if [ "$ENVIRONMENT" == "production" ] ; then
     cf set-env whiteboard GOOGLE_CLIENT_SECRET $GOOGLE_CLIENT_SECRET
     cf set-env whiteboard NEWRELIC_APP_NAME $NEWRELIC_APP_NAME
     cf set-env whiteboard NEWRELIC_LICENSE $NEWRELIC_LICENSE
-    cf set-env whiteboard WORDPRESS_BLOG_HOST $WORDPRESS_BLOG_HOST
-    cf set-env whiteboard WORDPRESS_PASSWORD $WORDPRESS_PASSWORD
-    cf set-env whiteboard WORDPRESS_USER $WORDPRESS_USER
-    cf set-env whiteboard WORDPRESS_XMLRPC_ENDPOINT_PATH $WORDPRESS_XMLRPC_ENDPOINT_PATH
 
 elif [ "$ENVIRONMENT" == "cso-production" ]; then
     cf set-env whiteboard EXCEPTIONAL_API_KEY $EXCEPTIONAL_API_KEY
-    cf set-env whiteboard WORDPRESS_BLOG_HOST $WORDPRESS_BLOG_HOST
-    cf set-env whiteboard WORDPRESS_PASSWORD $WORDPRESS_PASSWORD
-    cf set-env whiteboard WORDPRESS_USER $WORDPRESS_USER
-    cf set-env whiteboard WORDPRESS_XMLRPC_ENDPOINT_PATH $WORDPRESS_XMLRPC_ENDPOINT_PATH
 fi
 
 bundle install

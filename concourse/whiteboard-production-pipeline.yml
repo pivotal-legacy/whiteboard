@@ -63,10 +63,6 @@ jobs:
           GOOGLE_CLIENT_SECRET: {{google-client-secret}}
           NEWRELIC_APP_NAME: {{newrelic-app-name}}
           NEWRELIC_LICENSE: {{newrelic-license}}
-          WORDPRESS_BLOG_HOST: {{wordpress-blog-host}}
-          WORDPRESS_PASSWORD: {{wordpress-password}}
-          WORDPRESS_USER: {{wordpress-user}}
-          WORDPRESS_XMLRPC_ENDPOINT_PATH: {{wordpress-xmlrpc-endpoint-path}}
           WHITEBOARD_MAILER_URL: whiteboard.pivotal.io
   - name: acceptance-tests
     plan:

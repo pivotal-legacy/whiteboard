@@ -31,58 +31,32 @@
 
     <div class='email_post preview'>
       <pre>
-Subject: <%= @post.title_for_email %>
+        Subject: <%= @post.title_for_email %>
         From: <%= @post.from %>
 
         <%= raw CGI::escapeHTML(GitHub::Markdown.render(render partial: 'items/as_markdown', formats: [:text], handlers: [:erb], locals: {items: @post.items_by_type, include_authors: true})) %>
-  </pre>
+      </pre>
     </div>
 
     <% if @post.sent_at %>
-        This email was sent at <%= @post.sent_at %>
+      This email was sent at <%= @post.sent_at %>
     <% elsif @post.emailable_content? %>
-        <%= link_to 'Send Email', send_email_post_path(@post),
-                    data: {confirm: 'Emails can not be unsent.  Are you sure?'},
-                    method: :put,
-                    class: 'btn btn-warning' %>
+      <%= link_to 'Send Email', send_email_post_path(@post),
+                  data: {confirm: 'Emails can not be unsent.  Are you sure?'},
+                  method: :put,
+                  class: 'btn btn-warning' %>
     <% else %>
-        <p class='btn btn-warning' disabled='disabled'>Send Email</p>
-        <span class='notice'>There is no content to publish.</span>
+      <p class='btn btn-warning' disabled='disabled'>Send Email</p>
+      <span class='notice'>There is no content to publish.</span>
     <% end %>
     <br/>
-    <br/>
 
-    <h4 class="padded">Please double check the blog post. Ensure that there are no client names or private info in the post, and that
-      the content is of interest to the general public. Click the "Post Blog Entry" button to post it to
-      <%= link_to Rails.application.config.blogging_service.public_url, Rails.application.config.blogging_service.public_url %>.</h4>
-
-    <div class='blog_post preview'>
-      (Title: <%= @post.title_for_blog %>)
-
-  <pre>
-<%= raw CGI::escapeHTML(GitHub::Markdown.render(render partial: 'items/as_markdown', formats: [:text], handlers: [:erb], locals: {items: @post.public_items_by_type, include_authors: false})) %>
-  </pre>
-    </div>
-    <% if @post.blogged_at %>
-        <%= published_post_info(@post) %>
-    <% elsif !@post.publishable_content? %>
-        <p class='btn btn-warning' disabled='disabled'>Post Blog Entry</p>
-        <span class='notice'>There is no content to publish.</span>
-    <% elsif wordpress_enabled? %>
-        <%= link_to 'Post Blog Entry', post_to_blog_post_path(@post),
-                    data: {confirm: 'This will post to wordpress.  Are you sure?'},
-                    method: :put,
-                    class: 'btn btn-warning' %>
-    <% elsif !wordpress_enabled? %>
-        <p class='btn btn-warning' disabled='disabled' title='Wordpress is not configured. You can not send blog posts.'>Post
-          Blog Entry</p>
-    <% end %>
   </div>
 
   <h1>Archive</h1>
 
   <div class='well'>
-    <h4 class="padded"> Thanks for emailing and blogging. Click the button below to archive the post.</h4>
+    <h4 class="padded"> Thanks for emailing! Click the button below to archive the post.</h4>
     <%= link_to 'Archive Post', archive_post_path(@post), method: :put, class: 'btn btn-warning' %>
   </div>
 </div>

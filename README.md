@@ -3,14 +3,14 @@
 
 Goals
 =====
-Whiteboard is an app which aims to increase the effectiveness of office-wide standups, and increase communication with the technical community by sharing what we learn with the outside world.  It does this by making two things easy - emailing a summary of the standup to everyone in the company and by creating a blog post of the items which are deemed of public interest.
+Whiteboard is an app which aims to increase the effectiveness of office-wide standups, and increase communication with the technical community by sharing what we learn with the outside world, by emailing a summary of the standup to everyone in the company.
 
 
 Background
 ==========
 At Pivotal Labs we have an office-wide standup every morning at 9:06 (right after breakfast). The current format is new faces (who's new in the office), helps (things people are stuck on) and interestings (things that might be of interest to the office).
 
-Before Whiteboard, one person madly scribbled notes, and one person ran standup using a physical whiteboard as a guide to things people wanted to remember to talk about.  Whiteboard provides an easy interface for people to add items they want to talk about, and then a way to take those items and assemble them into a blog post and an email with as little effort as possible.  The idea is to shift the writing to the person who knows about the item, and reduce the role of the person running standup to an editor.
+Before Whiteboard, one person madly scribbled notes, and one person ran standup using a physical whiteboard as a guide to things people wanted to remember to talk about.  Whiteboard provides an easy interface for people to add items they want to talk about, and then a way to take those items and assemble them into an email with as little effort as possible.  The idea is to shift the writing to the person who knows about the item, and reduce the role of the person running standup to an editor.
 
 
 Features
@@ -18,7 +18,6 @@ Features
 - Add New Faces, Helps and Interesting
 - Summarize into posts
 - Two click email sending (the second click is for safety)
-- Two click Posts to Wordpress (untransformed markdown at the moment)
 - Allow authorized IP addresses to access boards without restriction
 - Allows users to sign in using Okta if their IP is not Whitelisted
 
@@ -73,17 +72,6 @@ gem install mysql2 -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-
 Whiteboard uses unicorn as the server in staging and production. To run the application locally:
 
     bundle exec unicorn
-
-### Wordpress environment variables
-The following environment variables are necessary for posting to a Wordpress blog.
-```
-export WORDPRESS_BLOG_HOST=<blog server>
-export WORDPRESS_BASIC_AUTH_USER=<user> #optional
-export WORDPRESS_BASIC_AUTH_PASSWORD=<password> #optional
-export WORDPRESS_XMLRPC_ENDPOINT_PATH=/wordpress/xmlrpc.php
-export WORDPRESS_USER=<username>
-export WORDPRESS_PASSWORD=<password>
-```
 
 ### Sendgrid environment variables
 The following environment variables are necessary for posting to email via SendGrid.
@@ -179,17 +167,7 @@ bundle exec rspec
     cf target -s whiteboard -o <organization>
 
 	cf push --no-start --reset
-	cf set-env whiteboard-production WORDPRESS_USER username
-	cf set-env whiteboard-production WORDPRESS_PASSWORD password
-	cf set-env whiteboard-production WORDPRESS_BLOG_HOST blogname.wordpress.com
-	cf set-env whiteboard-production WORDPRESS_XMLRPC_ENDPOINT_PATH /wordpress/xmlrpc.php
-	cf set-env whiteboard-production EXCEPTIONAL_API_KEY <you exceptional API key>
-    cf set-env whiteboard-acceptance WORDPRESS_USER username
-    cf set-env whiteboard-acceptance WORDPRESS_PASSWORD password
-    cf set-env whiteboard-acceptance WORDPRESS_BLOG_HOST blogname.wordpress.com
-    cf set-env whiteboard-acceptance WORDPRESS_BASIC_AUTH_USER <user>
-    cf set-env whiteboard-acceptance WORDPRESS_BASIC_AUTH_PASSWORD <password>
-    cf set-env whiteboard-acceptance WORDPRESS_XMLRPC_ENDPOINT_PATH /wordpress/xmlrpc.php
+	cf set-env whiteboard-production EXCEPTIONAL_API_KEY <your exceptional API key>
     cf set-env whiteboard-acceptance EXCEPTIONAL_API_KEY <your exceptional API key>
 	cf env   # check all settings
 	# migrate data
