@@ -1,6 +1,14 @@
-# URLs
-Staging can be found at [https://whiteboard-staging.cfapps.io](https://whiteboard-staging.cfapps.io) 
-Prod for Pivotal in general is at [https://whiteboard.pivotal.io](https://whiteboard.pivotal.io) and for CSO it is at [https://account-standups.cfapps.io/](https://account-standups.cfapps.io/)
+# Whiteboard is not under active development
+
+The project is not seeking contributors.
+
+To give feedback or bug reports, send an email to `ask@pivotal.io`
+
+# URLs for current deployments
+* Staging can be found at [https://whiteboard-staging.cfapps.io](https://whiteboard-staging.cfapps.io) 
+* Prod for Pivotal in general is at [https://whiteboard.pivotal.io](https://whiteboard.pivotal.io) 
+* CSO's instance is at [https://account-standups.cfapps.io/](https://account-standups.cfapps.io/)
+
 
 # Services
 [CodeClimate](https://codeclimate.com/)
@@ -10,10 +18,13 @@ We use [SendGrid](http://sendgrid.com) to send Whiteboard summary emails. Sendgr
 [here.](https://sendgrid.com/docs/Integrate/Frameworks/rubyonrails.html)
 
 ## Optional Logging
+[Potentially out of date -- 11/2018]
+
 We use [Papertrail](http://papertrail.com) to save our logs. Documentation for setting Papertrail up is found 
 [here.](http://docs.run.pivotal.io/devguide/services/log-management-thirdparty-svc.html#papertrail)
 
 ##Okta
+[Potentially out of date -- 11/2018]
 ### Okta Setup
 1. Things you need
 1. Setup

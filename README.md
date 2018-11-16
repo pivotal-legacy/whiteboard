@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/pivotal/whiteboard.png?branch=master)](https://travis-ci.org/pivotal/whiteboard)
 [![Code Climate](https://codeclimate.com/github/pivotal/whiteboard.png)](https://codeclimate.com/github/pivotal/whiteboard)
 
 Goals
@@ -23,9 +22,9 @@ Features
 
 Usage
 =====
-Deploy Whiteboard to Cloud Foundry/Pivotal Web Services.  Tell people in the office to use it.  At standup, go over the board, then add a title and click 'create post'.  The board is then cleared for the next day, and you can edit the post at your leisure and deliver it when ready.
+Deploy Whiteboard to Cloud Foundry/Pivotal Web Services or just create a new standup in the [main Pivotal Whiteboard](https://whiteboard.pivotal.io/).  Tell people in the office to use it.  At standup, go over the board, then add a title and click 'Send Email'.  The board is then cleared for the next day, and everyone on the email list will get a copy of the standup items in their inbox.
 
-There is also a more detailed [Whiteboard "How To" page](https://sites.google.com/pivotal.io/ips/products/whiteboard) explaining the UI and common workflows on the [Pivotal Internal Products and Services website](https://sites.google.com/pivotal.io/ips/home). The app is not under active development, but you can log bugs using `ask@pivotal.io`.
+There is also a more detailed [Whiteboard "How To" page](https://sites.google.com/pivotal.io/ips/products/whiteboard) explaining the UI and common workflows on the [Pivotal Internal Products and Services website](https://sites.google.com/pivotal.io/ips/home). The app is not under active development, but you can log bugs and give feedback by emailing `ask@pivotal.io`.
 
 Tracker
 =======
@@ -82,7 +81,7 @@ export SENDGRID_PASSWORD=<password>
 
 ### Okta configuration
 Okta needs to be configured for SAML 2.0 before you can set up Okta single sign-on. Check out [Okta's](http://developer.okta.com/docs/guides/setting_up_a_saml_application_in_okta.html) documentation
-for more information. [The information below appears to be out of date, 11/2018]
+for more information. [The information below appears to be out of date, but may be helpful -- 11/2018]
 
 1. In the appropriate Okta instance, go to Admin > Applications
 1. Click Add Application
@@ -162,7 +161,7 @@ bundle exec rspec
 
 ## First Time Deployment Setup 
 
-[Concourse is the preferred method. This first time deployment information appears to be out of date but may still be useful 11/2018]
+[Concourse is the preferred deployment method. This first time deployment information appears to be out of date but may still be useful -- 11/2018]
 
     cf target --url https://api.run.pivotal.io
     cf login
