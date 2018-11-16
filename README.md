@@ -3,19 +3,19 @@
 
 Goals
 =====
-Whiteboard is an app which aims to increase the effectiveness of office-wide standups, and increase communication with the technical community by sharing what we learn with the outside world, by emailing a summary of the standup to everyone in the company.
+Whiteboard is an app which aims to increase the effectiveness of office-wide standups by emailing a summary of the standup to everyone in the company.
 
 
 Background
 ==========
-At Pivotal Labs we have an office-wide standup every morning at 9:06 (right after breakfast). The current format is new faces (who's new in the office), helps (things people are stuck on) and interestings (things that might be of interest to the office).
+Most Pivotal locations have an office-wide standup every morning at 9:06 (right after breakfast). The current format is new faces (who's new in the office), helps (things people are stuck on), interestings (things that might be of interest to the office), and events (activities in the office or in the community).
 
 Before Whiteboard, one person madly scribbled notes, and one person ran standup using a physical whiteboard as a guide to things people wanted to remember to talk about.  Whiteboard provides an easy interface for people to add items they want to talk about, and then a way to take those items and assemble them into an email with as little effort as possible.  The idea is to shift the writing to the person who knows about the item, and reduce the role of the person running standup to an editor.
 
 
 Features
 ========
-- Add New Faces, Helps and Interesting
+- Add New Faces, Helps, Interestings and Events
 - Summarize into posts
 - Two click email sending (the second click is for safety)
 - Allow authorized IP addresses to access boards without restriction
@@ -23,19 +23,20 @@ Features
 
 Usage
 =====
-Deploy to Cloud Foundry.  Tell people in the office to use it.  At standup, go over the board, then add a title and click 'create post'.  The board is then cleared for the next day, and you can edit the post at your leisure and deliver it when ready.
+Deploy Whiteboard to Cloud Foundry/Pivotal Web Services.  Tell people in the office to use it.  At standup, go over the board, then add a title and click 'create post'.  The board is then cleared for the next day, and you can edit the post at your leisure and deliver it when ready.
+
+There is also a more detailed [Whiteboard "How To" page](https://sites.google.com/pivotal.io/ips/products/whiteboard) explaining the UI and common workflows on the [Pivotal Internal Products and Services website](https://sites.google.com/pivotal.io/ips/home). The app is not under active development, but you can log bugs using `ask@pivotal.io`.
 
 Tracker
 =======
-Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
+Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741). 
 
 
 Development
 ===========
 Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
 
-Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`:
-
+Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`.
 
 #### MacOS:
 
@@ -66,7 +67,6 @@ gem install mysql2 -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-
 1. Setup dev/test databases: `bundle exec rake db:create db:migrate db:test:prepare`
 1. Run the specs: `bundle exec rake`
 
-
 ### Running Locally:
 
 Whiteboard uses unicorn as the server in staging and production. To run the application locally:
@@ -82,7 +82,7 @@ export SENDGRID_PASSWORD=<password>
 
 ### Okta configuration
 Okta needs to be configured for SAML 2.0 before you can set up Okta single sign-on. Check out [Okta's](http://developer.okta.com/docs/guides/setting_up_a_saml_application_in_okta.html) documentation
-for more information.
+for more information. [The information below appears to be out of date, 11/2018]
 
 1. In the appropriate Okta instance, go to Admin > Applications
 1. Click Add Application
@@ -160,7 +160,9 @@ bundle exec rspec
 
 # How to Deploy to Cloud Foundry
 
-## First Time Deployment Setup
+## First Time Deployment Setup 
+
+[Concourse is the preferred method. This first time deployment information appears to be out of date but may still be useful 11/2018]
 
     cf target --url https://api.run.pivotal.io
     cf login
@@ -192,7 +194,7 @@ or
 
 The rake task copies the code to be deployed into a `/tmp` directory, so you can continue working while deploying.
 
-##Deploying via Concourse
+## Deploying via Concourse
 
 Whiteboard has pipelines set up on the IPS Jetway Concourse instance: https://jetway.pivotal.io/
 There are two pairs of staging/production pipelines, one for general Pivotal use, and one for CSO specifically.
