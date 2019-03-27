@@ -24,11 +24,11 @@ Usage
 =====
 Deploy Whiteboard to Cloud Foundry/Pivotal Web Services or just create a new standup in the [main Pivotal Whiteboard](https://whiteboard.pivotal.io/).  Tell people in the office to use it.  At standup, go over the board, then add a title and click 'Send Email'.  The board is then cleared for the next day, and everyone on the email list will get a copy of the standup items in their inbox.
 
-There is also a more detailed [Whiteboard "How To" page](https://sites.google.com/pivotal.io/ips/products/whiteboard) explaining the UI and common workflows on the [Pivotal Internal Products and Services website](https://sites.google.com/pivotal.io/ips/home). The app is not under active development, but you can log bugs and give feedback by emailing `ask@pivotal.io`.
+There is also a more detailed [Whiteboard "How To" page](https://sites.google.com/pivotal.io/ips/products/whiteboard) explaining the UI and common workflows on the [Pivotal Internal Products and Services website](https://sites.google.com/pivotal.io/ips/home). The app is not under active development, but you can log bugs and give feedback by emailing ask@pivotal.io.
 
 Tracker
 =======
-Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741). 
+Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/560741).
 
 
 Development
@@ -37,7 +37,7 @@ Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Ple
 
 Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`.
 
-#### MacOS:
+#### macOS:
 
 We use an old version of QT because the version of capybara-webkit that is used in test requires < version 5. To install:
 1. Add tap from: https://github.com/cartr/homebrew-qt4
@@ -196,8 +196,7 @@ The rake task copies the code to be deployed into a `/tmp` directory, so you can
 ## Deploying via Concourse
 
 Whiteboard has pipelines set up on the IPS Jetway Concourse instance: https://jetway.pivotal.io/
-There are two pairs of staging/production pipelines, one for general Pivotal use, and one for CSO specifically.
-Using the pipelines you can deploy the latest on whiteboard master directly from the UI.
+There are two pairs of staging/production pipelines, one for general Pivotal use, and one for CSO specifically. Using the pipelines you can deploy the latest on whiteboard master directly from the UI.
 
 Pipeline configuration files are in the concourse folder in this project. There is a secondary repository for the acceptance tests (https://github.com/pivotal/whiteboard-acceptance-tests) that run against a newly deployed whiteboard.
 
