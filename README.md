@@ -37,34 +37,48 @@ Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Ple
 
 Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`.
 
-#### macOS:
+#### Dependencies
+
+- Ruby 2.3.5
+- MySQL 5.7.x (later versions don't seem to work)
+- Qt (for capybara-webkit)
+
+#### Qt installation on macOS:
 
 We use an old version of QT because the version of capybara-webkit that is used in test requires < version 5. To install:
 1. Add tap from: https://github.com/cartr/homebrew-qt4
    ```
    brew tap cartr/qt4
    brew tap-pin cartr/qt4
-   brew install qt@4
+   brew install qt@4 qt-webkit@2.3
    ```
-1. `brew install qt@4`
-1. `brew install qt-webkit@2.3`
 
-MySql version `5.7.x` is used for the database. Ensure you do not have a later version of mysql installed (data files seem to be incompatible)
-
-The project also needs the mysql2 gem to be `0.3.21`, patchlevel may be different but `0.4+` seems to not be picked up by the ActiveRecord database adapter code.
-This gem can be annoying to install, you may need to install before the bundle by running the following in your gemset:
-
-```
-gem install mysql2 -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-ldflags=\"-L/usr/local/opt/openssl/lib\"
-```
-
-#### Linux:
+#### Qt installation on Linux:
 1. apt-get -yq --no-install-suggests --no-install-recommends --force-yes install libqtwebkit-dev libqtwebkit4
 
+
+#### Mysql2 gem installation
+The project needs the mysql2 gem to be `0.3.21`, patchlevel may be different but `0.4+` seems to not be picked up 
+by the ActiveRecord database adapter code. This gem can be annoying to install, you may need to install before the
+bundle by running the following in your gemset:
+
+```
+gem install mysql2 -v '0.3.21' -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-ldflags=\"-L/usr/local/opt/openssl/lib\"
+```
+
+
 ### Application Setup:
-1. Install gems: `bundle install`
-1. Setup dev/test databases: `bundle exec rake db:create db:migrate db:test:prepare`
-1. Run the specs: `bundle exec rake`
+```
+# Install gems
+gem install bundler
+bundle install
+
+# Setup dev/test databases
+bundle exec rake db:create db:migrate db:test:prepare
+
+# Run the specs
+bundle exec rake
+```
 
 ### Running Locally:
 
@@ -123,7 +137,7 @@ After finish up initial setup, there are two environment variables required by O
     ```
     openssl x509 -noout -fingerprint -in "/full/file/path"
     ```
-1. Export the signature output 
+1. Export the signature output
     ```
     export OKTA_CERT_FINGERPRINT=<signature from step 6>
     ```
@@ -133,7 +147,7 @@ The format should be a single string of IPs, e.g.
 `192.168.0.1`,
 or IP ranges in slash notation, e.g.
 `64.168.236.220/24`,
-separated by a single comma like so: 
+separated by a single comma like so:
 ```
 192.168.1.1,127.0.0.1,10.10.10.10,33.33.33.33/24
 ```
@@ -149,7 +163,7 @@ If you are using Sentry for error logging be sure to set the ```SENTRY_DSN``` en
 
 Testing
 =======
-Before running tests, make sure to add your local ```IP``` to the ```IP_WHITELIST``` environment variable string. Also make sure that a username and password are configured in ```database.yml``` if your ```root``` user password is not the default. 
+Before running tests, make sure to add your local ```IP``` to the ```IP_WHITELIST``` environment variable string. Also make sure that a username and password are configured in ```database.yml``` if your ```root``` user password is not the default.
 
 Then run
 
@@ -159,7 +173,7 @@ bundle exec rspec
 
 # How to Deploy to Cloud Foundry
 
-## First Time Deployment Setup 
+## First Time Deployment Setup
 
 [Concourse is the preferred deployment method. This first time deployment information appears to be out of date but may still be useful -- 11/2018]
 
@@ -206,7 +220,7 @@ fly -t jetway set-pipeline -p <PIPELINE-NAME> -c concourse/<PIPELINE-FILE>.yml -
 ```
 
 Credentials for the pipelines live in `Shared-IAD Dev Accounts/Whiteboard` on Lastpass. Download a local copy to a file so you can set the pipeline, but NEVER COMMIT THEM IN THE REPO.
-Any changes to helper files will need to be pushed to GitHub for the pipelines to access them. 
+Any changes to helper files will need to be pushed to GitHub for the pipelines to access them.
 When you are done modifying the pipelines make sure to push all changes up to GitHub, not just set the pipelines.
 
 Author
