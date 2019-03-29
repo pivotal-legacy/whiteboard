@@ -8,7 +8,7 @@ echo $TRAVIS_PULL_REQUEST
 if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "$TRAVIS_PULL_REQUEST" == false ]]; then
   wget -q -O cf-cli.deb https://cli.run.pivotal.io/stable?release=debian64
   sudo dpkg -i cf-cli.deb
-  cf login -u $CF_USERNAME -p $CF_PASSWORD -o IAD -s whiteboard-staging -a https://api.run.pivotal.io
+  cf login -u $CF_USERNAME -p $CF_PASSWORD -o Pivotal-IPS -s whiteboard-staging -a https://api.run.pivotal.io
   git status
   git checkout .
   cf set-env whiteboard OKTA_SSO_TARGET_URL $OKTA_SSO_TARGET_URL

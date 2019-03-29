@@ -219,7 +219,7 @@ Any changes you make in the pipeline.yml files need to be uploaded to concourse 
 fly -t jetway set-pipeline -p <PIPELINE-NAME> -c concourse/<PIPELINE-FILE>.yml --load-vars-from <LOCAL-COPY-OF-CREDENTIALS>
 ```
 
-Credentials for the pipelines live in `Shared-IAD Dev Accounts/Whiteboard` on Lastpass. Download a local copy to a file so you can set the pipeline, but NEVER COMMIT THEM IN THE REPO.
+Credentials for the pipelines live in `Shared-IPS Dev Accounts/Whiteboard` on Lastpass. Download a local copy to a file so you can set the pipeline, but NEVER COMMIT THEM IN THE REPO.
 Any changes to helper files will need to be pushed to GitHub for the pipelines to access them.
 When you are done modifying the pipelines make sure to push all changes up to GitHub, not just set the pipelines.
 

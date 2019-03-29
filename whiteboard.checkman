@@ -1,5 +1,0 @@
-google.com: site.check http://www.google.com
-
-#- IAD Projects
-
-whiteboard: travis.check pivotal whiteboard
