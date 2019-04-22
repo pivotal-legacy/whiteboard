@@ -4,4 +4,7 @@ applications:
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../../
   host: whiteboard-staging-temp
-  buildpack: https://github.com/cloudfoundry/ruby-buildpack#v1.7.17
+  buildpacks:
+    - ruby_buildpack
+  stack: cflinuxfs3
+
