@@ -4,4 +4,8 @@ applications:
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../../
   host: account-standups-temp
-  buildpack: https://github.com/cloudfoundry/ruby-buildpack#v1.7.17
+  routes:
+    - route: account-standups-temp.cfapps.io
+  buildpacks:
+    - ruby_buildpack
+  stack: cflinuxfs3
