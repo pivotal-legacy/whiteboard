@@ -9,7 +9,7 @@ RUN apt-add-repository -y ppa:brightbox/ruby-ng
 
 # Add MariaDB repository
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-RUN add-apt-repository 'deb http://mirror.jmu.edu/pub/mariadb/repo/10.0/ubuntu trusty main'
+RUN add-apt-repository 'deb http://www.ftp.saix.net/DB/mariadb/repo/10.0/ubuntu trusty main'
 
 RUN apt-get update
 
