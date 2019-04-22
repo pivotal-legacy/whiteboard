@@ -310,7 +310,7 @@ DEPENDENCIES
   letter_opener
   loofah (= 2.2.2)
   minitest
-  mysql2 (~> 0.3.18)
+  mysql2 (~> 0.3.21)
   newrelic_rpm
   nokogiri (= 1.8.2)
   omniauth-saml

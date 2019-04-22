@@ -4,7 +4,7 @@ ruby '2.3.8'
 
 gem 'rails', '~> 4.2'
 
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2', '~> 0.3.21'
 gem 'unicorn'
 gem 'jquery-rails'
 gem 'omniauth-saml'
