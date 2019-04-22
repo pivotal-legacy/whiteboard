@@ -3,7 +3,6 @@ applications:
 - name: whiteboard
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../../
-  host: account-standups-temp
   routes:
     - route: account-standups-temp.cfapps.io
   buildpacks:

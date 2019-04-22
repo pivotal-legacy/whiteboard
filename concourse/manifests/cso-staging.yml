@@ -4,7 +4,7 @@ applications:
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../../
   routes:
-  - route: whiteboard-cso-staging-temp.cfapps.io
+    - route: whiteboard-cso-staging-temp.cfapps.io
   buildpacks:
     - ruby_buildpack
   stack: cflinuxfs3
