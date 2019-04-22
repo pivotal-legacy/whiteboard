@@ -3,5 +3,8 @@ applications:
 - name: whiteboard
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   path: ../../
-  host: whiteboard-production-temp
-  buildpack: https://github.com/cloudfoundry/ruby-buildpack#v1.7.17
+  routes:
+    - route: whiteboard-production-temp.cfapps.io
+  buildpacks:
+    - ruby_buildpack
+  stack: cflinuxfs3
