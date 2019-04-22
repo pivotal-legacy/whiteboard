@@ -57,16 +57,6 @@ We use an old version of QT because the version of capybara-webkit that is used 
 1. apt-get -yq --no-install-suggests --no-install-recommends --force-yes install libqtwebkit-dev libqtwebkit4
 
 
-#### Mysql2 gem installation
-The project needs the mysql2 gem to be `0.3.21`, patchlevel may be different but `0.4+` seems to not be picked up 
-by the ActiveRecord database adapter code. This gem can be annoying to install, you may need to install before the
-bundle by running the following in your gemset:
-
-```
-gem install mysql2 -v '0.3.21' -- --with-cflags=\"-I/usr/local/opt/openssl/include\" --with-ldflags=\"-L/usr/local/opt/openssl/lib\"
-```
-
-
 ### Application Setup:
 ```
 # Install gems
