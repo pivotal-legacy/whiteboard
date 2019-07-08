@@ -239,7 +239,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
-    ruby-saml (1.4.3)
+    ruby-saml (1.10.2)
       nokogiri (>= 1.5.10)
     rubyzip (1.2.1)
     sass (3.4.25)
