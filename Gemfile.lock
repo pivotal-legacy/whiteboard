@@ -144,7 +144,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -310,7 +310,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
-  loofah (= 2.2.2)
+  loofah (= 2.2.3)
   minitest
   mysql2 (~> 0.4.10)
   newrelic_rpm
