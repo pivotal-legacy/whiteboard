@@ -29,7 +29,7 @@ end
 
 group :test, :development do
   gem 'minitest'
-  gem 'rspec-rails', '~> 3.1'
+  gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'factory_girl_rails'
   gem 'faker'
