@@ -20,7 +20,7 @@ gem 'newrelic_rpm'
 gem 'sentry-raven'
 gem 'responders', '~> 2.0'
 gem 'nokogiri', '1.8.2'
-gem 'loofah', '2.2.2'
+gem 'loofah', '2.2.3'
 gem 'rails-html-sanitizer', '1.0.4'
 
 group :development, :production do
