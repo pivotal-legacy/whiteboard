@@ -6,6 +6,6 @@ applications:
   routes:
     - route: whiteboard-staging-temp.cfapps.io
   buildpacks:
-    - ruby_buildpack
+    - https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.40
   stack: cflinuxfs3
 
