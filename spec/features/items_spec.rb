@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe "items", js: true do
-  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]", closing_message: 'Woohoo', image_urls: 'http://example.com/bar.png', image_days: ['Mon']) }
-  let!(:other_standup) { FactoryGirl.create(:standup, title: 'New York') }
+  let!(:standup) { FactoryBot.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]", closing_message: 'Woohoo', image_urls: 'http://example.com/bar.png', image_days: ['Mon']) }
+  let!(:other_standup) { FactoryBot.create(:standup, title: 'New York') }
   let(:timezone) { ActiveSupport::TimeZone.new(standup.time_zone_name) }
   let(:date_today) { timezone.now.strftime("%Y-%m-%d") }
   let(:date_tomorrow) { (timezone.now + 1.day).strftime("%Y-%m-%d") }
@@ -110,54 +110,54 @@ describe "items", js: true do
     visit presentation_standup_items_path(standup)
 
     within 'section.deck-current' do
-      expect(page).to have_content "Standup"
+      expect(page).to have_content("Standup", normalize_ws: true)
       expect(page).to have_css('.countdown')
     end
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      expect(page).to have_content "New faces"
-      expect(page).to have_content "Today"
-      expect(page).to have_content "Upcoming"
-      expect(page).to have_content "Johnathon McKenzie"
+      expect(page).to have_content("New faces", normalize_ws: true)
+      expect(page).to have_content("Today", normalize_ws: true)
+      expect(page).to have_content("Upcoming", normalize_ws: true)
+      expect(page).to have_content("Johnathon McKenzie", normalize_ws: true)
     end
     page.execute_script("$.deck('next')")
 
-    expect(find('section.deck-current')).to have_content "Helps"
+    expect(find('section.deck-current')).to have_content("Helps", normalize_ws: true)
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      expect(page).to have_content "Interestings"
-      expect(page).to have_content("Linux 3.2 out")
-      expect(page).to have_content("Linus Torvalds")
+      expect(page).to have_content("Interestings", normalize_ws: true)
+      expect(page).to have_content("Linux 3.2 out", normalize_ws: true)
+      expect(page).to have_content("Linus Torvalds", normalize_ws: true)
       expect(page).to_not have_selector('.in')
       first('a[data-toggle]').click
       expect(page).to have_selector('.in')
-      expect(page).to have_content("Check it out:")
+      expect(page).to have_content("Check it out:", normalize_ws: true)
       expect(page).to have_link("www.links.com")
       expect(page).to have_selector("code", text: "inline code!")
     end
     page.execute_script("$.deck('next')")
 
-    expect(find('section.deck-current')).to have_content "Events"
+    expect(find('section.deck-current')).to have_content("Events", normalize_ws: true)
     expect(page).to have_css('section.deck-current', text: 'Today')
     expect(page).to have_css('.today + ul li', text: 'Happy Hour')
     expect(page).to have_css('section.deck-current', text: 'Tomorrow')
     expect(page).to have_css('.tomorrow + ul li', text: 'Baseball')
     expect(page).to have_css('section.deck-current', text: 'Upcoming')
     expect(page).to have_css('.upcoming + ul li', text: 'Party')
-    expect(find('section.deck-current')).to_not have_content "Meetup"
+    expect(find('section.deck-current')).to_not have_content("Meetup", normalize_ws: true)
     page.execute_script("$.deck('next')")
 
-    expect(find('section.deck-current')).to have_content "Wins"
+    expect(find('section.deck-current')).to have_content("Wins", normalize_ws: true)
     expect(page).to have_css('section.deck-current', text: 'Tracker iOS 7 app')
-    expect(find('section.deck-current')).to_not have_content 'Happy Hour'
-    expect(find('section.deck-current')).to_not have_content 'Baseball'
+    expect(find('section.deck-current')).to_not have_content('Happy Hour', normalize_ws: true)
+    expect(find('section.deck-current')).to_not have_content('Baseball', normalize_ws: true)
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      expect(page).to_not have_content "Wins"
-      expect(page).to have_content "Woohoo"
+      expect(page).to_not have_content("Wins", normalize_ws: true)
+      expect(page).to have_content("Woohoo", normalize_ws: true)
       expect(page).to have_css('img[src="http://example.com/bar.png"]')
     end
 
@@ -181,23 +181,23 @@ describe "items", js: true do
     visit presentation_standup_items_path(standup)
 
     within 'section.deck-current' do
-      expect(page).to have_content "Standup"
+      expect(page).to have_content("Standup", normalize_ws: true)
       expect(page).to have_css('.countdown')
     end
     page.execute_script("$.deck('next')")
 
-    expect(find('section.deck-current')).to have_content "New faces"
+    expect(find('section.deck-current')).to have_content("New faces", normalize_ws: true)
     page.execute_script("$.deck('next')")
-    expect(find('section.deck-current')).to have_content "Helps"
+    expect(find('section.deck-current')).to have_content("Helps", normalize_ws: true)
     page.execute_script("$.deck('next')")
-    expect(find('section.deck-current')).to have_content "Interestings"
+    expect(find('section.deck-current')).to have_content("Interestings", normalize_ws: true)
     page.execute_script("$.deck('next')")
-    expect(find('section.deck-current')).to have_content "Events"
+    expect(find('section.deck-current')).to have_content("Events", normalize_ws: true)
     page.execute_script("$.deck('next')")
 
     within 'section.deck-current' do
-      expect(page).to_not have_content "Wins"
-      expect(page).to have_content "Woohoo"
+      expect(page).to_not have_content("Wins", normalize_ws: true)
+      expect(page).to have_content("Woohoo", normalize_ws: true)
     end
   end
 end

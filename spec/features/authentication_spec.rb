@@ -9,9 +9,9 @@ describe 'Authenticating', type: :feature do
     end
 
     it 'allows you to log out' do
-      expect(page).to have_content('Whiteboard')
+      expect(page).to have_content('Whiteboard', normalize_ws: true)
       click_on 'Log Out'
-      expect(page).to have_content('You have been logged out.')
+      expect(page).to have_content('You have been logged out.', normalize_ws: true)
     end
 
     context 'after logging out' do
@@ -20,7 +20,7 @@ describe 'Authenticating', type: :feature do
       end
 
       it 'provides a button to log back in' do
-        expect(page).to have_content('Log in with Okta')
+        expect(page).to have_content('Log in with Okta', normalize_ws: true)
       end
     end
   end
@@ -33,10 +33,10 @@ describe 'Authenticating', type: :feature do
 
       it 'allows you to log in and view the dashboard' do
         visit '/login'
-        expect(page).to have_content('Log in with Okta')
+        expect(page).to have_content('Log in with Okta', normalize_ws: true)
         click_on 'Log in with Okta'
-        expect(page).to have_content('Whiteboard')
-        expect(page).to have_content('Choose a Standup')
+        expect(page).to have_content('Whiteboard', normalize_ws: true)
+        expect(page).to have_content('Choose a Standup', normalize_ws: true)
       end
     end
   end
@@ -50,8 +50,8 @@ describe 'Authenticating', type: :feature do
 
       it 'should not force user to authenticate' do
         visit '/'
-        expect(page).not_to have_content('Log in with Okta')
-        expect(page).to have_content('Choose a Standup')
+        expect(page).not_to have_content('Log in with Okta', normalize_ws: true)
+        expect(page).to have_content('Choose a Standup', normalize_ws: true)
       end
     end
   end
@@ -65,10 +65,10 @@ describe 'Authenticating', type: :feature do
 
       it 'should not break, but instead allow you to log in and view the dashboard' do
         visit '/login'
-        expect(page).to have_content('Log in with Okta')
+        expect(page).to have_content('Log in with Okta', normalize_ws: true)
         click_on 'Log in with Okta'
-        expect(page).to have_content('Whiteboard')
-        expect(page).to have_content('Choose a Standup')
+        expect(page).to have_content('Whiteboard', normalize_ws: true)
+        expect(page).to have_content('Choose a Standup', normalize_ws: true)
       end
     end
   end

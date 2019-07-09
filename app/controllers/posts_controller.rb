@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_filter :load_post, except: [:create, :index, :archived]
-  before_filter :load_standup
-  around_filter :standup_timezone
+  before_action :load_post, except: [:create, :index, :archived]
+  before_action :load_standup
+  around_action :standup_timezone
 
 
   def create

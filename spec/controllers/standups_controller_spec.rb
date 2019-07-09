@@ -10,18 +10,18 @@ describe StandupsController do
   describe "#create" do
     context "with valid params" do
       it "creates a standup" do
-        expect do
-          post :create, standup: {title: "Berlin", to_address: "berlin+standup@pivotallabs.com"}
-        end.to change { Standup.count }.by(1)
+        expect {
+          post :create, params: {standup: {title: "Berlin", to_address: "berlin+standup@pivotallabs.com"}}
+        }.to change { Standup.count }.by(1)
         expect(response).to be_redirect
       end
     end
 
     context "with invalid params" do
       it "creates a standup" do
-        expect do
-          post :create, standup: {}
-        end.to change { Standup.count }.by(0)
+        expect {
+          post :create, params: {standup: {title: ''}}
+        }.to change { Standup.count }.by(0)
         expect(response).to render_template 'standups/new'
       end
     end
@@ -63,69 +63,69 @@ describe StandupsController do
 
   describe "#edit" do
     it "shows the post for editing" do
-      get :edit, id: standup.id
+      get :edit, params: {id: standup.id}
       expect(assigns[:standup]).to eq standup
       expect(response).to be_ok
     end
 
     it_behaves_like "an action occurring within the standup's timezone" do
-      after { get :edit, id: standup.id }
+      after { get :edit, params: {id: standup.id} }
     end
   end
 
   describe "#show" do
     it "redirects to the items page of the standup" do
-      get :show, id: standup.id
+      get :show, params: {id: standup.id}
       expect(response.body).to redirect_to standup_items_path(standup)
     end
 
     it "renders json and time zone IANA field" do
-      request.accept = Mime::JSON.to_s
-      get :show, id: standup.id
-      expect(response.content_type).to eq(Mime::JSON.to_s)
+      request.accept = Mime[:json].to_s
+      get :show, params: {id: standup.id}
+      expect(response.content_type).to eq(Mime[:json].to_s)
       expect(response.body).to include(standup.time_zone_name_iana)
     end
 
     it "returns 404 when standup not found" do
-      request.accept = Mime::JSON.to_s
-      get :show, id: 123
+      request.accept = Mime[:json].to_s
+      get :show, params: {id: 123}
       expect(response).to be_not_found
     end
 
     it 'saves standup id to cookie' do
-      get :show, id: standup.id
+      get :show, params: {id: standup.id}
       expect(session[:last_visited_standup]).to eq(standup.id.to_s)
     end
 
     it 'shows error and redirects to standups#index when standup does not exist' do
-      get :show, id: 12831
+      get :show, params: {id: 12831}
       expect(flash[:error]).to eq('A standup with the ID 12831 does not exist.')
       expect(response).to redirect_to(standups_path)
     end
 
     it_behaves_like "an action occurring within the standup's timezone" do
-      after { get :show, id: 12831 }
+      after { get :show, params: {id: 12831} }
     end
   end
 
   describe "#update" do
     context "with valid params" do
       it "updates the post" do
-        put :update, id: standup.id, standup: {title: "New Title"}
+        put :update, params: {id: standup.id, standup: {title: "New Title"}}
         expect(standup.reload.title).to eq "New Title"
       end
     end
 
     context "with invalid params" do
       it "does not update the post" do
-        put :update, id: standup.id, standup: {title: nil}
+        put :update, params: {id: standup.id, standup: {title: nil}}
         expect(standup.reload.title).to eq standup.title
         expect(response).to render_template 'standups/edit'
       end
     end
 
     it_behaves_like "an action occurring within the standup's timezone" do
-      after { put :update, id: standup.id, standup: {title: "New Title"} }
+      after { put :update, params: {id: standup.id, standup: {title: "New Title"}} }
     end
   end
 
@@ -134,13 +134,13 @@ describe StandupsController do
 
     it "destroys the specified standup" do
       expect {
-        post :destroy, id: standup.id
+        post :destroy, params: {id: standup.id}
       }.to change(Standup, :count).by(-1)
       expect(response).to redirect_to standups_path
     end
 
     it_behaves_like "an action occurring within the standup's timezone" do
-      after { post :destroy, id: standup.id }
+      after { post :destroy, params: {id: standup.id} }
     end
   end
 

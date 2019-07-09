@@ -115,8 +115,8 @@ describe Item do
 
   describe "#for_post" do
     subject { Item.for_post(standup) }
-    let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]") }
-    let!(:other_standup) { FactoryGirl.create(:standup, title: 'New York') }
+    let!(:standup) { FactoryBot.create(:standup, title: 'San Francisco', subject_prefix: "[Standup][SF]") }
+    let!(:other_standup) { FactoryBot.create(:standup, title: 'New York') }
 
     let!(:post) { create(:post, standup: standup) }
     let!(:item_with_no_post_id) { create(:item, post_id: nil, kind: "Help", standup: standup) }
@@ -208,15 +208,15 @@ describe Item do
 
   describe '.orphans' do
     it 'returns all unposted interestings and helps' do
-      old_help = FactoryGirl.create(:item, kind: 'Help', date: 2.days.ago)
-      interesting = FactoryGirl.create(:item, kind: 'Interesting')
+      old_help = FactoryBot.create(:item, kind: 'Help', date: 2.days.ago)
+      interesting = FactoryBot.create(:item, kind: 'Interesting')
 
       expect(Item.orphans).to eq({'Help' => [old_help], 'Interesting' => [interesting]})
     end
 
     it 'returns items in date asc order' do
-      interesting = FactoryGirl.create(:item, kind: 'Interesting')
-      old_interesting = FactoryGirl.create(:item, kind: 'Interesting', date: 2.days.ago)
+      interesting = FactoryBot.create(:item, kind: 'Interesting')
+      old_interesting = FactoryBot.create(:item, kind: 'Interesting', date: 2.days.ago)
 
       expect(Item.orphans).to eq({'Interesting' => [old_interesting, interesting]})
     end
@@ -224,9 +224,9 @@ describe Item do
 
   describe '.orphans' do
     it 'returns the non-event items that are not in the past' do
-      item = FactoryGirl.create(:item, kind: 'Help')
-      FactoryGirl.create(:item, kind: 'Event')
-      FactoryGirl.create(:item, kind: 'Help', date: Date.yesterday)
+      item = FactoryBot.create(:item, kind: 'Help')
+      FactoryBot.create(:item, kind: 'Event')
+      FactoryBot.create(:item, kind: 'Help', date: Date.yesterday)
 
       expect(Item.orphans.length).to eq 1
     end

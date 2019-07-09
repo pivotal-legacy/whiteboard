@@ -4,9 +4,9 @@ describe "standups", :js do
   before do
     login
     visit '/'
-    FactoryGirl.create(:standup)
+    FactoryBot.create(:standup)
 
-    expect(find('h2')).to have_content 'Choose a Standup'
+    expect(find('h2')).to have_content('Choose a Standup', normalize_ws: true)
     click_link('New Standup')
 
     fill_in 'standup_title', with: "London"
@@ -19,20 +19,20 @@ describe "standups", :js do
     click_button 'Create Standup'
 
     click_link('All Standups')
-    expect(page).to have_content 'London'
+    expect(page).to have_content('London', normalize_ws: true)
     click_link('London')
   end
 
   it "creates new standups", js: true do
     current_page = current_url
     expect(current_page).to match(/http:\/\/127\.0\.0\.1:\d*\/standups\/\d*/)
-    expect(find('.navbar-header')).to have_content 'London Whiteboard'
+    expect(find('.navbar-header')).to have_content('London Whiteboard', normalize_ws: true)
 
     page.find('a.btn.btn-navbar').click if page.has_css?('.btn.btn-navbar')
     page.find('a.posts', text: 'Posts').click
-    expect(page).to have_content 'Current Post'
+    expect(page).to have_content('Current Post', normalize_ws: true)
     click_link('Current Post')
-    expect(page).to have_content 'London Whiteboard'
+    expect(page).to have_content('London Whiteboard', normalize_ws: true)
     expect(current_page).to match(/http:\/\/127\.0\.0\.1:\d*\/standups\/\d*/)
 
     click_on_preferences(page)
@@ -49,7 +49,7 @@ describe "standups", :js do
     click_on 'Delete Standup'
 
     expect(current_url).to match(/http:\/\/127\.0\.0\.1:\d*\/standups$/)
-    expect(page).to_not have_content 'London Whiteboard'
+    expect(page).to_not have_content('London Whiteboard', normalize_ws: true)
   end
 
   it 'takes you to the last standup you viewed' do
@@ -57,13 +57,13 @@ describe "standups", :js do
     click_link('London')
 
     visit '/'
-    expect(page).to have_content('London Whiteboard')
+    expect(page).to have_content('London Whiteboard', normalize_ws: true)
   end
 
   it 'does not take you to a standup that no longer exists' do
     visit standup_path(1238)
 
-    expect(page).to have_content('A standup with the ID 1238 does not exist.')
+    expect(page).to have_content('A standup with the ID 1238 does not exist.', normalize_ws: true)
   end
 
   it 'does not take you to a previously viewed standup that no longer exists' do
@@ -72,7 +72,7 @@ describe "standups", :js do
     london_standup.save
 
     visit '/'
-    expect(page).not_to have_content('London Whiteboard')
-    expect(page).to have_content('Whiteboard')
+    expect(page).not_to have_content('London Whiteboard', normalize_ws: true)
+    expect(page).to have_content('Whiteboard', normalize_ws: true)
   end
 end

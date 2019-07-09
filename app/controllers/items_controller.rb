@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_filter :load_standup
-  around_filter :standup_timezone
+  before_action :load_standup
+  around_action :standup_timezone
   respond_to :html, :json
 
   def create
@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
 
   def new
     options = (params[:item] || ActionController::Parameters.new).merge({post_id: params[:post_id], author: session[:username]})
-    options.reverse_merge!(date: Time.zone.today)
+    options[:date] = Time.zone.today unless options[:date]
     @item = @standup.items.build(options.permit(Item::ACCESSIBLE_ATTRS))
     @item.kind ||= "Help"
     render_custom_item_template @item

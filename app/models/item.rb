@@ -1,4 +1,4 @@
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
   KINDS = [{name: 'New face', subtitle: ''},
     {name: 'Help', subtitle: ''},
     {name: 'Interesting', subtitle: 'News, Articles, Tools, Best Practices, etc'},

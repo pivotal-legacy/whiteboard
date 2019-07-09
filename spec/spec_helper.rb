@@ -26,7 +26,7 @@ RSpec.configure do |config|
 
   config.render_views
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include MockAuth, :type => :feature
 
   def click_on_preferences(page)
