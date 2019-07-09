@@ -7,8 +7,6 @@ class Post < ActiveRecord::Base
   validates :standup, presence: true
   validates :title, presence: true
 
-  attr_accessible :title, :from
-
   delegate :subject_prefix, to: :standup, prefix: :standup
 
   def self.pending

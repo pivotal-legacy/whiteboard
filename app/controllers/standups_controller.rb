@@ -4,7 +4,7 @@ class StandupsController < ApplicationController
 
 
   def create
-    @standup = Standup.create(params[:standup])
+    @standup = Standup.create(params[:standup].permit(Standup::ACCESSIBLE_ATTRS))
 
     if @standup.persisted?
       flash[:notice] = "#{@standup.title} Standup successfully created"
@@ -50,7 +50,7 @@ class StandupsController < ApplicationController
   end
 
   def update
-    if @standup.update(params[:standup])
+    if @standup.update(params[:standup].permit(Standup::ACCESSIBLE_ATTRS))
       redirect_to @standup
     else
       render 'standups/edit'

@@ -3,7 +3,7 @@ require "ipaddr"
 class Standup < ActiveRecord::Base
   TIME_FORMAT = /(\d{1,2}):(\d{2})\s*(am|pm)/i
 
-  attr_accessible :title, :to_address, :subject_prefix, :closing_message, :time_zone_name, :start_time_string, :image_urls, :image_days
+  ACCESSIBLE_ATTRS = [:title, :to_address, :subject_prefix, :closing_message, :time_zone_name, :start_time_string, :image_urls, :image_days]
   serialize :image_days
 
   has_many :items, dependent: :destroy
