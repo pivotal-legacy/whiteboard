@@ -4,7 +4,7 @@ RUN apt-get update
 
 RUN apt-get -y install software-properties-common
 
-# Add Ruby-2.3.3 repository
+# Add Ruby repository
 RUN apt-add-repository -y ppa:brightbox/ruby-ng
 
 # Add MariaDB repository
@@ -16,8 +16,8 @@ RUN apt-get update
 # Fetch updates
 RUN apt-get -y install wget
 
-# Install Ruby 2.3.*
-RUN echo "20171211" && apt-get -y install ruby2.3 ruby2.3-dev
+# Install Ruby 2.4.5
+RUN echo "20190709" && apt-get -y install ruby2.4 ruby2.4-dev
 
 # Install misc dependencies
 RUN apt-get -y install build-essential patch zlib1g-dev liblzma-dev libxml2-dev libxslt1-dev libfontconfig1 libfreetype6 git curl unzip
