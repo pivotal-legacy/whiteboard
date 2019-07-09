@@ -12,8 +12,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-Raven.configure do |config|
+if !Rails.env.test? && !Rails.env.development?
+  Raven.configure do |config|
 #   Sentry will read the SENTRY_DSN environment variable to set the DSN
+  end
 end
 
 module Whiteboard
