@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe "posts" do
-  let!(:standup) { FactoryGirl.create(:standup, title: 'San Francisco') }
+  let!(:standup) { FactoryBot.create(:standup, title: 'San Francisco') }
 
   describe "archived posts" do
-    let!(:archived_post) { FactoryGirl.create(:post, standup: standup, title: "Archived Post", archived: true) }
-    let!(:item) { FactoryGirl.create(:item, title: "I am helping people", post_id: archived_post.id) }
+    let!(:archived_post) { FactoryBot.create(:post, standup: standup, title: "Archived Post", archived: true) }
+    let!(:item) { FactoryBot.create(:item, title: "I am helping people", post_id: archived_post.id) }
 
     before do
       login
@@ -18,11 +18,11 @@ describe "posts" do
       end
 
       it "displays the name of the post" do
-        expect(page).to have_content "Archived Post"
+        expect(page).to have_content("Archived Post", normalize_ws: true)
       end
 
       it "displays items in a post" do
-        expect(page).to have_content "I am helping people"
+        expect(page).to have_content("I am helping people", normalize_ws: true)
       end
     end
   end

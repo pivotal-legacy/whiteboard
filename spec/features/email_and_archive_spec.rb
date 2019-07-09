@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe "creating a standup post from the whiteboard", js: true do
-  let!(:standup) { FactoryGirl.create(:standup, time_zone_name: 'Pacific Time (US & Canada)', title: 'Camelot', subject_prefix: "[Standup][CO]") }
+  let!(:standup) { FactoryBot.create(:standup, time_zone_name: 'Pacific Time (US & Canada)', title: 'Camelot', subject_prefix: "[Standup][CO]") }
   let!(:timezone) { ActiveSupport::TimeZone.new(standup.time_zone_name) }
-  let!(:item) { FactoryGirl.create(:item, kind: 'Interesting', date: timezone.today, title: "So so interesting", standup: standup) }
+  let!(:item) { FactoryBot.create(:item, kind: 'Interesting', date: timezone.today, title: "So so interesting", standup: standup) }
 
   before do
     login
@@ -20,7 +20,7 @@ describe "creating a standup post from the whiteboard", js: true do
     visit '/'
     click_link(standup.title)
 
-    expect(page).to have_content("So so interesting")
+    expect(page).to have_content("So so interesting", normalize_ws: true)
 
     fill_in "Standup host(s)", with: "Me"
     fill_in "Email subject", with: "empty post"
@@ -34,9 +34,9 @@ describe "creating a standup post from the whiteboard", js: true do
     verify_on_items_page
 
     expect(@message).to eq("You are about to send today's stand up email. Continue?")
-    expect(page).to have_content('Successfully sent Standup email!')
-    expect(page).to have_content('News, Articles, Tools, Best Practices, etc')
-    expect(page).to_not have_content('So so interesting')
+    expect(page).to have_content('Successfully sent Standup email!', normalize_ws: true)
+    expect(page).to have_content('News, Articles, Tools, Best Practices, etc', normalize_ws: true)
+    expect(page).to_not have_content('So so interesting', normalize_ws: true)
   end
 end
 

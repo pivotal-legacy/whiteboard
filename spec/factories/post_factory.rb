@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :post do
-    title "Standup 12/12/12"
+    title { "Standup 12/12/12" }
     standup
   end
 end

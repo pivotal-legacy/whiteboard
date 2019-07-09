@@ -1,4 +1,4 @@
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
   KINDS = [{name: 'New face', subtitle: ''},
     {name: 'Help', subtitle: ''},
     {name: 'Interesting', subtitle: 'News, Articles, Tools, Best Practices, etc'},
@@ -16,7 +16,7 @@ class Item < ActiveRecord::Base
   validates :title, presence: true
   validate :face_is_in_the_future
 
-  attr_accessible :title, :description, :kind, :public, :post_id, :date, :standup_id, :author
+  ACCESSIBLE_ATTRS = [:title, :description, :kind, :public, :post_id, :date, :standup_id, :author]
 
   def self.public
     where(public: true) #This is for historical data splitting

@@ -11,7 +11,7 @@ describe Standup do
     it { is_expected.to validate_presence_of(:to_address) }
 
     it "should validate the format of the standup time" do
-      standup = FactoryGirl.build(:standup)
+      standup = FactoryBot.build(:standup)
       expect(standup).to be_valid
 
       standup.start_time_string = "9:00 am"
@@ -29,7 +29,7 @@ describe Standup do
   end
 
   it 'has a closing message' do
-    standup = FactoryGirl.create(:standup, closing_message: 'Yay')
+    standup = FactoryBot.create(:standup, closing_message: 'Yay')
     expect(standup.closing_message).to eq 'Yay'
   end
 
@@ -38,7 +38,7 @@ describe Standup do
       @utc_today = Time.new(2012, 1, 1).utc.to_date
       @utc_yesterday = @utc_today - 1.day
 
-      @standup = FactoryGirl.create(:standup, closing_message: 'Yay')
+      @standup = FactoryBot.create(:standup, closing_message: 'Yay')
       @standup.time_zone_name = "Pacific Time (US & Canada)"
       Timecop.freeze(@utc_today)
     end

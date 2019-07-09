@@ -50,7 +50,7 @@ describe StandupPresenter do
     let(:image_urls) {
       ['http://example.com/bar.png', 'http://example.com/baz.png']
     }
-    let!(:standup) { FactoryGirl.create(:standup, image_urls: image_urls.join("\n"), image_days: ['Mon', 'Tue']) }
+    let!(:standup) { FactoryBot.create(:standup, image_urls: image_urls.join("\n"), image_days: ['Mon', 'Tue']) }
 
     context 'when the day is selected' do
       before do

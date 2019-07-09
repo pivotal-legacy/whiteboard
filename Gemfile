@@ -1,15 +1,14 @@
 source 'https://rubygems.org'
 
-ruby '2.3.8'
+ruby '2.4.5'
 
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 5.0.0'
 
 gem 'mysql2', '~> 0.4.10'
 gem 'unicorn'
 gem 'jquery-rails'
 gem 'omniauth-saml'
 gem 'github-markdown', require: 'github/markdown'
-gem 'protected_attributes'
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'coffee-rails'
@@ -19,7 +18,7 @@ gem 'font-awesome-sass-rails'
 gem 'newrelic_rpm'
 gem 'sentry-raven'
 gem 'responders', '~> 2.0'
-gem 'nokogiri', '1.8.5'
+gem 'nokogiri', '1.10.3'
 gem 'loofah', '2.2.3'
 gem 'rails-html-sanitizer', '1.0.4'
 
@@ -28,17 +27,8 @@ group :development, :production do
 end
 
 group :test, :development do
-  gem 'minitest'
-  gem 'rspec-rails', '~> 3.1'
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'factory_girl_rails'
-  gem 'faker'
-  gem 'capybara'
-  gem 'capybara-webkit', '1.14.0'
   gem 'launchy'
-  gem 'database_cleaner'
   gem 'letter_opener'
-  gem 'timecop'
   gem 'foreman'
   gem 'fakefs', :require => 'fakefs/safe'
   gem 'dotenv-rails'
@@ -47,8 +37,18 @@ group :test, :development do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'timecop'
+  gem 'minitest'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'capybara'
+  gem 'capybara-webkit'
   gem 'codeclimate-test-reporter', require: nil
   gem 'selenium-webdriver'
+  gem 'rails-controller-testing'
 end
 
 group :development do

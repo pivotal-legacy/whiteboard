@@ -26,7 +26,7 @@ RSpec.configure do |config|
 
   config.render_views
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include MockAuth, :type => :feature
 
   def click_on_preferences(page)
@@ -36,5 +36,21 @@ RSpec.configure do |config|
 
   def blur(page)
     page.find(:css, 'body').click
+  end
+end
+
+module Capybara
+  module Helpers
+    class << self
+
+      alias_method :normalize_whitespace_with_warning, :normalize_whitespace
+
+      def normalize_whitespace(*args)
+        silence_warnings do
+          normalize_whitespace_with_warning(*args)
+        end
+      end
+
+    end
   end
 end

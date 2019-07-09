@@ -1,10 +1,10 @@
 class StandupsController < ApplicationController
-  before_filter :load_standup, only: [:edit, :show, :update, :destroy]
-  around_filter :standup_timezone, only: [:edit, :show, :update, :destroy]
+  before_action :load_standup, only: [:edit, :show, :update, :destroy]
+  around_action :standup_timezone, only: [:edit, :show, :update, :destroy]
 
 
   def create
-    @standup = Standup.create(params[:standup])
+    @standup = Standup.create(params.require(:standup).permit(Standup::ACCESSIBLE_ATTRS))
 
     if @standup.persisted?
       flash[:notice] = "#{@standup.title} Standup successfully created"
@@ -15,14 +15,14 @@ class StandupsController < ApplicationController
   end
 
   def new
-    @standup = Standup.new(params[:standup])
+    @standup = Standup.new(params.fetch(:standup, {}).permit(Standup::ACCESSIBLE_ATTRS))
   end
 
   def index
     @standups = Standup.all.sort { |a, b| a.title.downcase <=> b.title.downcase }
   end
 
-  def edit;
+  def edit
   end
 
   def show
@@ -50,7 +50,7 @@ class StandupsController < ApplicationController
   end
 
   def update
-    if @standup.update(params[:standup])
+    if @standup.update(params[:standup].permit(Standup::ACCESSIBLE_ATTRS))
       redirect_to @standup
     else
       render 'standups/edit'

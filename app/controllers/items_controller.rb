@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
-  before_filter :load_standup
-  around_filter :standup_timezone
+  before_action :load_standup
+  around_action :standup_timezone
   respond_to :html, :json
 
   def create
-    @item = Item.new(params[:item])
+    @item = Item.new(params[:item].permit(Item::ACCESSIBLE_ATTRS))
     if @item.save
       response.headers["Item-Id"]=@item.id.to_s
       redirect_to @item.post ? edit_post_path(@item.post) : standup_path(@item.standup)
@@ -14,9 +14,9 @@ class ItemsController < ApplicationController
   end
 
   def new
-    options = (params[:item] || {}).merge({post_id: params[:post_id], author: session[:username]})
-    options.reverse_merge!(date: Time.zone.today)
-    @item = @standup.items.build(options)
+    options = (params[:item] || ActionController::Parameters.new).merge({post_id: params[:post_id], author: session[:username]})
+    options[:date] = Time.zone.today unless options[:date]
+    @item = @standup.items.build(options.permit(Item::ACCESSIBLE_ATTRS))
     @item.kind ||= "Help"
     render_custom_item_template @item
   end
@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.update_attributes(params[:item])
+    @item.update_attributes(params[:item].permit(Item::ACCESSIBLE_ATTRS))
     if @item.save
       redirect_to params[:redirect_to] || @standup
     else

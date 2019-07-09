@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   belongs_to :standup
 
   has_many :items
@@ -6,8 +6,6 @@ class Post < ActiveRecord::Base
 
   validates :standup, presence: true
   validates :title, presence: true
-
-  attr_accessible :title, :from
 
   delegate :subject_prefix, to: :standup, prefix: :standup
 

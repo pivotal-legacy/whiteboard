@@ -1,5 +1,9 @@
-# Load the rails application
-require File.expand_path('../application', __FILE__)
+# Load the Rails application.
+require_relative 'application'
 
-# Initialize the rails application
-Whiteboard::Application.initialize!
+# Initialize the Rails application.
+begin
+  Rails.application.initialize!
+rescue => e
+  puts e.inspect
+end

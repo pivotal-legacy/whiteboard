@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  before_filter :load_post, except: [:create, :index, :archived]
-  before_filter :load_standup
-  around_filter :standup_timezone
+  before_action :load_post, except: [:create, :index, :archived]
+  before_action :load_standup
+  around_action :standup_timezone
 
 
   def create
     @standup = Standup.find_by_id(params[:standup_id])
-    @post = @standup.posts.build(params[:post])
+    @post = @standup.posts.build(params[:post].permit(:title, :from))
 
     if @post.save
       @post.adopt_all_the_items
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.update_attributes(params[:post])
+    @post.update_attributes(params[:post].permit(:title, :from))
     if @post.save
       redirect_to edit_post_path(@post)
     else

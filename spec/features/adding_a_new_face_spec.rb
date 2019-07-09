@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Adding new faces", js: true do
-  let!(:standup) { FactoryGirl.create(:standup) }
+  let!(:standup) { FactoryBot.create(:standup) }
   let(:timezone) { ActiveSupport::TimeZone.new(standup.time_zone_name) }
   let(:date_five_days) { timezone.now + 5.days }
 
@@ -24,12 +24,12 @@ describe "Adding new faces", js: true do
 
     click_on "Create New Face"
 
-    expect(page).to have_content "Please choose a date in present or future"
+    expect(page).to have_content("Please choose a date in present or future", normalize_ws: true)
     #expect(page).to have_content "Create New Face" #TODO: as of 2014-02-05, this captures a bug.
   end
 
   it "allows yesterday's new faces to post today" do
-    new_face = FactoryGirl.create(:new_face, standup: standup)
+    new_face = FactoryBot.create(:new_face, standup: standup)
 
     Timecop.travel(date_five_days) do
       login
@@ -41,7 +41,7 @@ describe "Adding new faces", js: true do
 
       find('#create-post').click
 
-      expect(page).to_not have_content "Unable to create post"
+      expect(page).to_not have_content("Unable to create post", normalize_ws: true)
       expect(current_path).to eq(standup_items_path(standup))
 
       post = Post.last
