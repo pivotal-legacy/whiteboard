@@ -9,7 +9,7 @@ resources:
   source:
     uri: git@github.com:pivotal-legacy/maintenance-mode.git
     private_key: {{maintenance-private-key}}
-    branch: ruby-2.3.8
+    branch: ruby-2.4.5
 - name: acceptance-tests
   type: git
   source:
