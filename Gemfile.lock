@@ -154,7 +154,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.0331)
     mini_mime (1.0.2)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     multi_json (1.12.1)
     multipart-post (2.0.0)
@@ -167,8 +167,8 @@ GEM
     net-ssh-gateway (2.0.0)
       net-ssh (>= 4.0.0)
     newrelic_rpm (4.3.0.335)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
@@ -317,7 +317,7 @@ DEPENDENCIES
   minitest
   mysql2 (~> 0.4.10)
   newrelic_rpm
-  nokogiri (= 1.8.5)
+  nokogiri (= 1.10.3)
   omniauth-saml
   protected_attributes
   pry-rails
