@@ -226,9 +226,9 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     regexp_parser (1.5.1)
-    responders (2.4.1)
-      actionpack (>= 4.2.0, < 6.0)
-      railties (>= 4.2.0, < 6.0)
+    responders (3.0.0)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
@@ -331,7 +331,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-html-sanitizer (= 1.0.4)
   rails_12factor
-  responders (~> 2.0)
+  responders (~> 3.0)
   rspec-rails (~> 3.8)
   sass-rails
   selenium-webdriver
