@@ -81,9 +81,9 @@ common: &default_settings
   # your users' browsers to download and render your web pages by injecting a small amount
   # of JavaScript code into the header and footer of each page.
   browser_monitoring:
-      # By default the agent automatically injects the monitoring JavaScript
-      # into web pages. Set this attribute to false to turn off this behavior.
-      auto_instrument: true
+    # By default the agent automatically injects the monitoring JavaScript
+    # into web pages. Set this attribute to false to turn off this behavior.
+    auto_instrument: true
 
   # Proxy settings for connecting to the New Relic server.
   #
