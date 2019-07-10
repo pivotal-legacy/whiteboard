@@ -16,8 +16,8 @@ RUN apt-get update
 # Fetch updates
 RUN apt-get -y install wget
 
-# Install Ruby 2.4.5
-RUN echo "20190709" && apt-get -y install ruby2.4 ruby2.4-dev
+# Install Ruby 2.6.3
+RUN echo "20190709" && apt-get -y install ruby2.6 ruby2.6-dev
 
 # Install misc dependencies
 RUN apt-get -y install build-essential patch zlib1g-dev liblzma-dev libxml2-dev libxslt1-dev libfontconfig1 libfreetype6 git curl unzip
