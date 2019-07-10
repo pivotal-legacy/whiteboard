@@ -151,8 +151,8 @@ bundle exec rspec
     cf target -s whiteboard -o <organization>
 
 	cf push --no-start --reset
-	cf set-env whiteboard-production EXCEPTIONAL_API_KEY <your exceptional API key>
-    cf set-env whiteboard-acceptance EXCEPTIONAL_API_KEY <your exceptional API key>
+	cf set-env whiteboard-production
+    cf set-env whiteboard-acceptance
 	cf env   # check all settings
 	# migrate data
 	cf push --reset  # push env settings and start app

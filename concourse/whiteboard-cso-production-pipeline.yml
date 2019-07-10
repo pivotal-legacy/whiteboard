@@ -56,7 +56,6 @@ jobs:
           OKTA_CERT_FINGERPRINT: {{okta-cert-fingerprint}}
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: cso-production
-          EXCEPTIONAL_API_KEY: {{exceptional-api-key}}
           WHITEBOARD_MAILER_URL: account-standups.cfapps.io
   - name: acceptance-tests
     plan:
