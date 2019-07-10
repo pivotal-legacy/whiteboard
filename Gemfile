@@ -2,8 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.4.5'
 
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.2.0'
 
+gem "bootsnap", ">= 1.1.0", require: false
 gem 'mysql2', '~> 0.5.2'
 gem 'unicorn'
 gem 'jquery-rails'
@@ -55,4 +56,5 @@ group :development do
   gem 'auto_tagger'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'listen'
 end
