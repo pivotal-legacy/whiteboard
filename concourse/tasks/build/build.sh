@@ -9,7 +9,7 @@ pushd whiteboard
     gem install bundler -v 1.10.6
 
 #    install
-    bundle install --without development
+    bundle install --with development
 
     /etc/init.d/mysql start
 
