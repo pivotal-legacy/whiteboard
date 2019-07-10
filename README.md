@@ -39,9 +39,9 @@ Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a low
 
 #### Dependencies
 
-- Ruby 2.3.5
+- Ruby 2.6.2
 - MySQL 5.7.x (later versions don't seem to work)
-- Qt (for capybara-webkit)
+- Qt 4ish(for capybara-webkit)
 
 #### Qt installation on macOS:
 
@@ -87,32 +87,9 @@ export SENDGRID_PASSWORD=<password>
 Okta needs to be configured for SAML 2.0 before you can set up Okta single sign-on. Check out [Okta's](http://developer.okta.com/docs/guides/setting_up_a_saml_application_in_okta.html) documentation
 for more information. [The information below appears to be out of date, but may be helpful -- 11/2018]
 
-1. In the appropriate Okta instance, go to Admin > Applications
-1. Click Add Application
-1. Click Create New App
-    * NOTE: You can clone an existing app integration from the "Apps you created" section  
-1. Choose SAML 2.0
-1. Name the app accordingly:
-    * Development: "App Name - Development" and "App Name - Staging"
-    * Production: "App Name"
-1. Click Next  
-1. Fill out the required fields on the SAML Settings page
-    * Single sign on URL - e.g. https://pivotal-example.cfapps.io/saml/callback
-    * Check the "Use this for Recipient URL and Destination URL" check-box.
-    * Audience URI: e.g. https://pivotal-example.cfapps.io/
-    * Name ID Format: Email Address
-    * Default username: Okta username
-1. Click Advanced Settings
-    * Response: Signed
-    * Assertion: Signed
-    * Authentication context class: PasswordProtectedTransport
-    * Request Compression: Compressed
-1. Click Next
-    * Are you a customer or partner?: I'm an Okta customer adding an internal app
-    * App type: This is an internal app that we have created
-1. Click Save
+There are two environment variables required by Okta. Check LastPass for the .env.development file to use the common localhost Okta preview app.
 
-After finish up initial setup, there are two environment variables required by Okta.
+If you want to grab the variables from Okta preview itself, you can do the following:
 
 1. In the appropriate Okta instance, go to Admin > Applications and click on the name of the App.
 1. Click the Sign On tab
@@ -131,6 +108,8 @@ After finish up initial setup, there are two environment variables required by O
     ```
     export OKTA_CERT_FINGERPRINT=<signature from step 6>
     ```
+
+### IP Whitelisting
 
 A string including all the IPs used by your office is required as an environment variable in order for IP fencing to work.
 The format should be a single string of IPs, e.g.
@@ -181,6 +160,8 @@ bundle exec rspec
 
 
 ## Deployment After ENV Vars Set
+
+This process is deprecated in favor of letting Concourse deploy via a pipeline. The following commands may still function:
 
 First, log into Cloud Foundry:
 
