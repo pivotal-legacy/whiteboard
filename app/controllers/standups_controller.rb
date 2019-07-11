@@ -15,7 +15,7 @@ class StandupsController < ApplicationController
   end
 
   def new
-    @standup = Standup.new(params.fetch(:standup, {}).permit(Standup::ACCESSIBLE_ATTRS))
+    @standup = Standup.new(params.fetch(:standup, ActionController::Parameters.new({})).permit(Standup::ACCESSIBLE_ATTRS))
   end
 
   def index
@@ -50,7 +50,7 @@ class StandupsController < ApplicationController
   end
 
   def update
-    if @standup.update(params[:standup].permit(Standup::ACCESSIBLE_ATTRS))
+    if @standup.update(params.require(:standup).permit(Standup::ACCESSIBLE_ATTRS))
       redirect_to @standup
     else
       render 'standups/edit'

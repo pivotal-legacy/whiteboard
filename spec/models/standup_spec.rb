@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 describe Standup do
+  describe 'permitted params' do
+    it 'allows the scalars through as well as supporting complex attributes such as the image_days array' do
+      unpermitted = ActionController::Parameters.new(
+        title: 'Foo',
+        to_address: 'Bar',
+        subject_prefix: 'Baz',
+        closing_message: 'Quux',
+        time_zone_name: 'Corge',
+        start_time_string: 'Fred',
+        image_urls: 'Garply',
+        image_days: ['', 'Mon', 'Thu'],
+        not_allowed: 'Biteme'
+      )
+      permitted = unpermitted.permit(Standup::ACCESSIBLE_ATTRS)
+
+      expect(permitted.keys.map(&:to_sym) - [:image_days]).to match_array(Standup::ACCESSIBLE_SCALARS)
+      expect(permitted[:image_days]).to eq(['', 'Mon', 'Thu'])
+    end
+  end
+
   describe 'associations' do
     it { is_expected.to have_many(:items).dependent(:destroy) }
     it { is_expected.to have_many(:posts).dependent(:destroy) }

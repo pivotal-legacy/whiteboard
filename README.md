@@ -194,6 +194,18 @@ Credentials for the pipelines live in `Shared-IPS Dev Accounts/Whiteboard` on La
 Any changes to helper files will need to be pushed to GitHub for the pipelines to access them.
 When you are done modifying the pipelines make sure to push all changes up to GitHub, not just set the pipelines.
 
+# Credential Rotation
+
+## Rotating SECRET_KEY_BASE
+
+You can use the command below to generate a new SECRET_KEY_BASE value while inside the whiteboard directory:
+```
+rake secret
+```
+
+Replace the existing User-Defined env var in PWS with this generated value. Be sure to use unique values for each environment.
+
+
 Author
 ======
 Whiteboard was written by [Matthew Kocher](https://github.com/mkocher).
