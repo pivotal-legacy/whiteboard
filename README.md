@@ -70,6 +70,19 @@ bundle exec rake db:create db:migrate db:test:prepare
 bundle exec rake
 ```
 
+Commons Problems:
+- `ld: library not found for -lssl` during the `bundle install` step. 
+  Solution: Make sure OpenSSL is installed and added to your `LIBRARY_PATH`:
+  ```
+  brew install openssl
+  export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+  ```
+- `Mysql2::Error: Can't connect to local MySQL server through socket '/tmp/mysql.sock'(2)`.
+  Solution: Start the local MySQL server
+  ```
+  mysql.server start
+  ```
+
 ### Running Locally:
 
 Whiteboard uses unicorn as the server in staging and production. To run the application locally:
