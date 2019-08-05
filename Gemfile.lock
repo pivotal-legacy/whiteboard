@@ -221,7 +221,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.0.4)
+    rails-html-sanitizer (1.1.0)
       loofah (~> 2.2, >= 2.2.2)
     rails_12factor (0.0.3)
       rails_serve_static_assets
@@ -346,7 +346,7 @@ DEPENDENCIES
   pry-rails
   rails (~> 5.2.0)
   rails-controller-testing
-  rails-html-sanitizer (= 1.0.4)
+  rails-html-sanitizer (= 1.1.0)
   rails_12factor
   responders (~> 3.0)
   rspec-rails (~> 3.8)
