@@ -33,13 +33,13 @@ Whiteboard [is on Pivotal Tracker](https://www.pivotaltracker.com/projects/56074
 
 Development
 ===========
-Whiteboard is a Rails 4 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
+Whiteboard is a Rails 5 app. It uses rspec with capybara for request specs.  Please add tests if you are adding code.
 
 Whiteboard feature tests are **incompatible** with Qt 5.5, ensure you have a lower version installed before running `bundle`.
 
 #### Dependencies
 
-- Ruby 2.6.2
+- Ruby 2.6.4
 - MySQL 5.7.x (later versions don't seem to work)
 - Qt 4ish(for capybara-webkit)
 
