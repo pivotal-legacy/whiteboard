@@ -6,5 +6,5 @@ applications:
   routes:
     - route: account-standups-temp.cfapps.io
   buildpacks:
-    - ruby_buildpack
+    - https://github.com/cloudfoundry/ruby-buildpack/#v1.7.43
   stack: cflinuxfs3
