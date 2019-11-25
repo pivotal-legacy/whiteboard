@@ -12,6 +12,7 @@ cf set-env whiteboard OKTA_CERT_FINGERPRINT $OKTA_CERT_FINGERPRINT
 cf set-env whiteboard IP_WHITELIST $IP_WHITELIST
 cf set-env whiteboard SENTRY_DSN $SENTRY_DSN
 cf set-env whiteboard WHITEBOARD_MAILER_URL $WHITEBOARD_MAILER_URL
+cf set-env whiteboard SECRET_KEY_BASE $SECRET_KEY_BASE
 
 if [ "$ENVIRONMENT" == "production" ] ; then
     cf set-env whiteboard NEWRELIC_APP_NAME $NEWRELIC_APP_NAME

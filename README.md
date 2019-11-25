@@ -209,6 +209,16 @@ When you are done modifying the pipelines make sure to push all changes up to Gi
 
 # Credential Rotation
 
+Credentials are stored in LastPass in one note per environment (CSO staging and prod, non-CSO staging and prod).
+There is no config server, but the Deploy task in the Concourse pipelines manages the "User Provided Environment Variables" credentials in PWS automatically.
+This means to get new variable values out to the environments, you need to `set-pipeline` as described in the section above.
+
+NEWRELIC_LICENSE is the same across many IPS apps across multiple environments, so likely this cannot change.
+OKTA_CERT_FINGERPRINT is managed by the Okta Admins, and thus we do not change.
+SENDGRID_USERNAME and SENDGRID_PASSWORD are provided by the service tile, but it is unclear where these values come from.
+SENTRY_DSN has one DSN for all Whiteboard environments.
+SECRET_KEY_BASE is a value required by Rails to sign/encrypt the session cookie. Rotating it will invalidate all current sessions on the relevant app.
+
 ## Rotating SECRET_KEY_BASE
 
 You can use the command below to generate a new SECRET_KEY_BASE value while inside the whiteboard directory:

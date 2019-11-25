@@ -61,6 +61,7 @@ jobs:
           NEWRELIC_APP_NAME: {{newrelic-app-name}}
           NEWRELIC_LICENSE: {{newrelic-license}}
           WHITEBOARD_MAILER_URL: whiteboard.pivotal.io
+          SECRET_KEY_BASE: {{secret-key-base}}
   - name: acceptance-tests
     plan:
       - get: whiteboard

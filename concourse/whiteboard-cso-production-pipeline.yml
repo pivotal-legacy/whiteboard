@@ -57,6 +57,7 @@ jobs:
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: cso-production
           WHITEBOARD_MAILER_URL: account-standups.cfapps.io
+          SECRET_KEY_BASE: {{secret-key-base}}
   - name: acceptance-tests
     plan:
       - get: whiteboard

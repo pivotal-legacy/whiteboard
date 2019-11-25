@@ -60,6 +60,7 @@ jobs:
           SENTRY_DSN: {{sentry-dsn}}
           CF_DOMAIN: {{cf-domain}}
           WHITEBOARD_MAILER_URL: whiteboard-staging.cfapps.io
+          SECRET_KEY_BASE: {{secret-key-base}}
   - name: acceptance-tests
     plan:
       - get: whiteboard
