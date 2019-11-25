@@ -58,8 +58,6 @@ jobs:
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           ENVIRONMENT: production
           SENTRY_DSN: {{sentry-dsn}}
-          GOOGLE_CLIENT_ID: {{google-client-id}}
-          GOOGLE_CLIENT_SECRET: {{google-client-secret}}
           NEWRELIC_APP_NAME: {{newrelic-app-name}}
           NEWRELIC_LICENSE: {{newrelic-license}}
           WHITEBOARD_MAILER_URL: whiteboard.pivotal.io

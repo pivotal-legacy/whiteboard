@@ -14,8 +14,6 @@ cf set-env whiteboard SENTRY_DSN $SENTRY_DSN
 cf set-env whiteboard WHITEBOARD_MAILER_URL $WHITEBOARD_MAILER_URL
 
 if [ "$ENVIRONMENT" == "production" ] ; then
-    cf set-env whiteboard GOOGLE_CLIENT_ID $GOOGLE_CLIENT_ID
-    cf set-env whiteboard GOOGLE_CLIENT_SECRET $GOOGLE_CLIENT_SECRET
     cf set-env whiteboard NEWRELIC_APP_NAME $NEWRELIC_APP_NAME
     cf set-env whiteboard NEWRELIC_LICENSE $NEWRELIC_LICENSE
 fi
