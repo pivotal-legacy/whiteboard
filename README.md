@@ -230,9 +230,20 @@ rake secret
 ```
 Be sure to generate a unique value for each environment.
 
-Next update the `secret-key-base` with the newly-generated value in each pipeline cred file.
+Update the `secret-key-base` with the newly-generated value in each pipeline cred file.
 Then follow the steps listed in the above [Deploying via Concourse](#deploying-via-concourse) section to deploy the updated SECRET_KEY_BASE to the pipeline & run a build to deploy the changes when ready.
 Lastly, be sure to update the secrets in LastPass so the secret-key-base value is up to date.
+
+## Rotating GitHub Deploy Keys
+
+The GitHub deploy key for the `whiteboard-acceptance-tests` repository can also be rotated. Currently we do not rotate the `maintenance-mode` deploy key.
+
+To rotate the deploy key, follow these instructions to generate a new SSH key pair. Make sure not to not enter a passphrase when prompted. https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key.
+
+Next go to the Settings page of the `whiteboard-acceptance-tests` project on GitHub and click on the Deploy Keys link (https://github.com/pivotal/whiteboard-acceptance-tests/settings/keys).
+Click "Add deploy key" to create a new deploy key. Include the date (YY-MM format is fine) in the title, paste in the public key you generated into the Key field, and do not allow write access for the key.
+
+You'll need to update the pipeline cred files with the new deploy key. Paste in your private key into the `iad-dev-whiteboard-deploy-key` field for each cred file for each environment (same value for every environment) & follow [Deploying via Concourse](#deploying-via-concourse) to deploy the updated deploy key.
 
 Author
 ======
