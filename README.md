@@ -213,21 +213,26 @@ Credentials are stored in LastPass in one note per environment (CSO staging and 
 There is no config server, but the Deploy task in the Concourse pipelines manages the "User Provided Environment Variables" credentials in PWS automatically.
 This means to get new variable values out to the environments, you need to `set-pipeline` as described in the section above.
 
-NEWRELIC_LICENSE is the same across many IPS apps across multiple environments, so likely this cannot change.
-OKTA_CERT_FINGERPRINT is managed by the Okta Admins, and thus we do not change.
-SENDGRID_USERNAME and SENDGRID_PASSWORD are provided by the service tile, but it is unclear where these values come from.
-SENTRY_DSN has one DSN for all Whiteboard environments.
-SECRET_KEY_BASE is a value required by Rails to sign/encrypt the session cookie. Rotating it will invalidate all current sessions on the relevant app.
+* NEWRELIC_LICENSE is the same across many IPS apps across multiple environments, so likely this cannot change.
+* OKTA_CERT_FINGERPRINT is managed by the Okta Admins, and thus we do not change.
+* SENDGRID_USERNAME and SENDGRID_PASSWORD are provided by the service tile, but it is unclear where these values come from.
+* SENTRY_DSN has one DSN for all Whiteboard environments.
+* SECRET_KEY_BASE is a value required by Rails to sign/encrypt the session cookie. Rotating it will invalidate all current sessions on the relevant app.
 
 ## Rotating SECRET_KEY_BASE
+
+First you'll need to download the pipeline environment variables for each environment you're rotating from LastPass.
+They're located in the `Shared-IPS Dev Accounts\Whiteboard` folder. Save them to your local `/tmp` folder. 
 
 You can use the command below to generate a new SECRET_KEY_BASE value while inside the whiteboard directory:
 ```
 rake secret
 ```
+Be sure to generate a unique value for each environment.
 
-Replace the existing User-Defined env var in PWS with this generated value. Be sure to use unique values for each environment.
-
+Next update the `secret-key-base` with the newly-generated value in each pipeline cred file.
+Then follow the steps listed in the above [Deploying via Concourse](#deploying-via-concourse) section to deploy the updated SECRET_KEY_BASE to the pipeline & run a build to deploy the changes when ready.
+Lastly, be sure to update the secrets in LastPass so the secret-key-base value is up to date.
 
 Author
 ======
