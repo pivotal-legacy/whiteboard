@@ -41,7 +41,7 @@ group :test do
   gem 'database_cleaner'
   gem 'timecop'
   gem 'minitest'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 3.9'
   gem 'shoulda-matchers', '~> 4.1'
   gem 'factory_bot_rails'
   gem 'faker'
