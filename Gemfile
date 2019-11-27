@@ -21,7 +21,7 @@ gem 'sentry-raven'
 gem 'responders', '~> 3.0'
 gem 'nokogiri', '1.10.5'
 gem 'loofah', '2.3.1'
-gem 'rails-html-sanitizer', '1.2.0'
+gem 'rails-html-sanitizer', '1.3.0'
 
 group :development, :production do
   gem 'rails_12factor'
