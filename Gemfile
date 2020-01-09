@@ -42,7 +42,7 @@ group :test do
   gem 'timecop'
   gem 'minitest'
   gem 'rspec-rails', '~> 3.9'
-  gem 'shoulda-matchers', '~> 4.1'
+  gem 'shoulda-matchers', '~> 4.2'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'capybara'

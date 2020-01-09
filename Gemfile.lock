@@ -139,7 +139,7 @@ GEM
       activesupport (>= 4.2.0)
     hashie (3.6.0)
     highline (2.0.2)
-    i18n (1.7.0)
+    i18n (1.7.1)
       concurrent-ruby (~> 1.0)
     jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
@@ -275,7 +275,7 @@ GEM
       rubyzip (>= 1.2.2)
     sentry-raven (2.12.3)
       faraday (>= 0.7.6, < 1.0)
-    shoulda-matchers (4.1.2)
+    shoulda-matchers (4.2.0)
       activesupport (>= 4.2.0)
     simplecov (0.13.0)
       docile (~> 1.1.0)
@@ -293,7 +293,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.9)
     timecop (0.9.1)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
@@ -349,7 +349,7 @@ DEPENDENCIES
   sass-rails
   selenium-webdriver
   sentry-raven
-  shoulda-matchers (~> 4.1)
+  shoulda-matchers (~> 4.2)
   timecop
   uglifier
   unicorn
