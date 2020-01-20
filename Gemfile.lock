@@ -61,7 +61,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     builder (3.2.3)
-    byebug (11.0.1)
+    byebug (11.1.0)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
