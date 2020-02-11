@@ -179,7 +179,7 @@ GEM
       net-ssh (>= 4.0.0)
     newrelic_rpm (6.7.0.359)
     nio4r (2.4.0)
-    nokogiri (1.10.5)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
@@ -337,7 +337,7 @@ DEPENDENCIES
   minitest
   mysql2 (~> 0.5.2)
   newrelic_rpm
-  nokogiri (= 1.10.5)
+  nokogiri (= 1.10.8)
   omniauth-saml
   pry-rails
   rails (~> 5.2.0)
