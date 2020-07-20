@@ -59,6 +59,7 @@ jobs:
           OKTA_CERT_FINGERPRINT: {{okta-cert-fingerprint}}
           OKTA_SSO_TARGET_URL: {{okta-sso-target-url}}
           IDP_METADATA_XML_URL: {{ipd-metadata-xml-url}}
+          WS1_AUDIENCE: {{ws1-audience}}
           ENVIRONMENT: staging
           SENTRY_DSN: {{sentry-dsn}}
           CF_DOMAIN: {{cf-domain}}
