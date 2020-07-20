@@ -1,8 +1,8 @@
-require 'omniauth-saml'
+require 'omniauth'
+idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
+idp_metadata = idp_metadata_parser.parse_remote_to_hash(ENV["IDP_METADATA_XML_URL"])
 
-Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :saml,
-    :idp_sso_target_url                 => ENV['OKTA_SSO_TARGET_URL'],
-    :idp_sso_target_url_runtime_params  => {:original_request_param => :mapped_idp_param},
-    :idp_cert_fingerprint               => ENV['OKTA_CERT_FINGERPRINT']
-end
+use OmniAuth::Strategies::SAML,
+    idp_metadata.merge(
+        :issuer                         => "whiteboard"
+    )
