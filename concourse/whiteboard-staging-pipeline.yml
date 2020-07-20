@@ -23,6 +23,8 @@ jobs:
       - get: whiteboard
       - task: build
         file: whiteboard/concourse/tasks/build/build.yml
+        params:
+          TEST_IDP_METADATA_XML_URL: {{test-ipd-metadata-xml-url}}
   - name: deploy-maintenance
     plan:
       - get: whiteboard

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e -x
+export IDP_METADATA_XML_URL=$TEST_IDP_METADATA_XML_URL
 
 pushd whiteboard
 #    before install
