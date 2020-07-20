@@ -13,6 +13,7 @@ cf set-env whiteboard IP_WHITELIST $IP_WHITELIST
 cf set-env whiteboard SENTRY_DSN $SENTRY_DSN
 cf set-env whiteboard WHITEBOARD_MAILER_URL $WHITEBOARD_MAILER_URL
 cf set-env whiteboard SECRET_KEY_BASE $SECRET_KEY_BASE
+cf set-env whiteboard IDP_METADATA_XML_URL $IDP_METADATA_XML_URL
 
 if [ "$ENVIRONMENT" == "production" ] ; then
     cf set-env whiteboard NEWRELIC_APP_NAME $NEWRELIC_APP_NAME

@@ -5,7 +5,7 @@ describe 'Authenticating', type: :feature do
     before do
       log_in_to_okta('email@blah.com')
       visit '/login'
-      click_on 'Log in with Okta'
+      click_on 'Log in with Workspace ONE'
     end
 
     it 'allows you to log out' do
@@ -20,7 +20,7 @@ describe 'Authenticating', type: :feature do
       end
 
       it 'provides a button to log back in' do
-        expect(page).to have_content('Log in with Okta', normalize_ws: true)
+        expect(page).to have_content('Log in with Workspace ONE', normalize_ws: true)
       end
     end
   end
@@ -33,8 +33,8 @@ describe 'Authenticating', type: :feature do
 
       it 'allows you to log in and view the dashboard' do
         visit '/login'
-        expect(page).to have_content('Log in with Okta', normalize_ws: true)
-        click_on 'Log in with Okta'
+        expect(page).to have_content('Log in with Workspace ONE', normalize_ws: true)
+        click_on 'Log in with Workspace ONE'
         expect(page).to have_content('Whiteboard', normalize_ws: true)
         expect(page).to have_content('Choose a Standup', normalize_ws: true)
       end
@@ -50,7 +50,7 @@ describe 'Authenticating', type: :feature do
 
       it 'should not force user to authenticate' do
         visit '/'
-        expect(page).not_to have_content('Log in with Okta', normalize_ws: true)
+        expect(page).not_to have_content('Log in with Workspace ONE', normalize_ws: true)
         expect(page).to have_content('Choose a Standup', normalize_ws: true)
       end
     end
@@ -65,8 +65,8 @@ describe 'Authenticating', type: :feature do
 
       it 'should not break, but instead allow you to log in and view the dashboard' do
         visit '/login'
-        expect(page).to have_content('Log in with Okta', normalize_ws: true)
-        click_on 'Log in with Okta'
+        expect(page).to have_content('Log in with Workspace ONE', normalize_ws: true)
+        click_on 'Log in with Workspace ONE'
         expect(page).to have_content('Whiteboard', normalize_ws: true)
         expect(page).to have_content('Choose a Standup', normalize_ws: true)
       end
