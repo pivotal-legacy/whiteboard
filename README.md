@@ -96,7 +96,12 @@ export SENDGRID_USERNAME=<username>
 export SENDGRID_PASSWORD=<password>
 ```
 
-### Okta configuration
+### Okta configuration (Deprecated)
+
+**Whiteboard now authenticates with VMware Workspace ONE, however you can still use SAML 2.0 authentication by just providing the URL for the IDP metadata in the environment variable `IDP_METADATA_XML_URL`.
+
+You will also need to configure the Audience by setting the `WS1_AUDIENCE` environment variable** 
+
 Okta needs to be configured for SAML 2.0 before you can set up Okta single sign-on. Check out [Okta's](http://developer.okta.com/docs/guides/setting_up_a_saml_application_in_okta.html) documentation
 for more information. [The information below appears to be out of date, but may be helpful -- 11/2018]
 
@@ -146,6 +151,8 @@ If you are using Sentry for error logging be sure to set the ```SENTRY_DSN``` en
 Testing
 =======
 Before running tests, make sure to add your local ```IP``` to the ```IP_WHITELIST``` environment variable string. Also make sure that a username and password are configured in ```database.yml``` if your ```root``` user password is not the default.
+
+Also be sure to add a value for `IDP_METADATA_XML_URL` which points to a sample metadata.xml url
 
 Then run
 
