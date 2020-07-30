@@ -23,6 +23,8 @@ jobs:
       - get: whiteboard
       - task: build
         file: whiteboard/concourse/tasks/build/build.yml
+        params:
+          TEST_IDP_METADATA_XML_URL: {{test-ipd-metadata-xml-url}}
   - name: deploy-maintenance
     plan:
       - get: whiteboard
@@ -62,6 +64,8 @@ jobs:
           NEWRELIC_LICENSE: {{newrelic-license}}
           WHITEBOARD_MAILER_URL: whiteboard.pivotal.io
           SECRET_KEY_BASE: {{secret-key-base}}
+          IDP_METADATA_XML_URL: {{ipd-metadata-xml-url}}
+          WS1_AUDIENCE: {{ws1-audience}}
   - name: acceptance-tests
     plan:
       - get: whiteboard
