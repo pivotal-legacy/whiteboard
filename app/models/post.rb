@@ -51,7 +51,7 @@ class Post < ApplicationRecord
     if sent_at
       raise "Duplicate Email"
     else
-      PostMailer.send_to_all(self, standup.to_address, 'noreply@pivotal.io', standup.id).deliver_now
+      PostMailer.send_to_all(self, standup.to_address, Rails.configuration.x.mailer.from_address, standup.id).deliver_now
       self.sent_at = Time.now
       self.save!
     end

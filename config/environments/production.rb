@@ -91,4 +91,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.x.mailer.from_address = ENV.fetch("WHITEBOARD_MAILER_FROM_ADDRESS") { raise "Missing required WHITEBOARD_MAILER_FROM_ADDRESS env var" }
 end

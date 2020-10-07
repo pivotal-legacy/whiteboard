@@ -87,6 +87,7 @@ describe Post do
       post = create(:post, items: [create(:item)])
       post.deliver_email
       expect(ActionMailer::Base.deliveries.last.to).to eq [post.standup.to_address]
+      expect(ActionMailer::Base.deliveries.last.from).to eq ["test@from.address"]
     end
 
     it "raises an error if you send it twice" do

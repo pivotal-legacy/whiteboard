@@ -43,4 +43,6 @@ Whiteboard::Application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = {:host => "whiteboard.pivotal.io"}
+
+  config.x.mailer.from_address = "test@from.address"
 end
