@@ -51,6 +51,7 @@ We use an old version of QT because the version of capybara-webkit that is used 
    brew tap cartr/qt4
    brew tap-pin cartr/qt4
    brew install qt@4 qt-webkit@2.3
+   brew link qt@4
    ```
 
 #### Qt installation on Linux:
@@ -61,7 +62,7 @@ We use an old version of QT because the version of capybara-webkit that is used 
 ```
 # Install gems
 gem install bundler
-bundle install
+LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/ bundle install # mysql2 needs the LIBRARY_PATH
 
 # Setup dev/test databases
 bundle exec rake db:create db:migrate db:test:prepare

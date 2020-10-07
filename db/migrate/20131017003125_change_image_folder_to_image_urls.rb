@@ -1,4 +1,4 @@
-class ChangeImageFolderToImageUrls < ActiveRecord::Migration
+class ChangeImageFolderToImageUrls < ActiveRecord::Migration[4.2]
   def up
     rename_column :standups, :image_folder, :image_urls
     change_column :standups, :image_urls, :text

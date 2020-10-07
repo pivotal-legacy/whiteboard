@@ -1,4 +1,4 @@
-class RemoveIpKeyFromStandups < ActiveRecord::Migration
+class RemoveIpKeyFromStandups < ActiveRecord::Migration[4.2]
   def up
     remove_column :standups, :ip_key
   end

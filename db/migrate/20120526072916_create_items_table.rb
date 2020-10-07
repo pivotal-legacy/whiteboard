@@ -1,4 +1,4 @@
-class CreateItemsTable < ActiveRecord::Migration
+class CreateItemsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :items do |t|
       t.text :title

@@ -1,4 +1,4 @@
-class CreateStandupsTable < ActiveRecord::Migration
+class CreateStandupsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :standups do |t|
       t.string :title
