@@ -1,0 +1,15 @@
+env:
+  PCF_DESTINATION_API_ENDPOINT: https://api.us22-2-pcf1-system.oc.vmware.com
+  PCF_SPACE: whiteboard-staging
+  PCF_ORG: TxP
+
+
+steps:
+  - name: build
+    command: ./buildkite/scripts/build.sh
+    timeout_in_minutes: 30
+    plugins:
+      - docker-compose#v3.0.3:
+          run: app
+          shell: false
+          config: buildkite-docker-compose.yml
