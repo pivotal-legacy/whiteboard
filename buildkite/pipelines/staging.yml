@@ -14,7 +14,8 @@ steps:
           shell: false
           config: buildkite-docker-compose.yml
   - wait
+
   - name: deploy-maintenance
     command: ./buildkite/scripts/deploy-maintenance.sh
-    agent:
+    agents:
       queue: "deploy"
