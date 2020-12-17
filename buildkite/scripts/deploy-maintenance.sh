@@ -23,4 +23,4 @@ set -e -x
 #cf push -f manifest.yml
 #start-maintenance whiteboard $CF_DOMAIN $WHITEBOARD_HOSTNAME
 
-git clone git@github.com:pivotal-legacy/maintenance-mode.git
+echo "Running deploy maintenance"
