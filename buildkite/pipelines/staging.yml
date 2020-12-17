@@ -2,7 +2,8 @@ env:
   PCF_DESTINATION_API_ENDPOINT: https://api.us22-2-pcf1-system.oc.vmware.com
   PCF_SPACE: whiteboard-staging
   PCF_ORG: TxP
-
+  PCF_DOMAIN: apps.scdc1.itcna.vmware.com
+  WHITEBOARD_HOSTNAME: whiteboard-staging
 
 steps:
   - name: build
@@ -19,6 +20,3 @@ steps:
     command: ./buildkite/scripts/deploy-maintenance.sh
     agents:
       queue: "deploy"
-    plugins:
-      - first-aml/git-clone:
-          repository: git@github.com:pivotal-legacy/maintenance-mode.git

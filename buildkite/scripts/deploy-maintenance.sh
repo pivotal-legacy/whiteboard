@@ -22,5 +22,28 @@ set -e -x
 #
 #cf push -f manifest.yml
 #start-maintenance whiteboard $CF_DOMAIN $WHITEBOARD_HOSTNAME
+start-maintenance ()
+{
+    appName=$1
+    domain=$2
+    hostname=$3
+
+    cf map-route maintenance-mode ${domain} -n ${hostname}
+    cf unmap-route ${appName} ${domain} -n ${hostname}
+}
 
 echo "Running deploy maintenance"
+
+git clone git@github.com:pivotal/txp-maintenance-mode.git txp-maintenance-mode
+cd txp-maintenance-mode
+
+git checkout ruby-buildpack-1-7-43
+
+bundle install
+
+cf api ${PCF_API_ENDPOINT}
+cf auth ${PCF_USERNAME} ${PCF_PASSWORD}
+cf target -o ${PCF_ORG} -s ${PCF_SPACE}
+
+cf push -f manifest.yml
+start-maintenance whiteboard $PCF_DOMAIN $WHITEBOARD_HOSTNAME
