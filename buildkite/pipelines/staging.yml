@@ -6,17 +6,17 @@ env:
   WHITEBOARD_HOSTNAME: whiteboard-staging
 
 steps:
-#  - name: build
-#    command: ./buildkite/scripts/build.sh
-#    timeout_in_minutes: 30
-#    plugins:
-#      - docker-compose#v3.0.3:
-#          run: app
-#          shell: false
-#          config: buildkite-docker-compose.yml
-#  - wait
+  - name: build
+    command: ./buildkite/scripts/build.sh
+    timeout_in_minutes: 30
+    plugins:
+      - docker-compose#v3.0.3:
+          run: app
+          shell: false
+          config: buildkite-docker-compose.yml
+  - wait
 
   - name: deploy-maintenance
     command: ./buildkite/scripts/deploy-maintenance.sh
     agents:
-      queue: "deploy"
+      queue: "whiteboard"

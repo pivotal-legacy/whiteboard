@@ -1,0 +1,24 @@
+---
+applications:
+  - name: buildkite-agent
+    health-check-type: process
+    no-route: true
+    disk_quota: 4GB
+    memory: 512MB
+    instances: 1
+    docker:
+      image: harbor-repo.vmware.com/txp/whiteboard-buildkite-agent:latest
+    env:
+      AWS_ACCESS_KEY_ID: <%= ENV.fetch("AWS_BUILDKITE_SECRET_BUCKET_KEY") %>
+      AWS_SECRET_ACCESS_KEY: <%= ENV.fetch("AWS_BUILDKITE_SECRET_BUCKET_SECRET") %>
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_REGION: us-east-1
+      BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT: 604800
+      BUILDKITE_AGENT_TAGS: pcf=true,queue=whiteboard
+      BUILDKITE_AGENT_TAGS_FROM_HOST: true
+      BUILDKITE_AGENT_NAME: pcf-whiteboard-agent-%hostname-%n
+      BUILDKITE_AGENT_TOKEN: <%= ENV.fetch("BUILDKITE_AGENT_TOKEN") %>
+      BUILDKITE_ECR_POLICY: none
+      BUILDKITE_PLUGIN_S3_SECRETS_BUCKET: buildkite-managedsecretsbucket-whiteboard-wt7atbnc6fhwycrg
+      PLUGINS_ENABLED: secrets ecr docker-login
+      BUILDKITE_AGENT_DISCONNECT_AFTER_JOB: true
