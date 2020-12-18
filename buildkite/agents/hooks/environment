@@ -2,8 +2,8 @@
 # shellcheck source=/dev/null
 source /buildkite/s3_secrets/hooks/environment
 
-#set -euo pipefail
-#
-#eval "$(ssh-agent -s)"
-#ssh-add -k /buildkite-secrets/maintenance_mode_id_rsa
+set -euo pipefail
+
+eval "$(ssh-agent -s)"
+ssh-add -k /buildkite-secrets/ssh/maintenance_mode_id_rsa
 
