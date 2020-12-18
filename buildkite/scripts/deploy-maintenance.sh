@@ -35,6 +35,9 @@ start-maintenance ()
 echo "checking loaded keys"
 ssh-add -l
 
+ls -la ~/.ssh
+ls -la /etc/ssh
+
 echo "Running deploy maintenance"
 
 git clone git@github.com:pivotal/txp-maintenance-mode.git txp-maintenance-mode
