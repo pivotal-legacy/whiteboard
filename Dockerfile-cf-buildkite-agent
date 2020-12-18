@@ -59,6 +59,6 @@ RUN ssh-keyscan github.com >> githubKey
 RUN cat githubKey >> /etc/ssh/ssh_known_hosts
 RUN rm githubKey
 
-RUN mkdir -p /buildkite-secrets/ssh
+RUN mkdir /buildkite-secrets
 COPY ./maintenance_mode_id_rsa /tmp/maintenance_mode_id_rsa
-RUN cp /tmp/maintenance_mode_id_rsa /buildkite-secrets/ssh
+RUN cp /tmp/maintenance_mode_id_rsa /buildkite-secrets/
