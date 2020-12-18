@@ -35,10 +35,11 @@ start-maintenance ()
 echo "Running deploy maintenance"
 
 git clone git@github.com-repo-0:pivotal/txp-maintenance-mode.git txp-maintenance-mode
-git checkout ruby-buildpack-1-8-15
-git pull origin ruby-buildpack-1-8-15
 
 cd txp-maintenance-mode
+
+git checkout ruby-buildpack-1-8-15
+git pull origin ruby-buildpack-1-8-15
 
 gem install bundler -v 1.17.2
 bundle install
