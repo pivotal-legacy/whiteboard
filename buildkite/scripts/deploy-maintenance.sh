@@ -41,7 +41,7 @@ cat /etc/ssh/ssh_config
 
 echo "Running deploy maintenance"
 
-git clone git@github.com:pivotal/txp-maintenance-mode.git txp-maintenance-mode
+git clone git@github.com-repo-1:pivotal/txp-maintenance-mode.git txp-maintenance-mode
 cd txp-maintenance-mode
 
 git checkout ruby-buildpack-1-8-15
