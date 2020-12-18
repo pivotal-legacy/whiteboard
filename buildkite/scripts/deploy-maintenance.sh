@@ -39,6 +39,7 @@ cd txp-maintenance-mode
 
 git checkout ruby-buildpack-1-7-43
 
+gem install bundler -v 1.17.2
 bundle install
 
 cf api ${PCF_API_ENDPOINT}
