@@ -37,7 +37,7 @@ echo "Running deploy maintenance"
 git clone git@github.com:pivotal/txp-maintenance-mode.git txp-maintenance-mode
 cd txp-maintenance-mode
 
-git checkout ruby-buildpack-1-7-43
+git checkout ruby-buildpack-1-8-15
 
 gem install bundler -v 1.17.2
 bundle install
