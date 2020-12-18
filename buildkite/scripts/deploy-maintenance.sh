@@ -38,6 +38,8 @@ ssh-add -l
 ls -la ~/.ssh
 ls -la /etc/ssh
 cat /etc/ssh/ssh_config
+cat ~/.ssh/ssh_config
+
 
 echo "Running deploy maintenance"
 
