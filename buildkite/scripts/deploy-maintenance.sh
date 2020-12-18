@@ -32,13 +32,6 @@ start-maintenance ()
     cf unmap-route ${appName} ${domain} -n ${hostname}
 }
 
-echo "checking loaded keys"
-ssh-add -l
-
-ls -la ~/.ssh
-ls -la /etc/ssh
-cat /etc/ssh/ssh_config
-
 echo "Running deploy maintenance"
 
 git clone git@github.com-repo-0:pivotal/txp-maintenance-mode.git txp-maintenance-mode
