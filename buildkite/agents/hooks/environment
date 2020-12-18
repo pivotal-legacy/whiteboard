@@ -8,6 +8,12 @@ set -euo pipefail
 eval "$(ssh-agent -s)"
 ssh-add -k /buildkite-secrets/maintenance_mode_id_rsa
 
+cat <<EOF >> /etc/ssh/config
+Host github.com-repo-0
+        Hostname github.com
+        IdentityFile=/buildkite-secrets/maintenance_mode_id_rsa
+EOF
+
 cat <<EOF >> /etc/ssh/ssh_config
 Host github.com-repo-0
         Hostname github.com
