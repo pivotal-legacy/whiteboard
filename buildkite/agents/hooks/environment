@@ -2,6 +2,7 @@
 # shellcheck source=/dev/null
 source /buildkite/s3_secrets/hooks/environment
 
+echo "Running whiteboard environment hooks"
 set -euo pipefail
 
 eval "$(ssh-agent -s)"
