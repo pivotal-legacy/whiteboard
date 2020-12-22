@@ -20,6 +20,7 @@ fi
 source /.bashrc
 rbenv local 2.6.2
 
-bundle install -v 2.0.2
+gem install bundler -v 2.0.2
+bundle install
 
 cf push -f buildkite/manifests/$ENVIRONMENT.yml
