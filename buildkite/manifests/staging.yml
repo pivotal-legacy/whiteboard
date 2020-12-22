@@ -8,4 +8,8 @@ applications:
   buildpacks:
     - https://github.com/cloudfoundry/ruby-buildpack/#v1.7.43
   stack: cflinuxfs3
+  services:
+    - whiteboard-db
+    - whiteboard-mailer
+    - logz-drain
 

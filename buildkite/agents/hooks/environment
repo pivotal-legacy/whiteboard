@@ -13,3 +13,11 @@ Host github.com-repo-0
         Hostname github.com
         IdentityFile=/buildkite-secrets/maintenance_mode_id_rsa
 EOF
+
+ssh-add -k /buildkite-secrets/whiteboard_acceptance_key
+
+cat <<EOF >> /etc/ssh/ssh_config
+Host github.com-repo-1
+        Hostname github.com
+        IdentityFile=/buildkite-secrets/whiteboard_acceptance_key
+EOF
