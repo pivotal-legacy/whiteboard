@@ -25,20 +25,6 @@ RUN unzip awscliv2.zip
 RUN ./aws/install -i /usr/local/aws-cli -b /usr/local/bin
 RUN aws --version
 
-# Install Ruby 2.6.4
-RUN wget -O ruby-install-0.7.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz && \
-    tar -xzvf ruby-install-0.7.0.tar.gz && \
-    cd ruby-install-0.7.0/ && \
-    sudo make install && \
-    ./bin/ruby-install --rubies-dir /opt/rubies ruby 2.6.4
-RUN wget -O chruby-0.3.9.tar.gz https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz && \
-    tar -xzvf chruby-0.3.9.tar.gz && \
-    cd chruby-0.3.9/ && \
-    sudo make install && \
-    ./scripts/setup.sh
-
-RUN apt-get install rubygems -y
-
 # Copy buildkite hooks from elastic-ci-stack-s3-secrets-hooks repo
 RUN mkdir /buildkite/s3_secrets
 COPY ./buildkite/agents/elastic-ci-stack-s3-secrets-hooks /buildkite/s3_secrets
@@ -64,3 +50,17 @@ RUN rm githubKey
 RUN mkdir /buildkite-secrets
 COPY ./maintenance_mode_id_rsa /tmp/maintenance_mode_id_rsa
 RUN cp /tmp/maintenance_mode_id_rsa /buildkite-secrets/
+
+RUN apt-get install -y --force-yes build-essential git
+RUN apt-get install -y libssl-dev libreadline-dev zlib1g-dev
+
+# Install rbenv and ruby-build
+RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
+RUN git clone https://github.com/sstephenson/ruby-build.git /root/.rbenv/plugins/ruby-build
+RUN /root/.rbenv/plugins/ruby-build/install.sh
+ENV PATH /root/.rbenv/bin:$PATH
+RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh
+RUN echo 'eval "$(rbenv init -)"' >> .bashrc
+
+RUN rbenv install 2.6.2
+RUN rbenv install 2.6.4
