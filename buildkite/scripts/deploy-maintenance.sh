@@ -41,7 +41,6 @@ cd txp-maintenance-mode
 git checkout ruby-buildpack-1-8-15
 git pull origin ruby-buildpack-1-8-15
 
-eval "$(rbenv init -)"
 rbenv local 2.6.4
 
 gem install bundler -v 1.17.2
