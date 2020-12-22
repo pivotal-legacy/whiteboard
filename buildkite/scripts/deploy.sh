@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 cf login -u $PCF_USERNAME -p $PCF_PASSWORD -o $PCF_ORG -s $PCF_SPACE -a $PCF_DESTINATION_API_ENDPOINT
 
 cf set-env whiteboard GIT_SHA `git rev-parse HEAD`
