@@ -47,7 +47,7 @@ rbenv local 2.6.4
 gem install bundler -v 1.17.2
 bundle install
 
-cf api ${PCF_API_ENDPOINT}
+cf api ${PCF_DESTINATION_API_ENDPOINT}
 cf auth ${PCF_USERNAME} ${PCF_PASSWORD}
 cf target -o ${PCF_ORG} -s ${PCF_SPACE}
 
