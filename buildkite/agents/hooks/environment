@@ -16,7 +16,7 @@ EOF
 
 ssh-add -k /buildkite-secrets/whiteboard_acceptance_deploy_key
 
-echo "" >> /etc/ssh/ssh_config
+echo -e "\n" >> /etc/ssh/ssh_config
 
 cat <<EOF1 >> /etc/ssh/ssh_config
 Host github.com-repo-1
