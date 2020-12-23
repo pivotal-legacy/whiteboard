@@ -2,6 +2,8 @@
 
 set -e
 
+cat /etc/ssh/ssh_config
+
 git clone git@github.com-repo-1:pivotal/whiteboard-acceptance-tests.git acceptance-tests
 
 cd acceptance-tests
