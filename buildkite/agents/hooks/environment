@@ -5,21 +5,18 @@ source /buildkite/s3_secrets/hooks/environment
 echo "Running whiteboard environment hooks"
 set -euo pipefail
 
-eval "$(ssh-agent -s)"
-ssh-add -k /buildkite-secrets/maintenance_mode_id_rsa
-
 cat <<EOF >> /etc/ssh/ssh_config
 Host github.com-repo-0
         Hostname github.com
         IdentityFile=/buildkite-secrets/maintenance_mode_id_rsa
 EOF
 
-ssh-add -k /buildkite-secrets/whiteboard_acceptance_deploy_key
-
-echo -e "\n" >> /etc/ssh/ssh_config
-
 cat <<EOF1 >> /etc/ssh/ssh_config
 Host github.com-repo-1
         Hostname github.com
         IdentityFile=/buildkite-secrets/whiteboard_acceptance_deploy_key
 EOF1
+
+eval "$(ssh-agent -s)"
+ssh-add -k /buildkite-secrets/maintenance_mode_id_rsa
+ssh-add -k /buildkite-secrets/whiteboard_acceptance_deploy_key
