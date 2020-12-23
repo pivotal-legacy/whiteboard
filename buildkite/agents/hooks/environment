@@ -6,16 +6,14 @@ echo "Running whiteboard environment hooks"
 set -euo pipefail
 
 cat <<EOF >> /etc/ssh/ssh_config
-Host github.com-repo-0
+Host maintenance_mode_repo
         Hostname github.com
         IdentityFile=/buildkite-secrets/maintenance_mode_id_rsa
-EOF
 
-cat <<EOF1 >> /etc/ssh/ssh_config
-Host github.com-repo-1
+Host whiteboard_acceptance_repo
         Hostname github.com
         IdentityFile=/buildkite-secrets/whiteboard_acceptance_deploy_key
-EOF1
+EOF
 
 eval "$(ssh-agent -s)"
 ssh-add -k /buildkite-secrets/maintenance_mode_id_rsa
