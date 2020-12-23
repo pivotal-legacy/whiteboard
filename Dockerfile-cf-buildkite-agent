@@ -25,11 +25,6 @@ RUN unzip awscliv2.zip
 RUN ./aws/install -i /usr/local/aws-cli -b /usr/local/bin
 RUN aws --version
 
-# Copy buildkite hooks from elastic-ci-stack-s3-secrets-hooks repo
-RUN mkdir /buildkite/s3_secrets
-COPY ./buildkite/agents/elastic-ci-stack-s3-secrets-hooks /buildkite/s3_secrets
-COPY ./buildkite/agents/hooks /buildkite/hooks/
-
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     net-tools \
@@ -64,3 +59,29 @@ RUN echo 'eval "$(rbenv init -)"' >> .bashrc
 
 RUN rbenv install 2.6.2
 RUN rbenv install 2.6.4
+
+COPY ./whiteboard_acceptance_deploy_key /tmp/whiteboard_acceptance_deploy_key
+RUN cp /tmp/whiteboard_acceptance_deploy_key /buildkite-secrets/
+
+# Install OpenJDK-8
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get clean
+
+# Setup JAVA_HOME -- useful for docker  commandline
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
+
+RUN add-apt-repository ppa:rock-core/qt4
+RUN apt-get update
+RUN apt-get -yq --no-install-suggests --no-install-recommends --force-yes install libqtwebkit4 libqtwebkit-dev qt4-qmake qt4-default
+RUN apt-get -y install gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+
+# Install MariaDB
+RUN apt-get -y install mariadb-server libmariadbclient-dev
+
+# Copy buildkite hooks from elastic-ci-stack-s3-secrets-hooks repo
+RUN mkdir /buildkite/s3_secrets
+COPY ./buildkite/agents/elastic-ci-stack-s3-secrets-hooks /buildkite/s3_secrets
+COPY ./buildkite/agents/hooks /buildkite/hooks/

@@ -39,3 +39,10 @@ steps:
     command: ./buildkite/scripts/acceptance.sh
     agents:
       queue: "whiteboard"
+
+  - wait
+
+  - name: map-routes
+    command: ./buildkite/scripts/map-routes.sh
+    agents:
+      queue: "whiteboard"
