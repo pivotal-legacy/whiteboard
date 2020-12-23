@@ -1,0 +1,15 @@
+---
+applications:
+- name: whiteboard
+  command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+  path: ../../
+  routes:
+    - route: whiteboard-staging-temp.apps.scdc1.itcna.vmware.com
+  buildpacks:
+    - https://github.com/cloudfoundry/ruby-buildpack/#v1.7.43
+  stack: cflinuxfs3
+  services:
+    - whiteboard-db
+    - whiteboard-mailer
+    - logz-drain
+

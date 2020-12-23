@@ -1,0 +1,10 @@
+version: '2.2'
+
+services:
+  app:
+    volumes:
+      - "./:/app"
+    image: pivotaliad/whiteboard:latest
+    working_dir: /app
+
+

@@ -1,0 +1,2 @@
+# shellcheck source=/dev/null
+source /buildkite/s3_secrets/hooks/pre-exit
