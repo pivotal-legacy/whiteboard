@@ -11,29 +11,29 @@ env:
   CF_TEMP_DOMAIN: apps.scdc1.itcna.vmware.com
   TEMP_WHITEBOARD_HOSTNAME: whiteboard-staging-temp
 steps:
-  - name: build
-    command: ./buildkite/scripts/build.sh
-    timeout_in_minutes: 30
-    plugins:
-      - docker-compose#v3.0.3:
-          run: app
-          shell: false
-          config: buildkite-docker-compose.yml
-  - wait
-
-  - name: deploy-maintenance
-    command: ./buildkite/scripts/deploy-maintenance.sh
-    agents:
-      queue: "whiteboard"
-
-  - wait
-
-  - name: deploy-whiteboard
-    command: ./buildkite/scripts/deploy.sh
-    agents:
-      queue: "whiteboard"
-
-  - wait
+#  - name: build
+#    command: ./buildkite/scripts/build.sh
+#    timeout_in_minutes: 30
+#    plugins:
+#      - docker-compose#v3.0.3:
+#          run: app
+#          shell: false
+#          config: buildkite-docker-compose.yml
+#  - wait
+#
+#  - name: deploy-maintenance
+#    command: ./buildkite/scripts/deploy-maintenance.sh
+#    agents:
+#      queue: "whiteboard"
+#
+#  - wait
+#
+#  - name: deploy-whiteboard
+#    command: ./buildkite/scripts/deploy.sh
+#    agents:
+#      queue: "whiteboard"
+#
+#  - wait
 
   - name: acceptance-test
     command: ./buildkite/scripts/acceptance.sh
