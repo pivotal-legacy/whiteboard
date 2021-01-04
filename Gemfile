@@ -19,7 +19,7 @@ gem 'font-awesome-sass-rails'
 gem 'newrelic_rpm'
 gem 'sentry-raven'
 gem 'responders', '~> 3.0'
-gem 'nokogiri', '1.10.5'
+gem 'nokogiri', '1.11.0'
 gem 'loofah', '2.3.1'
 gem 'rails-html-sanitizer', '1.2.0'
 
