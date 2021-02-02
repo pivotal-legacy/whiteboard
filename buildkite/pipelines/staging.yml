@@ -1,14 +1,14 @@
 env:
-  PCF_DESTINATION_API_ENDPOINT: https://api.us22-2-pcf1-system.oc.vmware.com
+  PCF_DESTINATION_API_ENDPOINT: https://api.sc2-04-pcf1-system.oc.vmware.com
   PCF_SPACE: whiteboard-staging
   PCF_ORG: TxP
-  PCF_DOMAIN: apps.scdc1.itcna.vmware.com
+  PCF_DOMAIN: apps.sc2.itcna.vmware.com
   WHITEBOARD_HOSTNAME: whiteboard-staging
   WHITEBOARD_MAILER_FROM_ADDRESS: txp-noreply@vmware.com
-  WHITEBOARD_MAILER_URL: whiteboard-staging.apps.scdc1.itcna.vmware.com
+  WHITEBOARD_MAILER_URL: whiteboard-staging.apps.sc2.itcna.vmware.com
   NEWRELIC_APP_NAME: whiteboard-staging
   ENVIRONMENT: staging
-  CF_TEMP_DOMAIN: apps.scdc1.itcna.vmware.com
+  CF_TEMP_DOMAIN: apps.sc2.itcna.vmware.com
   TEMP_WHITEBOARD_HOSTNAME: whiteboard-staging-temp
 steps:
   - name: build
