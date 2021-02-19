@@ -1,4 +1,4 @@
-FROM buildkite/agent:3-ubuntu
+FROM buildkite/agent:3.26.0-ubuntu
 
 RUN apt-get update && apt-get install -y \
     gnupg \
@@ -13,11 +13,11 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     ca-certificates
 
-# Install cf cli
+# Install cf cli7 (https://github.com/cloudfoundry/cli/wiki/V7-CLI-Installation-Guide)
 RUN wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
 RUN echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
 RUN sudo apt-get update
-RUN sudo apt-get install cf-cli
+RUN sudo apt-get install cf7-cli
 
 # Install aws cli
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
