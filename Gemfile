@@ -5,7 +5,7 @@ ruby '2.6.2'
 gem 'rails', '~> 5.2.0'
 
 gem "bootsnap", ">= 1.1.0", require: false
-gem 'mysql2', '~> 0.5.2'
+gem 'mysql2', '~> 0.5.3'
 gem 'unicorn'
 gem 'jquery-rails'
 gem 'omniauth-saml'
